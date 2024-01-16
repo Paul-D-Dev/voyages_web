@@ -1,5 +1,5 @@
 export interface IGpsPosition {
   lat: number,
-  long: number,
+  lng: number,
   atl?: number
 }
