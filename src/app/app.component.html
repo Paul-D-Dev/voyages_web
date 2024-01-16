@@ -1,2 +1,6 @@
-<router-outlet></router-outlet>
-<app-nav-bar/>
+<div class="main-wrapper">
+  <main>
+    <router-outlet></router-outlet>
+  </main>
+  <app-nav-bar [hidden]="hideNavbar"/>
+</div>
