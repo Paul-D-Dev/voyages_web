@@ -9,7 +9,7 @@ import { IGpsPosition } from "../interfaces/gps-position.interface";
 export class MapService {
 
   initMap(position: IGpsPosition, idMap = 'map') {
-    const center: LatLngTuple = [position.lat, position.long];
+    const center: LatLngTuple = [position.lat, position.long, position.atl];
     const map = L.map(idMap, {
       center,
       zoom: 16
