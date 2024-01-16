@@ -13,13 +13,15 @@ import { MapService } from "../../shared/services/map.service";
 export class MapComponent implements OnInit {
   @Input() position: IGpsPosition = {
     lat: 45.5031824,
-    long: -73.5698065
+    lng: -73.5698065
   };
-  private _map: any;
   mapService = inject(MapService);
 
   ngOnInit() {
-    this._map = this.mapService.initMap(this.position);
+    if (!this.mapService.mapInstance) {
+      this.mapService.initMap(this.position);
+      this.mapService.onClick();
+    }
   }
 
 
