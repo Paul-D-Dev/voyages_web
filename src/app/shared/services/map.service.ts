@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import * as L from 'leaflet';
 import { LatLng, LatLngTuple } from 'leaflet';
 import { IGpsPosition } from "../interfaces/gps-position.interface";
+import { GeoSearchControl, OpenStreetMapProvider } from "leaflet-geosearch";
 
 @Injectable({
   providedIn: 'root'
@@ -9,34 +10,36 @@ import { IGpsPosition } from "../interfaces/gps-position.interface";
 export class MapService {
 
   private _map!: L.Map;
+  searchProvider = new OpenStreetMapProvider();
 
   get mapInstance() {
     return this._map;
   }
 
   initMap(position: IGpsPosition, idMap = 'map') {
-    if (!this._map) {
+    const center: LatLngTuple = [position.lat, position.lng, position.atl];
+    const map = L.map(idMap, {
+      center,
+      zoom: 16
+    });
 
-      const center: LatLngTuple = [position.lat, position.lng, position.atl];
-      const map = L.map(idMap, {
-        center,
-        zoom: 16
-      });
+    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      maxZoom: 18,
+      minZoom: 3,
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
+    });
 
-      const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 18,
-        minZoom: 3,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-      });
+    tiles.addTo(map);
 
-      tiles.addTo(map);
+    // Add control in the map - Maybe to remove
+    // @ts-ignore
+    const searchControl = new GeoSearchControl({
+      provider: this.searchProvider
+    });
+    map.addControl(searchControl);
+    //
 
-      this._map = map;
-      return map;
-    } else {
-      return this._map;
-    }
-
+    this._map = map;
   }
 
   onClick() {
