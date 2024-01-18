@@ -1,3 +1,20 @@
+<h1>Travels</h1>
+
 <div>
-  <button routerLink="/travels/add">add new travel</button>
+  <button
+    mat-flat-button
+    color="primary"
+    routerLink="/travels/add"
+  >
+    add new travel
+  </button>
 </div>
+
+<ul class="travel__list">
+  @for (travel of travelList;track travel) {
+    <li routerLink="/travels/{{travel.id}}" class="travel__list__item">
+      <span class="travel__name">{{ travel.name }}</span>
+      <span class="travel__dates">{{ travel.dateStart | date }} - {{ travel.dateEnd | date }}</span>
+    </li>
+  }
+</ul>

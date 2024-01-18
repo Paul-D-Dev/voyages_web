@@ -1,0 +1,26 @@
+.travel {
+  &__list {
+    margin-block: 1.25rem;
+    padding-inline: 1.25rem;
+
+    &__item {
+      height: 45px;
+      display: flex;
+      flex-direction: column;
+      align-content: center;
+      border-bottom: 1px rgba(173, 173, 173, 0.5) solid;
+
+      &:not(:first-of-type) {
+        margin-block-start: 1rem;
+      }
+
+    }
+  }
+
+  &__dates {
+    font-size: 0.9rem;
+    color: #868383
+  }
+
+
+}
