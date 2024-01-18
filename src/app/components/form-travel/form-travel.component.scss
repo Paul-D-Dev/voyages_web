@@ -1,0 +1,19 @@
+.add-travel-form {
+  margin-block-start: 1.25rem;
+  padding-inline-start: 1.25rem;
+  padding-inline-end: 1.25rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  max-width: 25rem;
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.btn-submit-wrapper {
+  margin-block-start: 1.25rem;
+  width: 100%;
+  text-align: right;
+}

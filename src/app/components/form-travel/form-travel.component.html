@@ -1,0 +1,27 @@
+<form class="add-travel-form" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-form-field>
+    <mat-label>Travel name</mat-label>
+    <input matInput type="text" formControlName="name" required>
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>Set the date</mat-label>
+    <mat-date-range-input [rangePicker]="picker" required>
+      <input matStartDate formControlName="dateStart" placeholder="Start date">
+      <input matEndDate formControlName="dateEnd" placeholder="End date">
+    </mat-date-range-input>
+    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-date-range-picker #picker></mat-date-range-picker>
+  </mat-form-field>
+
+  <div class="btn-submit-wrapper">
+    <button
+      mat-mini-fab
+      color="primary"
+      type="submit"
+    >
+      <mat-icon>arrow_forward</mat-icon>
+    </button>
+  </div>
+</form>
