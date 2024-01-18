@@ -27,3 +27,12 @@ a {
   grid-template-rows: 1fr auto;
 }
 
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.btn-submit-wrapper {
+  margin-block-start: 1.25rem;
+  width: 100%;
+  text-align: right;
+}
