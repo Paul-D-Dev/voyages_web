@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { NgIf } from "@angular/common";
+import { NavigationService } from "../../shared/services/navigation.service";
 
 @Component({
   selector: 'app-header',
@@ -16,5 +17,9 @@ import { NgIf } from "@angular/common";
 })
 export class HeaderComponent {
   @Input() isBackNavigation = false;
+  navigationService = inject(NavigationService);
 
+  backNavigation() {
+    this.navigationService.back();
+  }
 }
