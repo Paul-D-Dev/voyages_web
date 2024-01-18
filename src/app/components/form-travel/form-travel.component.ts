@@ -12,6 +12,7 @@ import { MatInput } from "@angular/material/input";
 import { MatMiniFabButton } from "@angular/material/button";
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { ITravelFormData } from "../../shared/interfaces/travel-form-data.interface";
+import { Icons } from "../../shared/enums/icons.enum";
 
 
 @Component({
@@ -44,6 +45,7 @@ export class FormTravelComponent {
   };
   @Output() onSubmitForm = new EventEmitter<ITravelFormData>;
 
+  protected readonly Icons = Icons;
   readonly fb = inject(FormBuilder);
 
   form: FormGroup = this.fb.group({

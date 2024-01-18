@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
 import { RouterLink } from "@angular/router";
+import { Icons } from "../../shared/enums/icons.enum";
 
 @Component({
   selector: 'app-nav-bar',
@@ -15,5 +16,5 @@ import { RouterLink } from "@angular/router";
   styleUrl: './nav-bar.component.scss'
 })
 export class NavBarComponent {
-
+  protected readonly Icons = Icons;
 }

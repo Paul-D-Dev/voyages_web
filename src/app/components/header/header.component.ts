@@ -3,6 +3,7 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatIconModule } from "@angular/material/icon";
 import { NgIf } from "@angular/common";
 import { NavigationService } from "../../shared/services/navigation.service";
+import { Icons } from "../../shared/enums/icons.enum";
 
 @Component({
   selector: 'app-header',
@@ -18,6 +19,7 @@ import { NavigationService } from "../../shared/services/navigation.service";
 export class HeaderComponent {
   @Input() isBackNavigation = false;
   navigationService = inject(NavigationService);
+  protected readonly Icons = Icons;
 
   backNavigation() {
     this.navigationService.back();
