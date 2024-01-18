@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from "../../../components/header/header.component";
 import { FormTravelComponent } from "../../../components/form-travel/form-travel.component";
-import { ITravelFormData } from "../../../shared/interfaces/travel-form-data.interface";
+import { ITravelFormData } from "../../../shared/interfaces/travel.interface";
 
 
 @Component({

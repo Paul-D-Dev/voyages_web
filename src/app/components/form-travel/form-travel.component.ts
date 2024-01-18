@@ -11,7 +11,7 @@ import { MatIcon } from "@angular/material/icon";
 import { MatInput } from "@angular/material/input";
 import { MatMiniFabButton } from "@angular/material/button";
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { ITravelFormData } from "../../shared/interfaces/travel-form-data.interface";
+import { ITravelFormData } from "../../shared/interfaces/travel.interface";
 import { Icons } from "../../shared/enums/icons.enum";
 
 
