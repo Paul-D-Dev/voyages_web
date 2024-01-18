@@ -25,6 +25,10 @@ a {
   height: 100vh;
   display: grid;
   grid-template-rows: 1fr auto;
+
+  main {
+    overflow: auto;
+  }
 }
 
 .mat-mdc-form-field {
