@@ -4,6 +4,7 @@ import { SearchAddressFormComponent } from "../../components/search-address-form
 import { ActivatedRoute } from "@angular/router";
 import { map, Observable } from "rxjs";
 import { AsyncPipe } from "@angular/common";
+import { AsyncBooleanPipe } from "../../shared/pipes/async-boolean.pipe";
 
 @Component({
   selector: 'app-home',
@@ -12,6 +13,7 @@ import { AsyncPipe } from "@angular/common";
     MapComponent,
     SearchAddressFormComponent,
     AsyncPipe,
+    AsyncBooleanPipe,
   ],
   templateUrl: './home.page.html',
   styleUrl: './home.page.scss'

@@ -1,7 +1,6 @@
 <app-map/>
 
 <div class="search-input">
-  {{ searchFocused$ | async }}
-  <!--  TODO create pipe asyncBoolean to replace !!(x | async) to x | asyncBoolean-->
-  <app-search-address-form [searchIsFocused]="!!(searchFocused$ | async)"/>
+  {{ searchFocused$ | asyncBoolean }}
+  <app-search-address-form [searchIsFocused]="searchFocused$ | asyncBoolean"/>
 </div>
