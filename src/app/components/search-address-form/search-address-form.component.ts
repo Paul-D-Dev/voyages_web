@@ -18,12 +18,12 @@ import { Location } from "@angular/common";
   styleUrl: './search-address-form.component.scss'
 })
 export class SearchAddressFormComponent implements OnInit {
-  @Input() searchIsFocused: boolean | null = false;
+  @Input() searchIsFocused: boolean = false;
 
   http = inject(HttpClient);
   location = inject(Location);
-  currentPath = this.location.path();
   protected readonly Icons = Icons;
+  currentPath = this.getCurrentPath();
   searchValue = new FormControl('');
 
   ngOnInit() {
@@ -50,6 +50,15 @@ export class SearchAddressFormComponent implements OnInit {
     }
   }
 
+  getCurrentPath(): string {
+    const searchParams: string = '?search=true';
+    const path: string = this.location.path();
+    if (path.includes(searchParams)) {
+      return path.replace(searchParams, '');
+    } else {
+      return path;
+    }
+  }
 
   // Moves to service
   lookUp(query: string | null) {
