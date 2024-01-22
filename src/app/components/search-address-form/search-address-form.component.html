@@ -1,1 +1,15 @@
-<input type="search" [formControl]="searchValue" placeholder="Search">
+<form
+  class="form-search-address"
+  [class.active]="searchIsFocused"
+>
+  <mat-icon class="icon-left" (click)="backNav()">
+    {{ searchIsFocused ? Icons.ARROW_BACK : Icons.LOCATION_ON }}
+  </mat-icon>
+  <input
+    class="search"
+    type="search"
+    placeholder="Search"
+    (focus)="onFocused()"
+    [formControl]="searchValue"
+  />
+</form>
