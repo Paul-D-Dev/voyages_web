@@ -22,6 +22,7 @@ export class HomePage {
 
 
   getParamsSearchValue(): Observable<boolean> {
+    // TODO fix can't get the params changed (add and remove '?search=true' do not catch)
     console.log('call');
     return this.routes.queryParams.pipe(
       map(params => {
