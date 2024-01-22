@@ -1,6 +1,23 @@
-.search-input {
+$transition-timing: 125ms;
+$smooth: ease-in-out;
+
+.search-input-container {
   position: absolute;
   bottom: calc(var(--navbar-height) + 5px);
   z-index: 2;
+  height: 40px;
   width: 100%;
+  transition: height $transition-timing $smooth,
+  background calc($transition-timing * .85) ease-in,
+  bottom $transition-timing $smooth;
+
+  &.expanded {
+    background: azure;
+    height: 100%;
+    bottom: 0;
+  }
+}
+
+.p-y {
+  padding-block: 1rem;
 }
