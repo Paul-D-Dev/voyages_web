@@ -4,7 +4,7 @@ import { HttpClient } from "@angular/common/http";
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatIcon } from "@angular/material/icon";
 import { Icons } from "../../shared/enums/icons.enum";
-import { Location } from "@angular/common";
+import { GlobalStateService } from "../../shared/services/global-state.service";
 
 @Component({
   selector: 'app-search-address-form',
@@ -21,9 +21,8 @@ export class SearchAddressFormComponent implements OnInit {
   @Input() searchIsFocused: boolean = false;
 
   http = inject(HttpClient);
-  location = inject(Location);
+  globalStateService = inject(GlobalStateService);
   protected readonly Icons = Icons;
-  currentPath = this.getCurrentPath();
   searchValue = new FormControl('');
 
   ngOnInit() {
@@ -38,25 +37,13 @@ export class SearchAddressFormComponent implements OnInit {
 
   onFocused() {
     if (!this.searchIsFocused) {
-      this.searchIsFocused = true;
-      this.location.replaceState(`${this.currentPath}?search=true`);
+      this.globalStateService.set("isSearchFocused", true);
     }
   }
 
   backNav() {
     if (this.searchIsFocused) {
-      this.searchIsFocused = false;
-      this.location.replaceState(this.currentPath);
-    }
-  }
-
-  getCurrentPath(): string {
-    const searchParams: string = '?search=true';
-    const path: string = this.location.path();
-    if (path.includes(searchParams)) {
-      return path.replace(searchParams, '');
-    } else {
-      return path;
+      this.globalStateService.set("isSearchFocused", false);
     }
   }
 
