@@ -21,6 +21,7 @@ export class LocalStorageService<T> {
       state.set(store);
     } else {
       state.set(initState);
+      this.set(key, state());
     }
   }
 }
