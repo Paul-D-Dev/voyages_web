@@ -1,10 +1,9 @@
 <app-map/>
-{{ searchFocused$ | asyncBoolean }}
-<div class="search-input-container" [class.expanded]="searchFocused$ | asyncBoolean">
-  <div [class.p-y]="searchFocused$ | asyncBoolean">
-    <app-search-address-form [searchIsFocused]="searchFocused$ | asyncBoolean"/>
+<div class="search-input-container" [class.expanded]="searchFocused()">
+  <div [class.p-y]="searchFocused()">
+    <app-search-address-form [searchIsFocused]="searchFocused()"/>
 
-    @if (searchFocused$ | asyncBoolean) {
+    @if (searchFocused()) {
       <div>
         content
       </div>
