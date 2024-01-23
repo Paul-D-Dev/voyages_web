@@ -1,11 +1,12 @@
 import { Injectable, WritableSignal } from '@angular/core';
+import { LocalStorageKeyEnum } from "../enums/local-storage-key.enum";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalStorageService<T> {
 
-  get(key: string): T | null {
+  get(key: LocalStorageKeyEnum): T | null {
     const data = localStorage.getItem(key);
     return data ? JSON.parse(data) : null;
   }
@@ -14,7 +15,7 @@ export class LocalStorageService<T> {
     localStorage.setItem(key, JSON.stringify(data));
   }
 
-  loadStateFromLocalStorage(key: string, state: WritableSignal<T>, initState: T): void {
+  loadStateFromLocalStorage(key: LocalStorageKeyEnum, state: WritableSignal<T>, initState: T): void {
     const store = this.get(key);
     if (store) {
       state.set(store);
