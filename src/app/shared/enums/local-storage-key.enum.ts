@@ -1,3 +1,4 @@
 export enum LocalStorageKeyEnum {
-  TRAVELS = 'travels'
+  TRAVELS = 'travels',
+  GLOBAL_STATE = 'global_state'
 }
