@@ -1,10 +1,12 @@
-import { Component, inject, Input, OnInit } from '@angular/core';
-import { debounceTime, of, switchMap } from "rxjs";
+import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
+import { debounceTime, map, Observable, of, switchMap, tap } from "rxjs";
 import { HttpClient } from "@angular/common/http";
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatIcon } from "@angular/material/icon";
 import { Icons } from "../../shared/enums/icons.enum";
 import { GlobalStateService } from "../../shared/services/global-state.service";
+import { IAddress, IAddressResponseAPI } from "../../shared/interfaces/address.interface";
+import { Address } from "../../shared/models/address.model";
 
 @Component({
   selector: 'app-search-address-form',
@@ -19,6 +21,7 @@ import { GlobalStateService } from "../../shared/services/global-state.service";
 })
 export class SearchAddressFormComponent implements OnInit {
   @Input() searchIsFocused: boolean = false;
+  @Output() addressResult = new EventEmitter<IAddress[]>();
 
   http = inject(HttpClient);
   globalStateService = inject(GlobalStateService);
@@ -31,7 +34,8 @@ export class SearchAddressFormComponent implements OnInit {
       switchMap((value) => {
         console.log(value);
         return this.lookUp(value);
-      })
+      }),
+      tap(result => this.addressResult.emit(result))
     ).subscribe();
   }
 
@@ -48,10 +52,14 @@ export class SearchAddressFormComponent implements OnInit {
   }
 
   // Moves to service
-  lookUp(query: string | null) {
+  lookUp(query: string | null): Observable<IAddress[]> {
     if (query) {
       const url = `https://nominatim.openstreetmap.org/search?q=${query}&format=json`;
-      return this.http.get(url);
+      return this.http.get<IAddressResponseAPI[]>(url).pipe(
+        map((result) => {
+          return result.map(address => new Address((address)));
+        })
+      );
     } else {
       return of([]);
     }
