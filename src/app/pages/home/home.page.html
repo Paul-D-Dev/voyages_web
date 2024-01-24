@@ -8,7 +8,7 @@
 
     @if (searchFocused()) {
       <div>
-        <app-address-list [addressList]="addressList" (selectAddress)="getSelectedAddress($event)"></app-address-list>
+        <app-address-list [addressList]="addressList" (selectAddress)="onSelectedAddress($event)"></app-address-list>
       </div>
     }
   </div>
