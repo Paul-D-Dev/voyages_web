@@ -4,7 +4,7 @@ import { MatIcon } from "@angular/material/icon";
 import { Icons } from "../../shared/enums/icons.enum";
 
 @Component({
-  selector: 'app-address-item',
+  selector: 'app-address-list',
   standalone: true,
   imports: [
     MatIcon
