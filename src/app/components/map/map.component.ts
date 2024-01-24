@@ -18,10 +18,8 @@ export class MapComponent implements OnInit {
   mapService = inject(MapService);
 
   ngOnInit() {
-    if (!this.mapService.mapInstance) {
-      this.mapService.initMap(this.position);
-      this.mapService.onClick();
-    }
+    this.mapService.initMap(this.position);
+    this.mapService.onClick();
   }
 
 

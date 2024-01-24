@@ -13,10 +13,6 @@ export class MapService {
   searchProvider = new OpenStreetMapProvider();
   zoom = { min: 3, max: 18 };
 
-  get mapInstance() {
-    return this._map;
-  }
-
   initMap(position: IGpsPosition, idMap = 'map') {
     const center: LatLngTuple = [position.lat, position.lng, position.atl];
     const map = L.map(idMap, {
