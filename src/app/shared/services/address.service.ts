@@ -15,8 +15,10 @@ export class AddressService {
 
   lookUp(query: string | null): Observable<IAddress[]> {
     if (query) {
-      const url = `${this.geoSearchAPI}/search?q=${query}&format=json`;
+      const url = `${this.geoSearchAPI}/search?addressdetails=1&q=${query}&format=jsonv2`;
       return this._http.get<IAddressResponseAPI[]>(url).pipe(
+        // TODO filter result near by user
+        // map(result => result.filter(address => !!address.address.road)),
         map((result) => {
           return result.map(address => new Address((address)));
         })
