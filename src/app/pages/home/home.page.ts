@@ -37,4 +37,8 @@ export class HomePage {
     this.mapService.addMarker(position);
     this.mapService.setView(position);
   }
+
+  closeSearchPanel() {
+    this.globalStateService.set("isSearchFocused", false);
+  }
 }
