@@ -1,11 +1,17 @@
 <app-map/>
 <div class="search-input-container" [class.expanded]="searchFocused()">
   <div [class.p-y]="searchFocused()">
-    <app-search-address-form [searchIsFocused]="searchFocused()"/>
+    <app-search-address-form
+      [searchIsFocused]="searchFocused()"
+      (addressResult)="getLookupAddress($event)"
+    />
 
     @if (searchFocused()) {
       <div>
-        content
+        <!--TODO display list address form output search-address-form-->
+        @for (address of addressList;track address) {
+          {{ address | json }}
+        }
       </div>
     }
   </div>
