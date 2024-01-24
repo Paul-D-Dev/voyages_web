@@ -1,5 +1,6 @@
 $color: #000;
-$bg-color: rgba(#FFF, 0.9);
+$bg-color-input: rgba(#FFF, 0.9);
+$bg-color-primary: var(--bg-color-primary);
 $input-outline-clr: blue;
 $input-border-clr: grey;
 
@@ -7,7 +8,6 @@ $input-border-clr: grey;
   padding-inline: 1rem;
   display: flex;
   align-items: center;
-  // ADD transition background
 
   .icon-left {
     position: absolute;
@@ -18,7 +18,7 @@ $input-border-clr: grey;
     height: 40px;
     width: 100%;
     border-radius: 23px;
-    background: $bg-color;
+    background: $bg-color-input;
     padding-inline-start: 2.5rem;
     padding-inline-end: 1rem;
     border: none;
@@ -28,7 +28,7 @@ $input-border-clr: grey;
   }
 
   &.active {
-    background: #FFF;
+    background: inherit;
 
     .search {
       box-shadow: none;

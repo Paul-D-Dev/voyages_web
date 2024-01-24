@@ -1,5 +1,6 @@
 $transition-timing: 125ms;
 $smooth: ease-in-out;
+$bg-color-primary: var(--bg-color-primary);
 
 .search-input-container {
   position: absolute;
@@ -12,7 +13,7 @@ $smooth: ease-in-out;
   bottom $transition-timing $smooth;
 
   &.expanded {
-    background: azure;
+    background: $bg-color-primary;
     height: 100%;
     bottom: 0;
   }
