@@ -40,6 +40,10 @@ export class MapService {
     //
 
     this._map = map;
+
+    // GeoLocation the user position and set the view
+    this._map.locate({ setView: true });
+
   }
 
   onClick() {
@@ -55,8 +59,7 @@ export class MapService {
     marker.addTo(this._map);
   }
 
-  addMarkerAndCenter(position: IGpsPosition): void {
-    this.addMarker(position);
+  setView(position: IGpsPosition): void {
     this._map.flyTo(position);
   }
 }
