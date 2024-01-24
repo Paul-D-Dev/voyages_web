@@ -54,4 +54,9 @@ export class MapService {
     const marker = L.marker([position.lat, position.lng]);
     marker.addTo(this._map);
   }
+
+  addMarkerAndCenter(position: IGpsPosition): void {
+    this.addMarker(position);
+    this._map.flyTo(position);
+  }
 }
