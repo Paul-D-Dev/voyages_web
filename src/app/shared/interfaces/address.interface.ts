@@ -6,6 +6,7 @@ export interface IAddress {
   lat: number;
   lng: number;
   boundingBox: string[],
+  addressDetail: IAddressDetail
 }
 
 export interface IAddressResponseAPI {
@@ -23,4 +24,29 @@ export interface IAddressResponseAPI {
   name: string;
   display_name: string;
   boundingbox: string[];
+  address: IAddressDetailResponseAPI;
+}
+
+export interface IAddressDetailResponseAPI {
+  amenity?: string;
+  house_number?: string;
+  road?: string;
+  city?: string;
+  postcode?: string;
+  state: string;
+  country: string;
+  country_code: string;
+  suburb?: string;
+}
+
+export interface IAddressDetail {
+  amenity?: string;
+  houseNumber?: string;
+  road?: string;
+  city?: string;
+  postcode?: string;
+  country: string;
+  state: string;
+  countryCode: string;
+  suburb?: string;
 }

@@ -1,4 +1,9 @@
-import { IAddress, IAddressResponseAPI } from "../interfaces/address.interface";
+import {
+  IAddress,
+  IAddressDetail,
+  IAddressDetailResponseAPI,
+  IAddressResponseAPI
+} from "../interfaces/address.interface";
 
 export class Address implements IAddress {
   id: number;
@@ -8,6 +13,7 @@ export class Address implements IAddress {
   lat: number;
   lng: number;
   boundingBox: string[];
+  addressDetail: IAddressDetail;
 
   constructor(props: IAddressResponseAPI) {
     this.id = props.place_id;
@@ -17,6 +23,22 @@ export class Address implements IAddress {
     this.lat = +props.lat;
     this.lng = +props.lon;
     this.boundingBox = props.boundingbox;
+    this.addressDetail = this._setDetail(props.address);
   }
+
+  private _setDetail(detail: IAddressDetailResponseAPI): IAddressDetail {
+    return {
+      amenity: detail.amenity,
+      houseNumber: detail.house_number,
+      road: detail.road,
+      city: detail.city,
+      postcode: detail.postcode,
+      country: detail.country,
+      state: detail.state,
+      countryCode: detail.country_code,
+      suburb: detail.suburb
+    };
+  }
+
 
 }
