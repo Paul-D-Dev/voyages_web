@@ -1,6 +1,11 @@
 <ul>
   @for (address of addressList;track address) {
-    <li class="address-item" (click)="onSelect(address)">
+    <li
+      class="address-item"
+      tabindex="0"
+      (click)="onSelect(address)"
+      (keydown.enter)="onSelect(address)"
+    >
       <span><mat-icon>{{ Icons.LOCATION_ON }}</mat-icon></span>
       <div class="address-item-detail">
         @if (address.label) {
