@@ -8,10 +8,7 @@
 
     @if (searchFocused()) {
       <div>
-        <!--TODO display list address form output search-address-form-->
-        @for (address of addressList;track address) {
-          {{ address | json }}
-        }
+        <app-address-list [addressList]="addressList" (selectAddress)="getSelectedAddress($event)"></app-address-list>
       </div>
     }
   </div>
