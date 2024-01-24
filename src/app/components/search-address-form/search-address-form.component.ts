@@ -1,12 +1,11 @@
 import { Component, EventEmitter, inject, Input, OnInit, Output } from '@angular/core';
-import { debounceTime, map, Observable, of, switchMap, tap } from "rxjs";
-import { HttpClient } from "@angular/common/http";
+import { debounceTime, switchMap, tap } from "rxjs";
 import { FormControl, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { MatIcon } from "@angular/material/icon";
 import { Icons } from "../../shared/enums/icons.enum";
 import { GlobalStateService } from "../../shared/services/global-state.service";
-import { IAddress, IAddressResponseAPI } from "../../shared/interfaces/address.interface";
-import { Address } from "../../shared/models/address.model";
+import { IAddress } from "../../shared/interfaces/address.interface";
+import { AddressService } from "../../shared/services/address.service";
 
 @Component({
   selector: 'app-search-address-form',
@@ -22,8 +21,7 @@ import { Address } from "../../shared/models/address.model";
 export class SearchAddressFormComponent implements OnInit {
   @Input() searchIsFocused: boolean = false;
   @Output() addressResult = new EventEmitter<IAddress[]>();
-
-  http = inject(HttpClient);
+  addressService = inject(AddressService);
   globalStateService = inject(GlobalStateService);
   protected readonly Icons = Icons;
   searchValue = new FormControl('');
@@ -31,10 +29,7 @@ export class SearchAddressFormComponent implements OnInit {
   ngOnInit() {
     this.searchValue.valueChanges.pipe(
       debounceTime(1000),
-      switchMap((value) => {
-        console.log(value);
-        return this.lookUp(value);
-      }),
+      switchMap((value) => this.addressService.lookUp(value)),
       tap(result => this.addressResult.emit(result))
     ).subscribe();
   }
@@ -51,17 +46,4 @@ export class SearchAddressFormComponent implements OnInit {
     }
   }
 
-  // Moves to service
-  lookUp(query: string | null): Observable<IAddress[]> {
-    if (query) {
-      const url = `https://nominatim.openstreetmap.org/search?q=${query}&format=json`;
-      return this.http.get<IAddressResponseAPI[]>(url).pipe(
-        map((result) => {
-          return result.map(address => new Address((address)));
-        })
-      );
-    } else {
-      return of([]);
-    }
-  }
 }
