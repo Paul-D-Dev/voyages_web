@@ -61,6 +61,6 @@ export class MapService {
   }
 
   setView(position: IGpsPosition): void {
-    this._map.flyTo(position, this.zoom.max);
+    this._map.setView(position, this.zoom.max);
   }
 }
