@@ -11,6 +11,7 @@ export class MapService {
 
   private _map!: L.Map;
   searchProvider = new OpenStreetMapProvider();
+  zoom = { min: 3, max: 18 };
 
   get mapInstance() {
     return this._map;
@@ -24,8 +25,8 @@ export class MapService {
     });
 
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 18,
-      minZoom: 3,
+      maxZoom: this.zoom.max,
+      minZoom: this.zoom.min,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
     });
 
@@ -60,6 +61,6 @@ export class MapService {
   }
 
   setView(position: IGpsPosition): void {
-    this._map.flyTo(position);
+    this._map.flyTo(position, this.zoom.max);
   }
 }
