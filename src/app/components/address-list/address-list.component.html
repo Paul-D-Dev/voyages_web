@@ -1,0 +1,24 @@
+<ul>
+  @for (address of addressList;track address) {
+    <li class="address-item" (click)="onSelect(address)">
+      <span><mat-icon>{{ Icons.LOCATION_ON }}</mat-icon></span>
+      <div class="address-item-detail">
+        @if (address.label) {
+          <span>{{ address.label }}</span>
+          <span class="text-secondary sub-text">{{ address.addressDetail.houseNumber }} {{ address.addressDetail.road }}
+            @if (address.addressDetail.houseNumber || address.addressDetail.road) {
+              ,
+            }
+            {{ address.addressDetail.country }}
+            , {{ address.addressDetail.state }}
+          </span>
+        } @else {
+          <span>{{ address.addressDetail.houseNumber }} {{ address.addressDetail.road }}</span>
+          <span class="text-secondary sub-text">{{ address.addressDetail.country }}
+            , {{ address.addressDetail.state }}</span>
+        }
+      </div>
+      <span><mat-icon>{{ Icons.NORTH_WEST }}</mat-icon></span>
+    </li>
+  }
+</ul>

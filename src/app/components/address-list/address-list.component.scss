@@ -1,0 +1,24 @@
+.address-item {
+  display: grid;
+  grid-template-columns: minmax(40px, auto) 1fr minmax(40px, auto);
+  align-items: center;
+  height: 3.75rem;
+  padding-block: 0.25rem;
+
+  &:not(:last-of-type) {
+    border-bottom: 1px rgba(173, 173, 173, 0.5) solid;
+  }
+
+  &-detail {
+    display: flex;
+    flex-direction: column;
+
+    span:last-of-type {
+      margin-top: 0.25rem;
+      // TODO ellipsis text
+      text-overflow: ellipsis;
+    }
+  }
+
+
+}
