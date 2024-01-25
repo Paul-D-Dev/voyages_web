@@ -15,7 +15,7 @@ export interface ITravelDetail extends ITravel {
 
 export interface ITravelStep {
   id: number,
-  order: number,
+  index: number,
   label: string,
   category: string, // Flight, Road, Hotel / Rest, Restaurant, Party, Activities
   description?: string,
