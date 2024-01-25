@@ -18,6 +18,7 @@ import { Icons } from "../../shared/enums/icons.enum";
 })
 export class HeaderComponent {
   @Input() isBackNavigation = false;
+  @Input() title: string | undefined = undefined;
   navigationService = inject(NavigationService);
   protected readonly Icons = Icons;
 
