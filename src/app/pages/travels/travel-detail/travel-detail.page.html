@@ -1,10 +1,15 @@
 <app-header [title]="travel.name" [isBackNavigation]="true"/>
 <!-- TODO create draggable list -->
-<!--<div cdkDropList>-->
-<!--  @for (step of travel.steps;track step) {-->
-<!--    <div [cdkDragData]="step"-->
-<!--         cdkDrag>-->
-<!--      {{ step.order }}-->
-<!--    </div>-->
-<!--  }-->
-<!--</div>-->
+<div cdkDropList
+     (cdkDropListDropped)="drop($event)"
+>
+  @for (step of travel.steps;track step) {
+    <div
+      cdkDrag
+      [cdkDragData]="step"
+    >
+      {{ step.id }}
+      <mat-icon>{{ Icons.LOCATION_ON }}</mat-icon>
+    </div>
+  }
+</div>
