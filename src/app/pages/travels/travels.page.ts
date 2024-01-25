@@ -1,9 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { RouterLink } from "@angular/router";
+import { RouterLink, RouterOutlet } from "@angular/router";
 import { ITravel } from "../../shared/interfaces/travel.interface";
 import { DatePipe } from "@angular/common";
 import { MatButton } from "@angular/material/button";
 import { TravelService } from "../../shared/services/travel.service";
+import { HeaderComponent } from "../../components/header/header.component";
 
 @Component({
   selector: 'app-travels',
@@ -11,7 +12,9 @@ import { TravelService } from "../../shared/services/travel.service";
   imports: [
     RouterLink,
     DatePipe,
-    MatButton
+    MatButton,
+    RouterOutlet,
+    HeaderComponent
   ],
   templateUrl: './travels.page.html',
   styleUrl: './travels.page.scss'

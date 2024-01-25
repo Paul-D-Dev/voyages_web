@@ -1,10 +1,16 @@
-<h1>Travels</h1>
+<app-header
+  title="Travels"
+  [isBackNavigation]="false"
+></app-header>
+
+<!-- TODO think about router-outlet to put as children components add and :id-->
+<!--<router-outlet></router-outlet>-->
 
 <div>
   <button
     mat-flat-button
     color="primary"
-    routerLink="/travels/add"
+    routerLink="add"
   >
     add new travel
   </button>
@@ -12,7 +18,7 @@
 
 <ul class="travel__list">
   @for (travel of travelList;track travel) {
-    <li routerLink="/travels/{{travel.id}}" class="travel__list__item">
+    <li routerLink="{{travel.id}}" class="travel__list__item">
       <span class="travel__name">{{ travel.name }}</span>
       <span class="travel__dates">{{ travel.dateStart | date }} - {{ travel.dateEnd | date }}</span>
     </li>
