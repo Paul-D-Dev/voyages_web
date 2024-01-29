@@ -1,9 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { ITravelDetail, ITravelStep } from "../../../shared/interfaces/travel.interface";
 import { HeaderComponent } from "../../../components/header/header.component";
-import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from "@angular/cdk/drag-drop";
+import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from "@angular/cdk/drag-drop";
 import { MatIcon } from "@angular/material/icon";
 import { Icons } from "../../../shared/enums/icons.enum";
+import { MatIconButton } from "@angular/material/button";
+import { NgIf } from "@angular/common";
 
 @Component({
   selector: 'app-travel-detail',
@@ -12,7 +14,10 @@ import { Icons } from "../../../shared/enums/icons.enum";
     HeaderComponent,
     CdkDropList,
     CdkDrag,
-    MatIcon
+    MatIcon,
+    CdkDragHandle,
+    MatIconButton,
+    NgIf
   ],
   templateUrl: './travel-detail.page.html',
   styleUrl: './travel-detail.page.scss'
@@ -28,12 +33,12 @@ export class TravelDetailPage {
     steps: [
       {
         id: 1,
-        index: 1,
+        index: 0,
         createdDate: new Date(),
         dateStart: new Date(),
         dateEnd: new Date(),
         category: 'flight',
-        label: 'Step 1',
+        label: 'Hotel',
         location: {
           lat: 0,
           lng: 0
@@ -41,12 +46,25 @@ export class TravelDetailPage {
       },
       {
         id: 2,
-        index: 0,
+        index: 1,
         createdDate: new Date(),
         dateStart: new Date(),
         dateEnd: new Date(),
         category: 'flight',
-        label: 'Step 1',
+        label: 'Aircraft',
+        location: {
+          lat: 0,
+          lng: 0
+        }
+      },
+      {
+        id: 3,
+        index: 2,
+        createdDate: new Date(),
+        dateStart: new Date(),
+        dateEnd: new Date(),
+        category: 'flight',
+        label: 'Restaurant',
         location: {
           lat: 0,
           lng: 0
@@ -76,7 +94,6 @@ export class TravelDetailPage {
       // TODO trigger save new array with index changed
     }
   }
-
 
   // TODO
   openInTheMap() {

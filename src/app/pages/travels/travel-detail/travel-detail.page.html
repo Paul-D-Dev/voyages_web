@@ -2,6 +2,7 @@
 
 <div cdkDropList
      (cdkDropListDropped)="drop($event)"
+     [cdkDropListDisabled]="travel.steps.length < 2"
 >
   @for (step of travel.steps;track step) {
     <div
@@ -12,7 +13,7 @@
 
       <!-- TODO Button view location into the map-->
 
-      <button cdkDragHandle mat-icon-button>
+      <button *ngIf="travel.steps.length > 1" cdkDragHandle mat-icon-button>
         <mat-icon>{{ Icons.MENU }}</mat-icon>
       </button>
     </div>
