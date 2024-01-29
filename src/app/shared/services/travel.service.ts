@@ -31,6 +31,7 @@ export class TravelService {
     return this.travels().find(t => t.id === travelId);
   }
 
+
   update(travelData: ITravelFormData, id: number): void {
     this.travels.update(travels =>
       travels.map(travel => travel.id === id ?
@@ -52,6 +53,26 @@ export class TravelService {
         }
       });
     this.travels.update((travels) => replaceStepsById(travels, travelId));
+    this._saveLocal();
+  }
+
+  // TODO replace step type
+  addStep(step: any, travelId: number): void {
+    this.travels.update(travels => {
+      const travel = travels.find(t => t.id === travelId);
+      if (travel) {
+        // TODO replace how to create the new step BE will handle it
+        const newStep: ITravelStep = {
+          ...step,
+          createdDate: new Date(),
+          index: travel.steps.length + 1,
+          id: travel.steps.length + 1,
+        };
+        travel.steps.push(newStep);
+      }
+      return travels;
+    });
+
     this._saveLocal();
   }
 
