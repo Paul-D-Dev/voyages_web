@@ -15,6 +15,25 @@
 
         <!-- TODO Button view location into the map-->
 
+        <!--        Ellips button with multiple actions-->
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Step action menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="openInTheMap(step.id)">
+            <mat-icon>map</mat-icon>
+            <span>View map</span>
+          </button>
+          <button mat-menu-item (click)="edit(step.id)">
+            <mat-icon>edit</mat-icon>
+            <span>Edit</span>
+          </button>
+          <button mat-menu-item (click)="delete(step.id)">
+            <mat-icon>delete</mat-icon>
+            <span>Delete</span>
+          </button>
+        </mat-menu>
+
         <button *ngIf="travel.steps.length > 1" cdkDragHandle mat-icon-button>
           <mat-icon>{{ Icons.MENU }}</mat-icon>
         </button>
