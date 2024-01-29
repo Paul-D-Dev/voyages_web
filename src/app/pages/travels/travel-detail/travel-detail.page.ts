@@ -56,6 +56,7 @@ export class TravelDetailPage {
     moveItemInArray(this.mutableTravelSteps.steps, event.previousIndex, event.currentIndex);
     if (event.previousIndex !== event.currentIndex) {
       this.mutableTravelSteps.steps = this._saveIndex(this.mutableTravelSteps.steps);
+      this.travelService.updateStepIndexes(this.mutableTravelSteps.steps, this.mutableTravelSteps.id);
     }
   }
 
