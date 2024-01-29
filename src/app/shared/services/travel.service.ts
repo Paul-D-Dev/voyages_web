@@ -65,7 +65,7 @@ export class TravelService {
         const newStep: ITravelStep = {
           ...step,
           createdDate: new Date(),
-          index: travel.steps.length + 1,
+          index: travel.steps.length,
           id: travel.steps.length + 1,
         };
         travel.steps.push(newStep);
