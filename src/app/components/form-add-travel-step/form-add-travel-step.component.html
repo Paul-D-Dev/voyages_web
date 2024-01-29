@@ -4,13 +4,15 @@
     <input matInput type="text" formControlName="label">
   </mat-form-field>
 
+  <!--  TODO add location search open modal with list search-->
+
   <!--    Description    -->
   <mat-form-field>
     <mat-label>Description</mat-label>
     <input matInput type="text" formControlName="description">
   </mat-form-field>
 
-  <!--    Date ranch   -->
+  <!--    Date range   -->
   <mat-form-field>
     <mat-label>Set the date</mat-label>
     <mat-date-range-input [rangePicker]="picker" required>
@@ -21,6 +23,10 @@
     <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
     <mat-date-range-picker #picker></mat-date-range-picker>
   </mat-form-field>
+
+  <!--  TODO date range with hours and minutes-->
+
+  <!--  TODO add category select-->
 
   <div class="btn-submit-wrapper">
     <button
