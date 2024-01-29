@@ -1,25 +1,31 @@
-<app-header [title]="travel.name" [isBackNavigation]="true"/>
+@if (travel) {
 
-<div cdkDropList
-     (cdkDropListDropped)="drop($event)"
-     [cdkDropListDisabled]="travel.steps.length < 2"
->
-  @for (step of travel.steps;track step) {
-    <div
-      cdkDrag
-      [cdkDragData]="step"
-    >
-      {{ step.index + 1 }} {{ step.label }}
+  <app-header [title]="travel.name" [isBackNavigation]="true"/>
 
-      <!-- TODO Button view location into the map-->
+  <div cdkDropList
+       (cdkDropListDropped)="drop($event)"
+       [cdkDropListDisabled]="travel.steps.length < 2"
+  >
+    @for (step of travel.steps;track step) {
+      <div
+        cdkDrag
+        [cdkDragData]="step"
+      >
+        {{ step.index + 1 }} {{ step.label }}
 
-      <button *ngIf="travel.steps.length > 1" cdkDragHandle mat-icon-button>
-        <mat-icon>{{ Icons.MENU }}</mat-icon>
-      </button>
-    </div>
-  }
-</div>
+        <!-- TODO Button view location into the map-->
 
-<!-- TODO button view travel on the map-->
+        <button *ngIf="travel.steps.length > 1" cdkDragHandle mat-icon-button>
+          <mat-icon>{{ Icons.MENU }}</mat-icon>
+        </button>
+      </div>
+    }
+  </div>
 
+  <button type="button" mat-icon-button routerLink="add-step" color="primary">
+    <mat-icon>add</mat-icon>
+  </button>
 
+  <!-- TODO button view travel on the map-->
+
+}

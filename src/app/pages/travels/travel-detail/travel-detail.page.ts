@@ -41,12 +41,6 @@ export class TravelDetailPage {
   mutableTravelSteps!: ITravel;
   protected readonly Icons = Icons;
 
-
-  // TODO
-  addStep() {
-    // open modal with add step form
-  }
-
   // TODO
   editStep(id: number) {
     // open modal with form data of the step
