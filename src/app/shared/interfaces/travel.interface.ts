@@ -1,15 +1,15 @@
 import { IGpsPosition } from "./gps-position.interface";
 
-export interface ITravel {
+export interface ITravelItem {
   id: number,
   name: string,
   dateStart: Date,
   dateEnd: Date
 }
 
-export type ITravelFormData = Omit<ITravel, 'id'>
+export type ITravelFormData = Omit<ITravelItem, 'id'>
 
-export interface ITravelDetail extends ITravel {
+export interface ITravel extends ITravelItem {
   steps: ITravelStep[];
 }
 
@@ -26,3 +26,5 @@ export interface ITravelStep {
   updatedDate?: Date,
   // customIcon
 }
+
+export type ITravelStepFormData = Omit<ITravelStep, 'id' | 'index' | 'createdDate' | 'updatedDate'>
