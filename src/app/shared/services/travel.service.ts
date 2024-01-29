@@ -76,4 +76,23 @@ export class TravelService {
     this._saveLocal();
   }
 
+
+  deleteStep(stepId: number, travelId: number): void {
+    this.travels.update((travels) => {
+      return travels.map((t) => {
+        if (t.id === travelId) {
+          t.steps = t.steps
+            .filter(step => step.id !== stepId)
+            .map((step, index) => ({
+              ...step,
+              index
+            }));
+        }
+        return t;
+      });
+    });
+
+    this._saveLocal();
+
+  }
 }

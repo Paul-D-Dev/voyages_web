@@ -8,6 +8,7 @@ import { MatIconButton } from "@angular/material/button";
 import { NgIf } from "@angular/common";
 import { RouterLink } from "@angular/router";
 import { TravelService } from "../../../shared/services/travel.service";
+import { MatMenu, MatMenuItem, MatMenuTrigger } from "@angular/material/menu";
 
 @Component({
   selector: 'app-travel-detail',
@@ -20,7 +21,10 @@ import { TravelService } from "../../../shared/services/travel.service";
     CdkDragHandle,
     MatIconButton,
     NgIf,
-    RouterLink
+    RouterLink,
+    MatMenu,
+    MatMenuItem,
+    MatMenuTrigger
   ],
   templateUrl: './travel-detail.page.html',
   styleUrl: './travel-detail.page.scss'
@@ -55,8 +59,16 @@ export class TravelDetailPage {
   }
 
   // TODO
-  openInTheMap() {
+  openInTheMap(stepId: number) {
     // represents steps into the map
+  }
+
+  edit(stepId: number) {
+
+  }
+
+  delete(stepId: number) {
+    this.travelService.deleteStep(stepId, this.mutableTravelSteps.id);
   }
 
   private _saveIndex(array: ITravelStep[]): ITravelStep[] {
