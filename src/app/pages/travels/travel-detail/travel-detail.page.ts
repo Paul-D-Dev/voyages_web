@@ -1,11 +1,13 @@
-import { Component, Input } from '@angular/core';
-import { ITravelDetail, ITravelStep } from "../../../shared/interfaces/travel.interface";
+import { Component, inject, Input } from '@angular/core';
+import { ITravel, ITravelStep } from "../../../shared/interfaces/travel.interface";
 import { HeaderComponent } from "../../../components/header/header.component";
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from "@angular/cdk/drag-drop";
 import { MatIcon } from "@angular/material/icon";
 import { Icons } from "../../../shared/enums/icons.enum";
 import { MatIconButton } from "@angular/material/button";
 import { NgIf } from "@angular/common";
+import { RouterLink } from "@angular/router";
+import { TravelService } from "../../../shared/services/travel.service";
 
 @Component({
   selector: 'app-travel-detail',
@@ -17,64 +19,28 @@ import { NgIf } from "@angular/common";
     MatIcon,
     CdkDragHandle,
     MatIconButton,
-    NgIf
+    NgIf,
+    RouterLink
   ],
   templateUrl: './travel-detail.page.html',
   styleUrl: './travel-detail.page.scss'
 })
 
 export class TravelDetailPage {
-  protected readonly Icons = Icons;
-  travelDetailMock: ITravelDetail = {
-    id: 1,
-    name: 'Paris',
-    dateStart: new Date(),
-    dateEnd: new Date(),
-    steps: [
-      {
-        id: 1,
-        index: 0,
-        createdDate: new Date(),
-        dateStart: new Date(),
-        dateEnd: new Date(),
-        category: 'flight',
-        label: 'Hotel',
-        location: {
-          lat: 0,
-          lng: 0
-        }
-      },
-      {
-        id: 2,
-        index: 1,
-        createdDate: new Date(),
-        dateStart: new Date(),
-        dateEnd: new Date(),
-        category: 'flight',
-        label: 'Aircraft',
-        location: {
-          lat: 0,
-          lng: 0
-        }
-      },
-      {
-        id: 3,
-        index: 2,
-        createdDate: new Date(),
-        dateStart: new Date(),
-        dateEnd: new Date(),
-        category: 'flight',
-        label: 'Restaurant',
-        location: {
-          lat: 0,
-          lng: 0
-        }
-      }
-    ]
-  };
-  @Input() travel: ITravelDetail = this.travelDetailMock || [];
+  travelService = inject(TravelService);
 
-  mutableTravelSteps = this.travelDetailMock;
+  @Input()
+  set id(travelId: string) {
+    this.travel = this.travelService.getById(+travelId);
+    if (this.travel) {
+      this.mutableTravelSteps = this.travel;
+    }
+  }
+
+  travel: ITravel | undefined = undefined;
+  mutableTravelSteps!: ITravel;
+  protected readonly Icons = Icons;
+
 
   // TODO
   addStep() {
@@ -90,8 +56,6 @@ export class TravelDetailPage {
     moveItemInArray(this.mutableTravelSteps.steps, event.previousIndex, event.currentIndex);
     if (event.previousIndex !== event.currentIndex) {
       this.mutableTravelSteps.steps = this._saveIndex(this.mutableTravelSteps.steps);
-      console.log(this.mutableTravelSteps.steps);
-      // TODO trigger save new array with index changed
     }
   }
 
