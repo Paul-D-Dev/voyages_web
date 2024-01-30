@@ -1,6 +1,6 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Icons } from "../../shared/enums/icons.enum";
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from "@angular/forms";
 import {
   MatDatepickerToggle,
   MatDateRangeInput,
@@ -59,7 +59,6 @@ import { StepCategories } from "../../shared/enums/step-categories.enum";
 export class FormAddTravelStepComponent {
 
   constructor(private addressService: AddressService) {
-    // TODO fix when select option from it retrigger lookup
     this.addresses$ = this.form.controls['locationAddress'].valueChanges.pipe(
       startWith(''),
       debounceTime(1000),
@@ -70,8 +69,8 @@ export class FormAddTravelStepComponent {
   @Input() formData: ITravelStepFormData = {
     label: '',
     category: null,
-    dateStart: new Date(''),
-    dateEnd: new Date(''),
+    dateStart: this._formatDateLocalTime(new Date().toISOString()),
+    dateEnd: this._formatDateLocalTime(new Date().toISOString()),
     location: {} as IGpsPosition
   };
   @Output() onSubmitForm = new EventEmitter<ITravelStepFormData>;
@@ -84,15 +83,15 @@ export class FormAddTravelStepComponent {
 
   // TODO complete FormGroup type
   form: FormGroup = this.fb.group({
-    label: [this.formData.label],
+    label: [this.formData.label, { validators: [Validators.required] }],
     description: [this.formData.description],
-    dateStart: [this.formData.dateStart],
-    dateEnd: [this.formData.dateEnd],
+    dateStart: [this.formData.dateStart, { validators: [Validators.required] }],
+    dateEnd: [this.formData.dateEnd, { validators: [Validators.required] }],
     category: [this.formData.category],
     locationAddress: [''],
     location: this.fb.group({
-      lng: [this.formData.location.lng],
-      lat: [this.formData.location.lat]
+      lng: [this.formData.location.lng, { validators: [Validators.required] }],
+      lat: [this.formData.location.lat, { validators: [Validators.required] }]
     })
   });
 
@@ -124,5 +123,9 @@ export class FormAddTravelStepComponent {
       console.log(values);
       this.onSubmitForm.emit(values);
     }
+  }
+
+  private _formatDateLocalTime(dateIsoString: string): string {
+    return dateIsoString.substring(0, 16);
   }
 }
