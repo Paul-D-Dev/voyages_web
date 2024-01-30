@@ -4,6 +4,19 @@
     <input matInput type="text" formControlName="label">
   </mat-form-field>
 
+
+  <!--    Date range   -->
+  <mat-form-field>
+    <mat-label>Start Date</mat-label>
+    <input matInput type="datetime-local" formControlName="dateStart" placeholder="Start date">
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label>End Date</mat-label>
+    <input matInput type="datetime-local" formControlName="dateEnd" placeholder="End date">
+  </mat-form-field>
+
+
   <div formGroupName="location">
     <mat-form-field>
       <mat-label>Latitude</mat-label>
@@ -46,7 +59,6 @@
   </mat-form-field>
 
   <!--  Category -->
-
   <mat-form-field>
     <mat-label>Category</mat-label>
     <mat-select formControlName="category">
@@ -55,21 +67,7 @@
       }
     </mat-select>
   </mat-form-field>
-
-  <!--    Date range   -->
-  <mat-form-field>
-    <mat-label>Set the date</mat-label>
-    <mat-date-range-input [rangePicker]="picker" required>
-      <input matStartDate formControlName="dateStart" placeholder="Start date">
-      <input matEndDate formControlName="dateEnd" placeholder="End date">
-    </mat-date-range-input>
-    <mat-hint>MM/DD/YYYY – MM/DD/YYYY</mat-hint>
-    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-date-range-picker #picker></mat-date-range-picker>
-  </mat-form-field>
-
-  <!--  TODO date range with hours and minutes-->
-
+  <!--TODO add documents ? boarding pass, tickets-->
 
   <div class="btn-submit-wrapper">
     <button
