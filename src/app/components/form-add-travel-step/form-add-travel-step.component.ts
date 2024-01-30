@@ -1,6 +1,6 @@
 import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { Icons } from "../../shared/enums/icons.enum";
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
   MatDatepickerToggle,
   MatDateRangeInput,
@@ -54,6 +54,7 @@ import { AsyncPipe } from "@angular/common";
 export class FormAddTravelStepComponent {
 
   constructor(private addressService: AddressService) {
+    // TODO fix when select option from it retrigger lookup
     this.addresses$ = this.form.controls['locationAddress'].valueChanges.pipe(
       startWith(''),
       debounceTime(1000),
@@ -73,18 +74,19 @@ export class FormAddTravelStepComponent {
   protected readonly Icons = Icons;
   readonly fb = inject(FormBuilder);
   addresses$: Observable<IAddress[]> = of([]);
+  isDisplayedLocationInput = false;
 
   // TODO complete FormGroup type
   form: FormGroup = this.fb.group({
-    label: new FormControl(this.formData.label),
-    description: new FormControl(this.formData.description),
-    dateStart: new FormControl(this.formData.dateStart),
-    dateEnd: new FormControl(this.formData.dateEnd),
-    category: new FormControl(this.formData.category),
-    locationAddress: new FormControl(''),
-    location: new FormGroup({
-      lng: new FormControl(this.formData.location.lng),
-      lat: new FormControl(this.formData.location.lat)
+    label: [this.formData.label],
+    description: [this.formData.description],
+    dateStart: [this.formData.dateStart],
+    dateEnd: [this.formData.dateEnd],
+    category: [this.formData.category],
+    locationAddress: [''],
+    location: this.fb.group({
+      lng: [this.formData.location.lng],
+      lat: [this.formData.location.lat]
     })
   });
 
@@ -93,13 +95,20 @@ export class FormAddTravelStepComponent {
   }
 
   onOptionAddressSelected(ev: MatAutocompleteSelectedEvent) {
+    console.log(this.form.controls['locationAddress']);
     const address: IAddress = ev.option.value;
     this.form.patchValue({
+      locationAddress: '',
       location: {
         lng: address.lng,
         lat: address.lat
       }
     });
+    this.toggleDisplayLocationInput();
+  }
+
+  toggleDisplayLocationInput() {
+    this.isDisplayedLocationInput = !this.isDisplayedLocationInput;
   }
 
   onSubmit() {

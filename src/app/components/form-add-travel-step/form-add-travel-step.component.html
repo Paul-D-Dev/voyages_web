@@ -4,25 +4,40 @@
     <input matInput type="text" formControlName="label">
   </mat-form-field>
 
-  <mat-form-field>
-    <mat-label>Location</mat-label>
-    <input matInput
-           aria-label="Location"
-           formControlName="locationAddress"
-           [matAutocomplete]="auto"
-    >
-  </mat-form-field>
-  <mat-autocomplete
-      #auto="matAutocomplete"
-      [displayWith]="displayFn"
-      (optionSelected)="onOptionAddressSelected($event)"
-  >
-    @for (address of addresses$ | async;track address) {
-      <mat-option [value]="address">{{ address.fullAddress }}</mat-option>
-    }
-  </mat-autocomplete>
+  <div formGroupName="location">
+    <mat-form-field>
+      <mat-label>Latitude</mat-label>
+      <input type="number" matInput aria-label="latitude" formControlName="lat">
+    </mat-form-field>
 
-  <!--  TODO search with position if not find location place-->
+    <mat-form-field>
+      <mat-label>Longitude</mat-label>
+      <input type="number" matInput aria-label="Longitude" formControlName="lng">
+    </mat-form-field>
+
+    <span (click)="toggleDisplayLocationInput()">search with address</span>
+  </div>
+
+  @if (isDisplayedLocationInput) {
+    <mat-form-field>
+      <mat-label>Location</mat-label>
+      <input matInput
+             aria-label="Location"
+             formControlName="locationAddress"
+             [matAutocomplete]="auto"
+      >
+    </mat-form-field>
+    <mat-autocomplete
+        #auto="matAutocomplete"
+        [displayWith]="displayFn"
+        (optionSelected)="onOptionAddressSelected($event)"
+    >
+      @for (address of addresses$ | async;track address) {
+        <mat-option [value]="address">{{ address.fullAddress }}</mat-option>
+      }
+    </mat-autocomplete>
+  }
+
 
   <!--    Description    -->
   <mat-form-field>
