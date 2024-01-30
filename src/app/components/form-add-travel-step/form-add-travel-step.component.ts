@@ -23,7 +23,9 @@ import {
 import { debounceTime, Observable, of, startWith, switchMap } from "rxjs";
 import { AddressService } from "../../shared/services/address.service";
 import { IAddress } from "../../shared/interfaces/address.interface";
-import { AsyncPipe } from "@angular/common";
+import { AsyncPipe, KeyValuePipe, TitleCasePipe } from "@angular/common";
+import { MatSelect } from "@angular/material/select";
+import { StepCategories } from "../../shared/enums/step-categories.enum";
 
 @Component({
   selector: 'app-form-add-travel-step',
@@ -46,7 +48,10 @@ import { AsyncPipe } from "@angular/common";
     MatAutocomplete,
     MatAutocompleteTrigger,
     MatOption,
-    AsyncPipe
+    AsyncPipe,
+    MatSelect,
+    TitleCasePipe,
+    KeyValuePipe
   ],
   templateUrl: './form-add-travel-step.component.html',
   styleUrl: './form-add-travel-step.component.scss'
@@ -64,7 +69,7 @@ export class FormAddTravelStepComponent {
 
   @Input() formData: ITravelStepFormData = {
     label: '',
-    category: '',
+    category: null,
     dateStart: new Date(''),
     dateEnd: new Date(''),
     location: {} as IGpsPosition
@@ -72,6 +77,7 @@ export class FormAddTravelStepComponent {
   @Output() onSubmitForm = new EventEmitter<ITravelStepFormData>;
 
   protected readonly Icons = Icons;
+  protected readonly Categories = StepCategories;
   readonly fb = inject(FormBuilder);
   addresses$: Observable<IAddress[]> = of([]);
   isDisplayedLocationInput = false;

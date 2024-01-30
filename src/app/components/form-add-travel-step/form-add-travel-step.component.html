@@ -45,6 +45,17 @@
     <input matInput type="text" formControlName="description">
   </mat-form-field>
 
+  <!--  Category -->
+
+  <mat-form-field>
+    <mat-label>Category</mat-label>
+    <mat-select formControlName="category">
+      @for (category of Categories | keyvalue;track category) {
+        <mat-option [value]="category.value">{{ category.value | titlecase }}</mat-option>
+      }
+    </mat-select>
+  </mat-form-field>
+
   <!--    Date range   -->
   <mat-form-field>
     <mat-label>Set the date</mat-label>
@@ -59,7 +70,6 @@
 
   <!--  TODO date range with hours and minutes-->
 
-  <!--  TODO add category select-->
 
   <div class="btn-submit-wrapper">
     <button

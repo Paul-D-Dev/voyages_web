@@ -1,4 +1,5 @@
 import { IGpsPosition } from "./gps-position.interface";
+import { StepCategories } from "../enums/step-categories.enum";
 
 export interface ITravelItem {
   id: number,
@@ -17,7 +18,7 @@ export interface ITravelStep {
   id: number,
   index: number,
   label: string,
-  category: string, // Flight, Road, Hotel / Rest, Restaurant, Party, Activities
+  category: StepCategories | null, // Flight, Road, Hotel / Rest, Restaurant, Party, Activities
   description?: string,
   location: IGpsPosition,
   dateStart: Date,
