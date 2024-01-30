@@ -40,8 +40,8 @@ import { Icons } from "../../shared/enums/icons.enum";
 export class FormTravelComponent {
   @Input() formData: ITravelFormData = {
     name: '',
-    dateStart: new Date(''),
-    dateEnd: new Date('')
+    dateStart: new Date('').toDateString(),
+    dateEnd: new Date('').toDateString()
   };
   @Output() onSubmitForm = new EventEmitter<ITravelFormData>;
 
