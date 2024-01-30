@@ -58,3 +58,7 @@ a {
 .sub-text {
   font-size: 0.9rem;
 }
+
+.mdc-text-field__input::-webkit-calendar-picker-indicator {
+  display: block !important;
+}
