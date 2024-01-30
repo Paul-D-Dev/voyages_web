@@ -4,7 +4,25 @@
     <input matInput type="text" formControlName="label">
   </mat-form-field>
 
-  <!--  TODO add location search open modal with list search-->
+  <mat-form-field>
+    <mat-label>Location</mat-label>
+    <input matInput
+           aria-label="Location"
+           formControlName="locationAddress"
+           [matAutocomplete]="auto"
+    >
+  </mat-form-field>
+  <mat-autocomplete
+      #auto="matAutocomplete"
+      [displayWith]="displayFn"
+      (optionSelected)="onOptionAddressSelected($event)"
+  >
+    @for (address of addresses$ | async;track address) {
+      <mat-option [value]="address">{{ address.fullAddress }}</mat-option>
+    }
+  </mat-autocomplete>
+
+  <!--  TODO search with position if not find location place-->
 
   <!--    Description    -->
   <mat-form-field>
