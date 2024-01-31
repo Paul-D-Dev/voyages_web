@@ -1,6 +1,6 @@
 import { inject, Injectable } from '@angular/core';
 import { Location } from "@angular/common";
-import { Router } from "@angular/router";
+import { NavigationExtras, Router } from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -13,12 +13,12 @@ export class NavigationService {
     this.location.back();
   }
 
-  goUrl(path: string) {
-    this.router.navigateByUrl(path);
+  goUrl(path: string, options?: NavigationExtras) {
+    this.router.navigateByUrl(path, options);
   }
 
-  go(path: string[]) {
-    this.router.navigate(path);
+  go(path: string[], options?: NavigationExtras) {
+    this.router.navigate(path, options);
   }
 
 }
