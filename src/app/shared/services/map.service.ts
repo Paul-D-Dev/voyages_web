@@ -1,48 +1,57 @@
-import { Injectable } from '@angular/core';
+import { Inject, Injectable } from '@angular/core';
 import * as L from 'leaflet';
-import { LatLng, LatLngTuple } from 'leaflet';
+import { LatLng } from 'leaflet';
 import { IGpsPosition } from "../interfaces/gps-position.interface";
+import { MAP_CONFIG, MapConfig } from "../../app.config";
+
+class CustomLatLng extends LatLng {
+  constructor(props: IGpsPosition) {
+    super(props.lat, props.lng, props.atl);
+  }
+}
 
 @Injectable({
   providedIn: 'root'
 })
+
 export class MapService {
-
-  private _map!: L.Map;
-  // searchProvider = new OpenStreetMapProvider();
-  zoom = { min: 3, max: 18 };
-
-  initMap(position: IGpsPosition | undefined, isMarker = false, idMap = 'map') {
-    if (!position) {
-      // Default position
-      position = {
-        lat: 45.5031824,
-        lng: -73.5698065
-      };
-    }
-    console.log('init map: ', position);
-    const center: LatLngTuple = [position.lat, position.lng, position.atl];
-    const map = L.map(idMap, {
-      center,
-      zoom: 16,
-    });
-
-    const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: this.zoom.max,
-      minZoom: this.zoom.min,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
-    });
-
-    tiles.addTo(map);
-
-    this._map = map;
-
-    // GeoLocation the user position and set the view
-    this._map.locate({ setView: true });
-
+  constructor(@Inject(MAP_CONFIG) private mapConfig: MapConfig) {
+    this.position = {
+      lat: this.mapConfig.center.lat,
+      lng: this.mapConfig.center.lng
+    };
   }
 
-  onClick() {
+  private _map!: L.Map;
+  private readonly _tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: this.mapConfig.zoom.max,
+    minZoom: this.mapConfig.zoom.min,
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
+  });
+
+  mapLoaded: boolean = false;
+  position: IGpsPosition;
+  zoom: number = 16;
+
+  initMap(position: IGpsPosition | undefined) {
+    if (position) {
+      this.position = position;
+    }
+
+    if (this.mapLoaded) {
+      this._map.remove();
+      console.log(this._map.options);
+      this._map = this._createMap();
+      return;
+    }
+
+    this.mapLoaded = true;
+
+    this._map = this._createMap();
+    this.setViewMyGeoLocation();
+  }
+
+  initMapHandlers() {
     this._map.on('click', (e: any) => {
       console.log('click data: ', e);
       const { lat, lng }: LatLng = e.latlng;
@@ -52,11 +61,27 @@ export class MapService {
 
   addMarker(position: IGpsPosition) {
     console.log('add marker: ', position);
-    const marker = L.marker([position.lat, position.lng]);
+    const marker = L.marker(new CustomLatLng(position));
     marker.addTo(this._map);
   }
 
   setView(position: IGpsPosition): void {
-    this._map.setView(position, this.zoom.max);
+    this._map.setView(position, this.mapConfig.zoom.max);
+  }
+
+  /*
+  *   GeoLocation the user position and set the view*/
+  setViewMyGeoLocation(): void {
+    this._map.locate({ setView: true });
+  }
+
+  private _createMap(): L.Map {
+    const map = L.map(this.mapConfig.id, {
+      center: new CustomLatLng(this.position),
+      zoom: this.zoom,
+    });
+
+    this._tiles.addTo(map);
+    return map;
   }
 }
