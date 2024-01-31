@@ -11,15 +11,14 @@ import { MapService } from "../../shared/services/map.service";
   styleUrl: './map.component.scss'
 })
 export class MapComponent implements OnInit {
-  @Input() position: IGpsPosition = {
-    lat: 45.5031824,
-    lng: -73.5698065
-  };
-  mapService = inject(MapService);
+  @Input() initPosition: IGpsPosition | undefined;
+  @Input() isMarker: boolean = false;
+  private _mapService = inject(MapService);
 
   ngOnInit() {
-    this.mapService.initMap(this.position);
-    this.mapService.onClick();
+    // TODO when mapDataRoute provide value to initPosition add marker / or setView
+    this._mapService.initMap(this.initPosition, this.isMarker);
+    this._mapService.onClick();
   }
 
 
