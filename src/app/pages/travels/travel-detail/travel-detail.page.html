@@ -21,7 +21,7 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item (click)="openInTheMap(step.id)">
+          <button mat-menu-item (click)="viewIntoTheMap(step.id, step.location)">
             <mat-icon>map</mat-icon>
             <span>View map</span>
           </button>

@@ -6,9 +6,11 @@ import { MatIcon } from "@angular/material/icon";
 import { Icons } from "../../../shared/enums/icons.enum";
 import { MatIconButton } from "@angular/material/button";
 import { NgIf } from "@angular/common";
-import { RouterLink } from "@angular/router";
+import { NavigationExtras, RouterLink } from "@angular/router";
 import { TravelService } from "../../../shared/services/travel.service";
 import { MatMenu, MatMenuItem, MatMenuTrigger } from "@angular/material/menu";
+import { NavigationService } from "../../../shared/services/navigation.service";
+import { IGpsPosition } from "../../../shared/interfaces/gps-position.interface";
 
 @Component({
   selector: 'app-travel-detail',
@@ -32,6 +34,7 @@ import { MatMenu, MatMenuItem, MatMenuTrigger } from "@angular/material/menu";
 
 export class TravelDetailPage {
   travelService = inject(TravelService);
+  navigationService = inject(NavigationService);
 
   @Input()
   set id(travelId: string) {
@@ -58,9 +61,13 @@ export class TravelDetailPage {
     }
   }
 
-  // TODO
-  openInTheMap(stepId: number) {
-    // represents steps into the map
+  viewIntoTheMap(stepId: number, position: IGpsPosition) {
+    const navOptions: NavigationExtras = {
+      state: {
+        mapDataRoute: position
+      }
+    };
+    this.navigationService.go(['/'], navOptions);
   }
 
   edit(stepId: number) {
