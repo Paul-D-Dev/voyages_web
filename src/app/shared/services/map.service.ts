@@ -35,14 +35,6 @@ export class MapService {
 
     tiles.addTo(map);
 
-    // Add control in the map - Maybe to remove
-    // @ts-ignore
-    // const searchControl = new GeoSearchControl({
-    //   provider: this.searchProvider
-    // });
-    // map.addControl(searchControl);
-    //
-
     this._map = map;
 
     // GeoLocation the user position and set the view
