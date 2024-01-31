@@ -23,8 +23,15 @@ import { IGpsPosition } from "../../shared/interfaces/gps-position.interface";
 export class HomePage {
   globalStateService = inject(GlobalStateService);
   searchFocused = inject(GlobalStateService).select("isSearchFocused");
-  addressList: IAddress[] = [];
   mapService = inject(MapService);
+  addressList: IAddress[] = [];
+  mapDataRoute: IGpsPosition | undefined = undefined;
+  isMarkerPosition = true;
+
+  ngOnInit() {
+    this.mapDataRoute = history.state['mapDataRoute'];
+    this.isMarkerPosition = !!this.mapDataRoute;
+  }
 
   getLookupAddress(addresses: IAddress[]) {
     this.addressList = addresses;
