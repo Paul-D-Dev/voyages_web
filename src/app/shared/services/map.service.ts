@@ -40,15 +40,15 @@ export class MapService {
 
     if (this.mapLoaded) {
       this._map.remove();
+      this.mapLoaded = false;
       console.log(this._map.options);
-      this._map = this._createMap();
+      this._createMap();
       return;
     }
 
-    this.mapLoaded = true;
-
-    this._map = this._createMap();
+    this._createMap();
     this.setViewMyGeoLocation();
+
   }
 
   initMapHandlers() {
@@ -75,13 +75,14 @@ export class MapService {
     this._map.locate({ setView: true });
   }
 
-  private _createMap(): L.Map {
+  private _createMap(): void {
     const map = L.map(this.mapConfig.id, {
       center: new CustomLatLng(this.position),
       zoom: this.zoom,
     });
 
     this._tiles.addTo(map);
-    return map;
+    this._map = map;
+    this.mapLoaded = true;
   }
 }
