@@ -27,6 +27,22 @@ a {
   color: unset;
 }
 
+.p-y {
+  padding-block: 1rem;
+}
+
+.p-x {
+  padding-inline: 1rem;
+}
+
+.flex {
+  display: flex;
+}
+
+.f-col {
+  flex-direction: column;
+}
+
 .main-wrapper {
   height: 100vh;
   display: grid;
@@ -61,4 +77,14 @@ a {
 
 .mdc-text-field__input::-webkit-calendar-picker-indicator {
   display: block !important;
+}
+
+.container-no-wrap-ellipsis {
+  overflow: hidden;
+  text-wrap: nowrap;
+
+  & * {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
