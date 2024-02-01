@@ -1,17 +1,6 @@
 $item-order-bg: cornflowerblue;
 $item-border-color: #FAFAFA;
 
-.container__button {
-  display: flex;
-  justify-content: right;
-  gap: .5rem;
-  width: 100%;
-
-  &-right {
-    justify-content: right;
-  }
-}
-
 .container-list {
   margin-block-start: 1rem;
 }

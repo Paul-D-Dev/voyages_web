@@ -88,3 +88,14 @@ a {
     text-overflow: ellipsis;
   }
 }
+
+.container__button {
+  display: flex;
+  justify-content: right;
+  gap: .5rem;
+  width: 100%;
+
+  &-right {
+    justify-content: right;
+  }
+}
