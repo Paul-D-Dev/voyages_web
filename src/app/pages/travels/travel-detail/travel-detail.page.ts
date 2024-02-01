@@ -4,8 +4,8 @@ import { HeaderComponent } from "../../../components/header/header.component";
 import { CdkDrag, CdkDragDrop, CdkDragHandle, CdkDropList, moveItemInArray } from "@angular/cdk/drag-drop";
 import { MatIcon } from "@angular/material/icon";
 import { Icons } from "../../../shared/enums/icons.enum";
-import { MatIconButton } from "@angular/material/button";
-import { NgIf } from "@angular/common";
+import { MatButton, MatIconButton } from "@angular/material/button";
+import { DatePipe, LowerCasePipe, NgIf, TitleCasePipe } from "@angular/common";
 import { NavigationExtras, RouterLink } from "@angular/router";
 import { TravelService } from "../../../shared/services/travel.service";
 import { MatMenu, MatMenuItem, MatMenuTrigger } from "@angular/material/menu";
@@ -26,7 +26,11 @@ import { IGpsPosition } from "../../../shared/interfaces/gps-position.interface"
     RouterLink,
     MatMenu,
     MatMenuItem,
-    MatMenuTrigger
+    MatMenuTrigger,
+    DatePipe,
+    TitleCasePipe,
+    MatButton,
+    LowerCasePipe
   ],
   templateUrl: './travel-detail.page.html',
   styleUrl: './travel-detail.page.scss'
@@ -68,6 +72,12 @@ export class TravelDetailPage {
       }
     };
     this.navigationService.go(['/'], navOptions);
+  }
+
+  // TODO route to home page to display itinerary
+  // send step to make marker popupable with info step like index, label, category
+  viewTrip(steps: ITravelStep[]) {
+    console.log('view trip: ', steps);
   }
 
   edit(stepId: number) {
