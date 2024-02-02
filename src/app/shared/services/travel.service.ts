@@ -1,5 +1,5 @@
 import { Injectable, signal, WritableSignal } from '@angular/core';
-import { ITravel, ITravelFormData, ITravelStep } from "../interfaces/travel.interface";
+import { ITravel, ITravelFormData, ITravelStep, ITravelStepFormData } from "../interfaces/travel.interface";
 import { LocalStorageService } from "./local-storage.service";
 import { LocalStorageKeyEnum } from "../enums/local-storage-key.enum";
 
@@ -28,9 +28,9 @@ export class TravelService {
   }
 
   getById(travelId: number): ITravel | undefined {
+    console.log(travelId);
     return this.travels().find(t => t.id === travelId);
   }
-
 
   update(travelData: ITravelFormData, id: number): void {
     this.travels.update(travels =>
@@ -56,8 +56,7 @@ export class TravelService {
     this._saveLocal();
   }
 
-  // TODO replace step type
-  addStep(step: any, travelId: number): void {
+  addStep(step: ITravelStepFormData, travelId: number): void {
     this.travels.update(travels => {
       const travel = travels.find(t => t.id === travelId);
       if (travel) {
@@ -76,6 +75,22 @@ export class TravelService {
     this._saveLocal();
   }
 
+  getStep(idTravel: number, idStep: number): ITravelStep | undefined {
+    return this.travels().find(travel => travel.id === idTravel)?.steps.find(step => step.id === idStep);
+  }
+
+  editStep(data: ITravelStepFormData, idTravel: number, idStep: number) {
+    this.travels.update(travels => travels
+      .map(t => {
+        if (t.id === idTravel) {
+          t.steps = t.steps.map(s => (s.id === idStep ? { ...s, ...data } : s));
+        }
+        return t;
+      })
+    );
+
+    this._saveLocal();
+  }
 
   deleteStep(stepId: number, travelId: number): void {
     this.travels.update((travels) => {
