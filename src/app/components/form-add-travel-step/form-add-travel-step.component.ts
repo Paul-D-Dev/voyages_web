@@ -56,44 +56,53 @@ import { StepCategories } from "../../shared/enums/step-categories.enum";
   templateUrl: './form-add-travel-step.component.html',
   styleUrl: './form-add-travel-step.component.scss'
 })
-export class FormAddTravelStepComponent {
 
-  constructor(private addressService: AddressService) {
-    this.addresses$ = this.form.controls['locationAddress'].valueChanges.pipe(
-      startWith(''),
-      debounceTime(1000),
-      switchMap((value) => this.addressService.lookUp(value)),
-    );
+// TODO Rename class FormManageTravelStep
+export class FormAddTravelStepComponent {
+  @Input() set formData(data: ITravelStepFormData | undefined) {
+    if (!data) return;
+    this._stepData = data;
   }
 
-  @Input() formData: ITravelStepFormData = {
+  @Output() onSubmitForm = new EventEmitter<ITravelStepFormData>;
+
+  private readonly addressService = inject(AddressService);
+  private readonly fb = inject(FormBuilder);
+  protected readonly Icons = Icons;
+  protected readonly Categories = StepCategories;
+  addresses$: Observable<IAddress[]> = of([]);
+  isDisplayedLocationInput = false;
+
+  // TODO complete FormGroup type
+  form!: FormGroup;
+  private _stepData: ITravelStepFormData = {
     label: '',
     category: null,
     dateStart: this._formatDateLocalTime(new Date().toISOString()),
     dateEnd: this._formatDateLocalTime(new Date().toISOString()),
     location: {} as IGpsPosition
   };
-  @Output() onSubmitForm = new EventEmitter<ITravelStepFormData>;
 
-  protected readonly Icons = Icons;
-  protected readonly Categories = StepCategories;
-  readonly fb = inject(FormBuilder);
-  addresses$: Observable<IAddress[]> = of([]);
-  isDisplayedLocationInput = false;
+  ngOnInit() {
+    this.form = this.fb.group({
+      label: [this._stepData.label, { validators: [Validators.required] }],
+      description: [this._stepData.description],
+      dateStart: [this._stepData.dateStart, { validators: [Validators.required] }],
+      dateEnd: [this._stepData.dateEnd, { validators: [Validators.required] }],
+      category: [this._stepData.category],
+      locationAddress: [''],
+      location: this.fb.group({
+        lng: [this._stepData.location.lng, { validators: [Validators.required] }],
+        lat: [this._stepData.location.lat, { validators: [Validators.required] }]
+      })
+    });
 
-  // TODO complete FormGroup type
-  form: FormGroup = this.fb.group({
-    label: [this.formData.label, { validators: [Validators.required] }],
-    description: [this.formData.description],
-    dateStart: [this.formData.dateStart, { validators: [Validators.required] }],
-    dateEnd: [this.formData.dateEnd, { validators: [Validators.required] }],
-    category: [this.formData.category],
-    locationAddress: [''],
-    location: this.fb.group({
-      lng: [this.formData.location.lng, { validators: [Validators.required] }],
-      lat: [this.formData.location.lat, { validators: [Validators.required] }]
-    })
-  });
+    this.addresses$ = this.form.controls['locationAddress'].valueChanges.pipe(
+      startWith(''),
+      debounceTime(1000),
+      switchMap((value) => this.addressService.lookUp(value)),
+    );
+  }
 
   displayFn(address: IAddress): string {
     return address && address.label ? address.label : '';
