@@ -80,10 +80,6 @@ export class TravelDetailPage {
     console.log('view trip: ', steps);
   }
 
-  edit(stepId: number) {
-
-  }
-
   delete(stepId: number) {
     this.travelService.deleteStep(stepId, this.mutableTravelSteps.id);
   }
