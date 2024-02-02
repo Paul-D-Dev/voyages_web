@@ -12,7 +12,7 @@ import { MatFormField, MatHint, MatLabel, MatSuffix } from "@angular/material/fo
 import { MatIcon } from "@angular/material/icon";
 import { MatInput } from "@angular/material/input";
 import { MatMiniFabButton } from "@angular/material/button";
-import { ITravelStepFormData } from "../../shared/interfaces/travel.interface";
+import { ITravelStep, ITravelStepFormData } from "../../shared/interfaces/travel.interface";
 import { IGpsPosition } from "../../shared/interfaces/gps-position.interface";
 import {
   MatAutocomplete,
@@ -28,7 +28,7 @@ import { MatSelect } from "@angular/material/select";
 import { StepCategories } from "../../shared/enums/step-categories.enum";
 
 @Component({
-  selector: 'app-form-add-travel-step',
+  selector: 'app-form-travel-step',
   standalone: true,
   imports: [
     FormsModule,
@@ -53,13 +53,13 @@ import { StepCategories } from "../../shared/enums/step-categories.enum";
     TitleCasePipe,
     KeyValuePipe
   ],
-  templateUrl: './form-add-travel-step.component.html',
-  styleUrl: './form-add-travel-step.component.scss'
+  templateUrl: './form-travel-step.component.html',
+  styleUrl: './form-travel-step.component.scss'
 })
 
 // TODO Rename class FormManageTravelStep
-export class FormAddTravelStepComponent {
-  @Input() set formData(data: ITravelStepFormData | undefined) {
+export class FormTravelStepComponent {
+  @Input() set formData(data: ITravelStep | undefined) {
     if (!data) return;
     this._stepData = data;
   }
