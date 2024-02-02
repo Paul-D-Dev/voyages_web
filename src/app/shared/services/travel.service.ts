@@ -28,7 +28,6 @@ export class TravelService {
   }
 
   getById(travelId: number): ITravel | undefined {
-    console.log(travelId);
     return this.travels().find(t => t.id === travelId);
   }
 
