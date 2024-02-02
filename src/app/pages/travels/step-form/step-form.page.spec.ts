@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddStepPage } from './add-step.page';
+import { StepFormPage } from './step-form.page';
 
-describe('AddStepPage', () => {
-  let component: AddStepPage;
-  let fixture: ComponentFixture<AddStepPage>;
+describe('StepFormPage', () => {
+  let component: StepFormPage;
+  let fixture: ComponentFixture<StepFormPage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddStepPage]
+      imports: [StepFormPage]
     })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(AddStepPage);
+      .compileComponents();
+
+    fixture = TestBed.createComponent(StepFormPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

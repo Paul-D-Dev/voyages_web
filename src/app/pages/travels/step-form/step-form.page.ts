@@ -2,8 +2,8 @@ import { Component, inject, Input as InputRoute } from '@angular/core';
 import { HeaderComponent } from "../../../components/header/header.component";
 import { Icons } from "../../../shared/enums/icons.enum";
 import { TravelService } from "../../../shared/services/travel.service";
-import { FormAddTravelStepComponent } from "../../../components/form-add-travel-step/form-add-travel-step.component";
-import { ITravelStepFormData } from "../../../shared/interfaces/travel.interface";
+import { FormTravelStepComponent } from "../../../components/form-travel-step/form-travel-step.component";
+import { ITravelStep, ITravelStepFormData } from "../../../shared/interfaces/travel.interface";
 import { NavigationService } from "../../../shared/services/navigation.service";
 
 @Component({
@@ -11,23 +11,23 @@ import { NavigationService } from "../../../shared/services/navigation.service";
   standalone: true,
   imports: [
     HeaderComponent,
-    FormAddTravelStepComponent,
+    FormTravelStepComponent,
   ],
-  templateUrl: './add-step.page.html',
-  styleUrl: './add-step.page.scss'
+  templateUrl: './step-form.page.html',
+  styleUrl: './step-form.page.scss'
 })
-export class AddStepPage {
+export class StepFormPage {
   @InputRoute('id') idTravel?: string;
-  @InputRoute('stepId') idStep?: string; // if step id means edit the step data
+  @InputRoute() idStep?: string; // if step id means edit the step data
 
   travelService = inject(TravelService);
   navigationService = inject(NavigationService);
 
-  tripStepData: ITravelStepFormData | undefined = undefined;
+  tripStep: ITravelStep | undefined = undefined;
   protected readonly Icons = Icons;
 
   ngOnInit() {
-    this.tripStepData = this.travelService.getStep(+this.idTravel!, +this.idStep!);
+    this.tripStep = this.travelService.getStep(+this.idTravel!, +this.idStep!);
   }
 
 

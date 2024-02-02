@@ -1,0 +1,5 @@
+<app-header [title]="tripStep ? ('Step ' + tripStep?.index + 1) : 'New Step'" [isBackNavigation]="true"/>
+
+<section>
+  <app-form-travel-step [formData]="tripStep" (onSubmitForm)="onSubmit($event)"/>
+</section>
