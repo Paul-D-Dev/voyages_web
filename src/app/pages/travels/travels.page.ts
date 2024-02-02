@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from "@angular/router";
 import { ITravel } from "../../shared/interfaces/travel.interface";
-import { DatePipe } from "@angular/common";
+import { DatePipe, TitleCasePipe } from "@angular/common";
 import { MatButton } from "@angular/material/button";
 import { TravelService } from "../../shared/services/travel.service";
 import { HeaderComponent } from "../../components/header/header.component";
@@ -14,7 +14,8 @@ import { HeaderComponent } from "../../components/header/header.component";
     DatePipe,
     MatButton,
     RouterOutlet,
-    HeaderComponent
+    HeaderComponent,
+    TitleCasePipe
   ],
   templateUrl: './travels.page.html',
   styleUrl: './travels.page.scss'

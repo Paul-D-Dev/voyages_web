@@ -6,7 +6,7 @@
 <!-- TODO think about router-outlet to put as children components add and :id-->
 <!--<router-outlet></router-outlet>-->
 
-<div>
+<div class="container__button container__button-right">
   <button
     mat-flat-button
     color="primary"
@@ -18,9 +18,16 @@
 
 <ul class="travel__list">
   @for (travel of travelList;track travel) {
-    <li routerLink="{{travel.id}}" class="travel__list__item">
-      <span class="travel__name">{{ travel.name }}</span>
-      <span class="travel__dates">{{ travel.dateStart | date }} - {{ travel.dateEnd | date }}</span>
+    <li>
+      <!--      TODO create component card-travel-->
+      <div class="card__container">
+        <a routerLink="{{travel.id}}">
+          <div class="card__travel">
+            <span class="card__travel__name">{{ travel.name | titlecase }}</span>
+            <span class="card__travel__dates">{{ travel.dateStart | date }} - {{ travel.dateEnd | date }}</span>
+          </div>
+        </a>
+      </div>
     </li>
   }
 </ul>
