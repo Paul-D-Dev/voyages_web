@@ -47,7 +47,7 @@
                 <mat-icon>map</mat-icon>
                 <span>View map</span>
               </button>
-              <button mat-menu-item routerLink="./add-step" [queryParams]="{stepId: step.id}">
+              <button mat-menu-item [routerLink]="['./edit-step', step.id]">
                 <mat-icon>edit</mat-icon>
                 <span>Edit</span>
               </button>
