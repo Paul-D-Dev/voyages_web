@@ -2,8 +2,9 @@ import { Routes } from "@angular/router";
 import { TravelsPage } from "./travels.page";
 import { TravelDetailPage } from "./travel-detail/travel-detail.page";
 import { AddTravelPage } from "./add-travel/add-travel.page";
-import { AddStepPage } from "./add-step/add-step.page";
+import { StepFormPage } from "./step-form/step-form.page";
 
+// base "travels/"
 export const travelRoutes: Routes = [
   {
     path: '',
@@ -19,6 +20,10 @@ export const travelRoutes: Routes = [
   },
   {
     path: ':id/add-step',
-    component: AddStepPage,
+    component: StepFormPage,
+  },
+  {
+    path: ':id/edit-step/:idStep',
+    component: StepFormPage
   },
 ];
