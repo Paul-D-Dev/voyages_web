@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
+import { TravelStateService } from './travel-state.service';
 
-import { MarkersStateService } from './markers-state.service';
 
-describe('MarkersStateService', () => {
-  let service: MarkersStateService;
+describe('TravelStateService', () => {
+  let service: TravelStateService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(MarkersStateService);
+    service = TestBed.inject(TravelStateService);
   });
 
   it('should be created', () => {
