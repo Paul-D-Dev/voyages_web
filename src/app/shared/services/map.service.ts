@@ -3,7 +3,7 @@ import * as L from 'leaflet';
 import { LatLng } from 'leaflet';
 import { IGpsPosition } from "../interfaces/gps-position.interface";
 import { MAP_CONFIG, MapConfig } from "../../app.config";
-import { IMarkerConfig } from "../interfaces/marker-config.interface";
+import { IMarkerConfig } from "../interfaces/marker.interface";
 
 class CustomLatLng extends LatLng {
   constructor(props: IGpsPosition) {
@@ -62,9 +62,9 @@ export class MapService {
   addMarker(position: IGpsPosition, markerConfig?: IMarkerConfig) {
     console.log('add marker: ', position);
     const marker = L.marker(new CustomLatLng(position));
-    if (markerConfig?.popup) {
-      const popupData = markerConfig.popup;
-      marker.bindPopup(`${popupData.index + 1} - ${popupData.label}`);
+    if (markerConfig?.data) {
+      const data = markerConfig.data;
+      marker.bindPopup(`${data.index + 1} - ${data.label}`);
     }
     marker.addTo(this._map);
   }
