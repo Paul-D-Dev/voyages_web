@@ -10,8 +10,7 @@ import { RouterLink } from "@angular/router";
 import { TravelService } from "../../../shared/services/travel.service";
 import { MatMenu, MatMenuItem, MatMenuTrigger } from "@angular/material/menu";
 import { NavigationService } from "../../../shared/services/navigation.service";
-import { IGpsPosition } from "../../../shared/interfaces/gps-position.interface";
-import { MarkersStateService } from "../../../shared/services/markers-state.service";
+import { TravelStateService } from "../../../shared/services/travel-state.service";
 
 @Component({
   selector: 'app-travel-detail',
@@ -40,7 +39,7 @@ import { MarkersStateService } from "../../../shared/services/markers-state.serv
 export class TravelDetailPage {
   travelService = inject(TravelService);
   navigationService = inject(NavigationService);
-  markersStateService = inject(MarkersStateService);
+  travelStateService = inject(TravelStateService);
 
   @Input()
   set id(travelId: string) {
@@ -67,15 +66,17 @@ export class TravelDetailPage {
     }
   }
 
-  viewIntoTheMap(stepId: number, position: IGpsPosition) {
-    this.markersStateService.set([position]);
+  viewIntoTheMap(idStep: number) {
+    const travel: ITravel = {
+      ...this.mutableTravelSteps,
+      steps: this.mutableTravelSteps.steps.filter(step => step.id === idStep)
+    };
+    this.travelStateService.set(travel);
     this.navigationService.go(['/']);
   }
 
-  // TODO send step to make marker popup able with info step like index, label, category
-  viewTrip(steps: ITravelStep[]) {
-    const positions: IGpsPosition[] = steps.map(step => step.location);
-    this.markersStateService.set(positions);
+  viewTrip(travel: ITravel) {
+    this.travelStateService.set(travel);
     this.navigationService.go(['/']);
   }
 

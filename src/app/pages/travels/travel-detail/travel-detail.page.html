@@ -11,7 +11,7 @@
         <mat-icon class="material-icon-outlined">add</mat-icon>
       </button>
 
-      <button type="button" mat-stroked-button color="primary" (click)="viewTrip(travel.steps)">
+      <button type="button" mat-stroked-button color="primary" (click)="viewTrip(travel)">
         <span>See the trip</span>
         <mat-icon class="material-icon-outlined">map</mat-icon>
       </button>
@@ -43,7 +43,7 @@
             </button>
             <mat-menu #menu="matMenu">
               <!--   TODO FIX when update index and delete the layout do not update with new list -->
-              <button mat-menu-item (click)="viewIntoTheMap(step.id, step.location)">
+              <button mat-menu-item (click)="viewIntoTheMap(step.id)">
                 <mat-icon>map</mat-icon>
                 <span>View map</span>
               </button>
