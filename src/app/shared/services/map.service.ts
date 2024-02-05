@@ -33,7 +33,7 @@ export class MapService {
   position: IGpsPosition;
   zoom: number = 16;
 
-  initMap(position: IGpsPosition | undefined) {
+  initMap(position?: IGpsPosition | undefined) {
     if (position) {
       this.position = position;
     }
@@ -48,12 +48,11 @@ export class MapService {
 
     this._createMap();
     this.setViewMyGeoLocation();
-
   }
 
   initMapHandlers() {
+    // Click event
     this._map.on('click', (e: any) => {
-      console.log('click data: ', e);
       const { lat, lng }: LatLng = e.latlng;
       this.addMarker({ lat, lng });
     });
@@ -66,7 +65,12 @@ export class MapService {
   }
 
   setView(position: IGpsPosition): void {
-    this._map.setView(position, this.mapConfig.zoom.max);
+    this._map.setView(position, this.mapConfig.zoom.max - 3);
+  }
+
+  addMarkerAndSetView(position: IGpsPosition) {
+    this.addMarker(position);
+    this.setView(position);
   }
 
   /*
