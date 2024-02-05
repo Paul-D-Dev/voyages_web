@@ -1,6 +1,6 @@
 import { Component, inject, Input, OnInit } from '@angular/core';
-import { IGpsPosition } from "../../shared/interfaces/gps-position.interface";
 import { MapService } from "../../shared/services/map.service";
+import { IMarker } from "../../shared/interfaces/marker.interface";
 
 @Component({
   selector: 'app-map',
@@ -11,7 +11,7 @@ import { MapService } from "../../shared/services/map.service";
 })
 export class MapComponent implements OnInit {
   private _mapService = inject(MapService);
-  @Input() markers: IGpsPosition[] | undefined;
+  @Input() markers: IMarker[] | undefined = [];
 
   ngOnInit() {
     this._mapService.initMap();
@@ -19,12 +19,13 @@ export class MapComponent implements OnInit {
     this.showMarkers(this.markers);
   }
 
-  protected showMarkers(markers: IGpsPosition[] | undefined): void {
+  protected showMarkers<T>(markers: IMarker<T>[] | undefined): void {
     if (markers !== undefined && markers !== null && markers.length > 0) {
       markers.forEach((marker, index) => {
+        const { position, config } = marker;
         index === 0 ?
-          this._mapService.addMarkerAndSetView(marker)
-          : this._mapService.addMarker(marker);
+          this._mapService.addMarkerAndSetView(marker.position, config)
+          : this._mapService.addMarker(position, config);
       });
     }
   }
