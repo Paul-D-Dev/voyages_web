@@ -6,11 +6,12 @@ import { MatIcon } from "@angular/material/icon";
 import { Icons } from "../../../shared/enums/icons.enum";
 import { MatButton, MatIconButton } from "@angular/material/button";
 import { DatePipe, LowerCasePipe, NgIf, TitleCasePipe } from "@angular/common";
-import { NavigationExtras, RouterLink } from "@angular/router";
+import { RouterLink } from "@angular/router";
 import { TravelService } from "../../../shared/services/travel.service";
 import { MatMenu, MatMenuItem, MatMenuTrigger } from "@angular/material/menu";
 import { NavigationService } from "../../../shared/services/navigation.service";
 import { IGpsPosition } from "../../../shared/interfaces/gps-position.interface";
+import { MarkersStateService } from "../../../shared/services/markers-state.service";
 
 @Component({
   selector: 'app-travel-detail',
@@ -39,6 +40,7 @@ import { IGpsPosition } from "../../../shared/interfaces/gps-position.interface"
 export class TravelDetailPage {
   travelService = inject(TravelService);
   navigationService = inject(NavigationService);
+  markersStateService = inject(MarkersStateService);
 
   @Input()
   set id(travelId: string) {
@@ -66,12 +68,8 @@ export class TravelDetailPage {
   }
 
   viewIntoTheMap(stepId: number, position: IGpsPosition) {
-    const navOptions: NavigationExtras = {
-      state: {
-        mapDataRoute: position
-      }
-    };
-    this.navigationService.go(['/'], navOptions);
+    this.markersStateService.set([position]);
+    this.navigationService.go(['/']);
   }
 
   // TODO route to home page to display itinerary
