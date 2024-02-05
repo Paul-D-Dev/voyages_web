@@ -7,7 +7,8 @@ import { IAddress } from "../../shared/interfaces/address.interface";
 import { AddressListComponent } from "../../components/address-list/address-list.component";
 import { MapService } from "../../shared/services/map.service";
 import { IGpsPosition } from "../../shared/interfaces/gps-position.interface";
-import { MarkersStateService } from "../../shared/services/markers-state.service";
+import { TravelStateService } from "../../shared/services/travel-state.service";
+import { IMarker } from "../../shared/interfaces/marker.interface";
 
 @Component({
   selector: 'app-home',
@@ -24,11 +25,11 @@ import { MarkersStateService } from "../../shared/services/markers-state.service
 export class HomePage {
   globalStateService = inject(GlobalStateService);
   searchFocused = inject(GlobalStateService).select("isSearchFocused");
-  markersStateService = inject(MarkersStateService);
+  travelStateService = inject(TravelStateService);
   mapService = inject(MapService);
 
   addressList: IAddress[] = [];
-  markers: IGpsPosition[] = this.markersStateService.markers();
+  markers: IMarker[] | undefined = this.travelStateService.getMarkers();
 
 
   getLookupAddress(addresses: IAddress[]) {
