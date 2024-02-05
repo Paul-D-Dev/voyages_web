@@ -10,23 +10,21 @@ import { MapService } from "../../shared/services/map.service";
   styleUrl: './map.component.scss'
 })
 export class MapComponent implements OnInit {
-  @Input() initPosition: IGpsPosition | undefined;
-  @Input() markers: IGpsPosition[] | undefined;
-  @Input() isMarker: boolean = false;
   private _mapService = inject(MapService);
+  @Input() markers: IGpsPosition[] | undefined;
 
   ngOnInit() {
-    // TODO when mapDataRoute provide value to initPosition add marker / or setView
-    this._mapService.initMap(this.initPosition);
+    this._mapService.initMap();
     this._mapService.initMapHandlers();
     this.showMarkers(this.markers);
   }
 
-  // TODO fix addMarker not display in the right on the map
   protected showMarkers(markers: IGpsPosition[] | undefined): void {
     if (markers !== undefined && markers !== null && markers.length > 0) {
-      markers.forEach(marker => {
-        this._mapService.addMarker(marker);
+      markers.forEach((marker, index) => {
+        index === 0 ?
+          this._mapService.addMarkerAndSetView(marker)
+          : this._mapService.addMarker(marker);
       });
     }
   }
