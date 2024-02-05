@@ -1,4 +1,4 @@
-<app-map [initPosition]="mapDataRoute" [isMarker]="isMarkerPosition"/>
+<app-map [markers]="markers"/>
 
 <div class="search-input-container" [class.expanded]="searchFocused()">
   <div [class.p-y]="searchFocused()" (keydown.escape)="closeSearchPanel()">
