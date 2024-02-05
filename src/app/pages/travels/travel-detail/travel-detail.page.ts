@@ -72,10 +72,11 @@ export class TravelDetailPage {
     this.navigationService.go(['/']);
   }
 
-  // TODO route to home page to display itinerary
-  // send step to make marker popupable with info step like index, label, category
+  // TODO send step to make marker popup able with info step like index, label, category
   viewTrip(steps: ITravelStep[]) {
-    console.log('view trip: ', steps);
+    const positions: IGpsPosition[] = steps.map(step => step.location);
+    this.markersStateService.set(positions);
+    this.navigationService.go(['/']);
   }
 
   delete(stepId: number) {
