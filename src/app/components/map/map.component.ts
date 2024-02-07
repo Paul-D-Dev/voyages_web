@@ -14,6 +14,7 @@ export class MapComponent implements OnInit {
   @Input() markers: IMarker[] | undefined = [];
 
   ngOnInit() {
+    this._mapService.getPermissionGeolocation();
     this._mapService.initMap();
     this._mapService.initMapHandlers();
     this._mapService.addControlMyPosition();
