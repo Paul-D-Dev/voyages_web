@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import * as L from 'leaflet';
-import { ControlOptions, LatLng } from 'leaflet';
+import { ControlOptions, LatLng, MarkerOptions } from 'leaflet';
 import { IGpsPosition } from "../interfaces/gps-position.interface";
 import { MAP_CONFIG, MapConfig } from "../../app.config";
 import { IMarkerConfig } from "../interfaces/marker.interface";
@@ -35,6 +35,11 @@ export class MapService {
     maxZoom: this.mapConfig.zoom.max,
     minZoom: this.mapConfig.zoom.min,
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
+  });
+
+  private readonly _myPositionIcon = L.icon({
+    iconUrl: '../../../assets/icons/position.icon.gif',
+    iconSize: [40, 40],
   });
 
   mapLoaded: boolean = false;
@@ -80,8 +85,11 @@ export class MapService {
           lng: pos.coords.longitude
         };
 
-        // TODO custom marker icon
-        this.addMarker(coords);
+        const markerOptions: MarkerOptions = {
+          icon: this._myPositionIcon
+        };
+
+        this.addMarker(coords, { options: markerOptions });
         this.currentPosition = {
           state: "success",
           coords,
@@ -106,7 +114,7 @@ export class MapService {
   // TODO custom marker icon
   addMarker(position: IGpsPosition, markerConfig?: IMarkerConfig) {
     console.log('add marker: ', position);
-    const marker = L.marker(new CustomLatLng(position));
+    const marker = L.marker(new CustomLatLng(position), markerConfig?.options);
     if (markerConfig?.data) {
       const data = markerConfig.data;
       marker.bindPopup(`${data.index + 1} - ${data.label}`);
