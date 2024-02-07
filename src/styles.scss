@@ -103,6 +103,7 @@ a {
 .leaflet-control-my-position {
   display: flex;
   flex-direction: column;
+  margin-bottom: 60px !important;
 
   &-button {
     background: red;
