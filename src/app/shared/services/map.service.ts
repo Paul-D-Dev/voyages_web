@@ -85,11 +85,13 @@ export class MapService {
           lng: pos.coords.longitude
         };
 
-        const markerOptions: MarkerOptions = {
-          icon: this._myPositionIcon
-        };
+        if (!this.currentPosition.markerAdded) {
+          const markerOptions: MarkerOptions = {
+            icon: this._myPositionIcon
+          };
+          this.addMarker(coords, { options: markerOptions });
+        }
 
-        this.addMarker(coords, { options: markerOptions });
         this.currentPosition = {
           state: "success",
           coords,
@@ -111,7 +113,6 @@ export class MapService {
       });
   }
 
-  // TODO custom marker icon
   addMarker(position: IGpsPosition, markerConfig?: IMarkerConfig) {
     console.log('add marker: ', position);
     const marker = L.marker(new CustomLatLng(position), markerConfig?.options);
@@ -142,27 +143,36 @@ export class MapService {
     const options: ControlOptions = {
       position: 'bottomright'
     };
-    const MyCtrl = L.Control.extend({
-      onAdd: (map: L.Map) => {
-        const div = L.DomUtil.create('div', 'leaflet-control-my-position');
-        const button = L.DomUtil.create('button', 'leaflet-control-my-position-button', div);
-        button.addEventListener('click', () => {
-          if (this.currentPosition.coords) {
-            this.setView(this.currentPosition.coords, this.mapConfig.zoom.max);
-          }
-        });
 
-        const img = L.DomUtil.create('img', 'my-position-icon', button);
-        img.src = '../../../assets/icons/my_location.png';
-        img.style.width = '24px';
-        return div;
-      },
-      onRemove: () => {
+    // create DOM element
+    const div = L.DomUtil.create('div', 'leaflet-control-my-position');
+    const button = L.DomUtil.create('button', 'leaflet-control-my-position-button', div);
+    const img = L.DomUtil.create('img', 'my-position-icon', button);
+    img.src = '../../../assets/icons/my_location.png';
+    img.style.width = '24px';
+
+    // create click event
+    const ctrlClickEvent = () => L.DomEvent.on(button, {
+      click: (ev) => {
+        L.DomEvent.stopPropagation(ev);
+        if (this.currentPosition.coords) {
+          this.setView(this.currentPosition.coords, this.mapConfig.zoom.max);
+        }
       }
     });
 
-    const c = new MyCtrl(options);
-    c.addTo(this._map);
+    // Create my own control
+    const MyCtrl = L.Control.extend({
+      onAdd: (map: L.Map) => {
+        ctrlClickEvent();
+        return div;
+      },
+      onRemove: () => {
+        L.DomEvent.off(button);
+      }
+    });
+
+    new MyCtrl(options).addTo(this._map);
   }
 
   private _createMap(): void {
