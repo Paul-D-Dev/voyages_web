@@ -11,6 +11,13 @@ class CustomLatLng extends LatLng {
   }
 }
 
+interface CurrentPositionState {
+  state: 'success' | 'failed' | 'init',
+  coords: IGpsPosition | null,
+  markerAdded: boolean
+  failedError?: any
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -33,6 +40,11 @@ export class MapService {
   mapLoaded: boolean = false;
   position: IGpsPosition;
   zoom: number = 16;
+  currentPosition: CurrentPositionState = {
+    state: 'init',
+    coords: null,
+    markerAdded: false
+  };
 
   initMap(position?: IGpsPosition | undefined) {
     if (position) {
@@ -48,8 +60,6 @@ export class MapService {
     }
 
     this._createMap();
-
-    // TODO add control viewMyPosition();
     this.setViewMyGeoLocation();
   }
 
@@ -61,6 +71,39 @@ export class MapService {
     });
   }
 
+  getPermissionGeolocation() {
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        console.log('success');
+        const coords = {
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude
+        };
+
+        // TODO custom marker icon
+        this.addMarker(coords);
+        this.currentPosition = {
+          state: "success",
+          coords,
+          markerAdded: true
+        };
+      },
+      (err) => {
+        console.log('failed');
+        console.log(err);
+        this.currentPosition = {
+          state: "failed",
+          coords: null,
+          markerAdded: false,
+          failedError: err
+        };
+        if (err.PERMISSION_DENIED) {
+          // TODO display popup
+        }
+      });
+  }
+
+  // TODO custom marker icon
   addMarker(position: IGpsPosition, markerConfig?: IMarkerConfig) {
     console.log('add marker: ', position);
     const marker = L.marker(new CustomLatLng(position));
@@ -71,8 +114,8 @@ export class MapService {
     marker.addTo(this._map);
   }
 
-  setView(position: IGpsPosition): void {
-    this._map.setView(position, this.mapConfig.zoom.max - 3);
+  setView(position: IGpsPosition, zoom: number = this.mapConfig.zoom.max - 3): void {
+    this._map.setView(position, zoom);
   }
 
   addMarkerAndSetView(position: IGpsPosition, markerConfig?: IMarkerConfig) {
@@ -93,19 +136,24 @@ export class MapService {
     };
     const MyCtrl = L.Control.extend({
       onAdd: (map: L.Map) => {
-        const img = L.DomUtil.create('img');
+        const div = L.DomUtil.create('div', 'leaflet-control-my-position');
+        const button = L.DomUtil.create('button', 'leaflet-control-my-position-button', div);
+        button.addEventListener('click', () => {
+          if (this.currentPosition.coords) {
+            this.setView(this.currentPosition.coords, this.mapConfig.zoom.max);
+          }
+        });
+
+        const img = L.DomUtil.create('img', 'my-position-icon', button);
         img.src = '../../../assets/icons/my_location.png';
         img.style.width = '24px';
-        return img;
+        return div;
       },
       onRemove: () => {
       }
     });
 
     const c = new MyCtrl(options);
-    const add = c.onAdd(this._map);
-    // TODO add marker
-    // TODO add click event to set view
     c.addTo(this._map);
   }
 
@@ -117,8 +165,6 @@ export class MapService {
 
     this._tiles.addTo(map);
     this._map = map;
-
-    this.addControlMyPosition();
     this.mapLoaded = true;
 
   }

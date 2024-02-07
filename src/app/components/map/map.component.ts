@@ -16,6 +16,7 @@ export class MapComponent implements OnInit {
   ngOnInit() {
     this._mapService.initMap();
     this._mapService.initMapHandlers();
+    this._mapService.addControlMyPosition();
     this.showMarkers(this.markers);
   }
 

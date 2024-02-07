@@ -99,3 +99,16 @@ a {
     justify-content: right;
   }
 }
+
+.leaflet-control-my-position {
+  display: flex;
+  flex-direction: column;
+
+  &-button {
+    background: red;
+    height: 40px;
+    width: 40px;
+    border: none;
+    border-radius: 50%;
+  }
+}
