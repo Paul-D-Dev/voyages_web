@@ -3,6 +3,7 @@
 :root {
   --navbar-height: 3.75rem;
   --bg-color-primary: #FFF;
+  --control-my-position-btn-bg: #0066ff;
 }
 
 * {
@@ -97,5 +98,19 @@ a {
 
   &-right {
     justify-content: right;
+  }
+}
+
+.leaflet-control-my-position {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 60px !important;
+
+  &-button {
+    background: var(--control-my-position-btn-bg);
+    height: 40px;
+    width: 40px;
+    border: none;
+    border-radius: 50%;
   }
 }
