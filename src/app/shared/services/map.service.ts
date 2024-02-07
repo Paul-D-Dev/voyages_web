@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import * as L from 'leaflet';
-import { LatLng } from 'leaflet';
+import { ControlOptions, LatLng } from 'leaflet';
 import { IGpsPosition } from "../interfaces/gps-position.interface";
 import { MAP_CONFIG, MapConfig } from "../../app.config";
 import { IMarkerConfig } from "../interfaces/marker.interface";
@@ -48,6 +48,8 @@ export class MapService {
     }
 
     this._createMap();
+
+    // TODO add control viewMyPosition();
     this.setViewMyGeoLocation();
   }
 
@@ -79,9 +81,32 @@ export class MapService {
   }
 
   /*
-  *   GeoLocation the user position and set the view*/
+  *   GeoLocation the user position and set the view
+  * */
   setViewMyGeoLocation(): void {
     this._map.locate({ setView: true });
+  }
+
+  addControlMyPosition(): void {
+    const options: ControlOptions = {
+      position: 'bottomright'
+    };
+    const MyCtrl = L.Control.extend({
+      onAdd: (map: L.Map) => {
+        const img = L.DomUtil.create('img');
+        img.src = '../../../assets/icons/my_location.png';
+        img.style.width = '24px';
+        return img;
+      },
+      onRemove: () => {
+      }
+    });
+
+    const c = new MyCtrl(options);
+    const add = c.onAdd(this._map);
+    // TODO add marker
+    // TODO add click event to set view
+    c.addTo(this._map);
   }
 
   private _createMap(): void {
@@ -92,6 +117,9 @@ export class MapService {
 
     this._tiles.addTo(map);
     this._map = map;
+
+    this.addControlMyPosition();
     this.mapLoaded = true;
+
   }
 }
