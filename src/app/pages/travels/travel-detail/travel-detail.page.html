@@ -22,8 +22,8 @@
          (cdkDropListDropped)="drop($event)"
          [cdkDropListDisabled]="travel.steps.length < 2"
     >
-      @for (step of travel.steps;track step) {
-        <div cdkDrag class="item" [cdkDragData]="step">
+      @for (step of travel.steps;track step.id) {
+        <div @stepAnim cdkDrag class="item" [cdkDragData]="step">
 
           <div class="item__order">{{ step.index + 1 }}</div>
 
