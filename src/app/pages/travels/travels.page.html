@@ -16,8 +16,8 @@
   </button>
 </div>
 
-<ul class="travel__list">
-  @for (travel of travelList;track travel) {
+<ul class="travel__list" [@listAnimation]="travelList.length">
+  @for (travel of travelList;track travel.id) {
     <li>
       <!--      TODO create component card-travel-->
       <div class="card__container">
