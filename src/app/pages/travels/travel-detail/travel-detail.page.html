@@ -22,7 +22,7 @@
          (cdkDropListDropped)="drop($event)"
          [cdkDropListDisabled]="travel.steps.length < 2"
     >
-      @for (step of travel.steps;track step) {
+      @for (step of travel.steps;track step.id) {
         <div cdkDrag class="item" [cdkDragData]="step">
 
           <div class="item__order">{{ step.index + 1 }}</div>
