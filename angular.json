@@ -21,7 +21,10 @@
               "leaflet",
               "moment"
             ],
-            "outputPath": "dist/voyages",
+            "outputPath": {
+              "base": "dist/voyages",
+              "browser": ""
+            },
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
