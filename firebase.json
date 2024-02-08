@@ -1,7 +1,7 @@
 {
   "hosting": [
     {
-      "site": "voyages-9f131",
+      "target": "voyages",
       "public": "dist/voyages",
       "ignore": [
         "firebase.json",
@@ -13,7 +13,10 @@
           "source": "**",
           "destination": "/index.html"
         }
-      ]
+      ],
+      "frameworksBackend": {
+        "region": "us-central1"
+      }
     }
   ]
 }
