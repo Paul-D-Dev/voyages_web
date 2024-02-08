@@ -1,7 +1,7 @@
 {
   "hosting": [
     {
-      "site": "voyages",
+      "site": "voyages-9f131",
       "public": "dist/voyages",
       "ignore": [
         "firebase.json",
