@@ -1,10 +1,12 @@
-import { ApplicationConfig, InjectionToken } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, InjectionToken } from '@angular/core';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideHttpClient } from "@angular/common/http";
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from "@angular/material/form-field";
 import { provideMomentDateAdapter } from '@angular/material-moment-adapter';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { environment } from "../environments/environment";
 
 export interface MapConfig {
   id: string,
@@ -41,6 +43,9 @@ export const appConfig: ApplicationConfig = {
         }
       }
     },
-    provideMomentDateAdapter(undefined, { useUtc: true })
+    provideMomentDateAdapter(undefined, { useUtc: true }),
+    importProvidersFrom(provideFirebaseApp(() => initializeApp(environment.firebase))),
+    // importProvidersFrom(provideAuth(() => getAuth())),
+    // importProvidersFrom(provideFirestore(() => getFirestore()))
   ]
 };

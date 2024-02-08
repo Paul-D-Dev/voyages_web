@@ -17,7 +17,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/voyages",
+            "allowedCommonJsDependencies": [
+              "leaflet",
+              "moment"
+            ],
+            "outputPath": {
+              "base": "dist/voyages",
+              "browser": ""
+            },
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
@@ -31,7 +38,7 @@
               {
                 "glob": "**/*",
                 "input": "node_modules/leaflet/dist/images/",
-                "output": "./media/"
+                "output": "/media/"
               }
             ],
             "styles": [
@@ -47,7 +54,7 @@
                 {
                   "type": "initial",
                   "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumError": "1.5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -108,6 +115,23 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "voyages:build:production",
+              "serveTarget": "voyages:serve:production"
+            },
+            "development": {
+              "buildTarget": "voyages:build:development",
+              "serveTarget": "voyages:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
