@@ -182,6 +182,8 @@ export class MapService {
       zoom: this.zoom,
     });
 
+    map.zoomControl.setPosition('bottomright');
+
     this._tiles.addTo(map);
     this._map = map;
     this.mapLoaded = true;
