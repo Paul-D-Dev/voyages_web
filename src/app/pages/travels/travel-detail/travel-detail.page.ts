@@ -11,6 +11,7 @@ import { TravelService } from "../../../shared/services/travel.service";
 import { MatMenu, MatMenuItem, MatMenuTrigger } from "@angular/material/menu";
 import { NavigationService } from "../../../shared/services/navigation.service";
 import { TravelStateService } from "../../../shared/services/travel-state.service";
+import { animate, style, transition, trigger } from "@angular/animations";
 
 @Component({
   selector: 'app-travel-detail',
@@ -33,7 +34,18 @@ import { TravelStateService } from "../../../shared/services/travel-state.servic
     LowerCasePipe
   ],
   templateUrl: './travel-detail.page.html',
-  styleUrl: './travel-detail.page.scss'
+  styleUrl: './travel-detail.page.scss',
+  animations: [
+    trigger('stepAnim', [
+      transition(':leave', [
+        animate(200, style(
+          {
+            height: 0,
+            opacity: 0
+          }))
+      ])
+    ])
+  ]
 })
 
 export class TravelDetailPage {
