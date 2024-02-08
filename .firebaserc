@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "voyages-9f131": {
+      "hosting": {
+        "voyages": [
+          "voyages-9f131"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "voyages-9f131"
+  }
+}
