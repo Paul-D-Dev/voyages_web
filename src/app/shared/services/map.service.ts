@@ -147,6 +147,7 @@ export class MapService {
     // create DOM element
     const div = L.DomUtil.create('div', 'leaflet-control-my-position');
     const button = L.DomUtil.create('button', 'leaflet-control-my-position-button', div);
+    button.role = 'button';
     const img = L.DomUtil.create('img', 'my-position-icon', button);
     img.src = '../../../assets/icons/my_location.png';
     img.style.width = '24px';
