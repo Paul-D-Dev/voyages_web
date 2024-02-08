@@ -108,6 +108,23 @@
             ],
             "scripts": []
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "voyages:build:production",
+              "serveTarget": "voyages:serve:production"
+            },
+            "development": {
+              "buildTarget": "voyages:build:development",
+              "serveTarget": "voyages:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }
