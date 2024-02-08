@@ -18,6 +18,9 @@ interface CurrentPositionState {
   failedError?: any
 }
 
+// Define Icon Default image path match with angular.json assets path for leaflet module
+L.Icon.Default.imagePath = 'media/';
+
 @Injectable({
   providedIn: 'root'
 })
