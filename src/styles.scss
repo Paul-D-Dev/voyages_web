@@ -104,7 +104,6 @@ a {
 .leaflet-control-my-position {
   display: flex;
   flex-direction: column;
-  margin-bottom: 60px !important;
 
   &-button {
     background: var(--control-my-position-btn-bg);
@@ -114,4 +113,20 @@ a {
     border-radius: 50%;
     cursor: pointer;
   }
+}
+
+.leaflet-control-zoom.leaflet-bar {
+  border: none;
+
+  a:first-child {
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+  }
+
+  a:last-child {
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    line-height: 26px;
+  }
+
 }
