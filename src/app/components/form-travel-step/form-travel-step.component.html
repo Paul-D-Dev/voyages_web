@@ -1,4 +1,4 @@
-<form [formGroup]="form" (ngSubmit)="onSubmit()">
+<form class="form" [formGroup]="form" (ngSubmit)="onSubmit()">
   <mat-form-field>
     <mat-label>Name</mat-label>
     <input matInput type="text" formControlName="label">
@@ -31,28 +31,31 @@
       <input type="number" matInput aria-label="Longitude" formControlName="lng">
     </mat-form-field>
 
-    <span (click)="toggleDisplayLocationInput()">search with address</span>
   </div>
 
-  @if (isDisplayedLocationInput) {
-    <mat-form-field>
-      <mat-label>Location</mat-label>
-      <input matInput
-             aria-label="Location"
-             formControlName="locationAddress"
-             [matAutocomplete]="auto"
+  <div class="search__address">
+    <span (click)="toggleDisplayLocationInput()">Search with address</span>
+
+    @if (isDisplayedLocationInput) {
+      <mat-form-field @expandCollapse>
+        <mat-label>Search with address</mat-label>
+        <input matInput
+               aria-label="Location"
+               formControlName="locationAddress"
+               [matAutocomplete]="auto"
+        >
+      </mat-form-field>
+      <mat-autocomplete
+          #auto="matAutocomplete"
+          [displayWith]="displayFn"
+          (optionSelected)="onOptionAddressSelected($event)"
       >
-    </mat-form-field>
-    <mat-autocomplete
-        #auto="matAutocomplete"
-        [displayWith]="displayFn"
-        (optionSelected)="onOptionAddressSelected($event)"
-    >
-      @for (address of addresses$ | async;track address) {
-        <mat-option [value]="address">{{ address.fullAddress }}</mat-option>
-      }
-    </mat-autocomplete>
-  }
+        @for (address of addresses$ | async;track address) {
+          <mat-option [value]="address">{{ address.fullAddress }}</mat-option>
+        }
+      </mat-autocomplete>
+    }
+  </div>
 
 
   <!--    Description    -->
