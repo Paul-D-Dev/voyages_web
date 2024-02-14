@@ -26,6 +26,7 @@ import { IAddress } from "../../shared/interfaces/address.interface";
 import { AsyncPipe, KeyValuePipe, TitleCasePipe } from "@angular/common";
 import { MatSelect } from "@angular/material/select";
 import { StepCategories } from "../../shared/enums/step-categories.enum";
+import { animate, state, style, transition, trigger } from "@angular/animations";
 
 @Component({
   selector: 'app-form-travel-step',
@@ -54,7 +55,27 @@ import { StepCategories } from "../../shared/enums/step-categories.enum";
     KeyValuePipe
   ],
   templateUrl: './form-travel-step.component.html',
-  styleUrl: './form-travel-step.component.scss'
+  styleUrl: './form-travel-step.component.scss',
+  animations: [
+    trigger('expandCollapse', [
+      state('void', style({
+        height: 0,
+        opacity: 0
+      })),
+      transition(':enter', [
+        animate('150ms ease-out', style({
+          height: '*',
+          opacity: 1
+        })),
+      ]),
+      transition(':leave', [
+        animate('150ms ease-in', style({
+          height: 0,
+          opacity: 0
+        }))
+      ])
+    ])
+  ]
 })
 
 // TODO Rename class FormManageTravelStep
