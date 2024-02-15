@@ -80,6 +80,11 @@ fdescribe('FormTravelComponent', () => {
   fdescribe('ui', () => {
     let formDe: DebugElement;
 
+    // it('should display input formData provided by parent', () => {
+    //   component.formData = mockFormData;
+    //   fixture.detectChanges();
+    // });
+
     beforeEach(() => {
       fixture.detectChanges();
       formDe = fixture.debugElement.query(By.css('form'));
@@ -89,10 +94,9 @@ fdescribe('FormTravelComponent', () => {
       expect(formDe).toBeTruthy();
     });
 
-    it('form should classList', () => {
-      const classList = 'travel-form form';
-      // TODO FIX test
-      expect(formDe.nativeElement.classList).toContain(classList);
+    it('form should have classList', () => {
+      expect(formDe.nativeElement).toHaveClass('travel-form');
+      expect(formDe.nativeElement).toHaveClass('form');
     });
   });
 });
