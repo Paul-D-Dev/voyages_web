@@ -40,20 +40,24 @@ import { Icons } from "../../shared/enums/icons.enum";
 export class FormTravelComponent {
   @Input() formData: ITravelFormData = {
     name: '',
-    dateStart: new Date('').toDateString(),
-    dateEnd: new Date('').toDateString()
+    dateStart: new Date().toDateString(),
+    dateEnd: new Date().toDateString()
   };
   @Output() onSubmitForm = new EventEmitter<ITravelFormData>;
 
   protected readonly Icons = Icons;
   readonly fb = inject(FormBuilder);
+  form!: FormGroup;
 
-  form: FormGroup = this.fb.group({
-      name: new FormControl(this.formData.name),
-      dateStart: new FormControl(this.formData.dateStart),
-      dateEnd: new FormControl(this.formData.dateEnd),
-    }
-  );
+  ngOnInit() {
+    this.form = this.fb.group({
+        name: new FormControl(this.formData.name),
+        dateStart: new FormControl(this.formData.dateStart),
+        dateEnd: new FormControl(this.formData.dateEnd),
+      }
+    );
+  }
+
 
   onSubmit() {
     console.log('onCLick submit button');
