@@ -20,7 +20,7 @@ import {
 } from "@angular/material/datepicker/testing";
 import { MatInputHarness } from "@angular/material/input/testing";
 
-fdescribe('FormTravelComponent', () => {
+describe('FormTravelComponent', () => {
   let component: FormTravelComponent;
   let fixture: ComponentFixture<FormTravelComponent>;
   let loader: HarnessLoader;
@@ -93,13 +93,8 @@ fdescribe('FormTravelComponent', () => {
 
   });
 
-  fdescribe('ui', () => {
+  describe('ui', () => {
     let formDe: DebugElement;
-
-    // it('should display input formData provided by parent', () => {
-    //   component.formData = mockFormData;
-    //   fixture.detectChanges();
-    // });
 
     beforeEach(() => {
       fixture.detectChanges();
@@ -120,7 +115,7 @@ fdescribe('FormTravelComponent', () => {
       expect(fields).toHaveSize(2);
     });
 
-    fdescribe('travel name field', () => {
+    describe('travel name field', () => {
       let field: MatFormFieldHarness;
 
       beforeEach(async () => {
@@ -141,6 +136,13 @@ fdescribe('FormTravelComponent', () => {
           expect(await matInput.isRequired()).withContext('input should be required').toBeTrue();
           expect(await matInput.getType()).withContext('input type should be text').toEqual('text');
         }
+      });
+
+      it('should display value when name control set value', async () => {
+        component.form.setValue(mockFormData);
+        fixture.detectChanges();
+        const matInput = await field.getControl(MatInputHarness);
+        expect(await matInput?.getValue()).toBe(mockFormData.name);
       });
     });
 
