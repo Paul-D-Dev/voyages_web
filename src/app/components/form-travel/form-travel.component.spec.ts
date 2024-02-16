@@ -9,7 +9,6 @@ import { DebugElement } from "@angular/core";
 import { HarnessLoader } from "@angular/cdk/testing";
 import { TestbedHarnessEnvironment } from "@angular/cdk/testing/testbed";
 import { MatFormFieldHarness } from "@angular/material/form-field/testing";
-import { MatInputHarness } from "@angular/material/input/testing";
 import { MatButtonHarness } from "@angular/material/button/testing";
 import { MatIconHarness } from "@angular/material/icon/testing";
 import { Icons } from "../../shared/enums/icons.enum";
@@ -19,6 +18,7 @@ import {
   MatEndDateHarness,
   MatStartDateHarness
 } from "@angular/material/datepicker/testing";
+import { MatInputHarness } from "@angular/material/input/testing";
 
 fdescribe('FormTravelComponent', () => {
   let component: FormTravelComponent;
@@ -120,17 +120,28 @@ fdescribe('FormTravelComponent', () => {
       expect(fields).toHaveSize(2);
     });
 
-    // TODO describe input travel name
-    it('should input travel name', async () => {
-      const travelNameFields = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'Travel name' }));
-      expect(travelNameFields).toBeTruthy();
-      expect(await travelNameFields.getLabel()).toEqual('Travel name');
-      const matInput = await travelNameFields.getControl(MatInputHarness);
-      if (matInput) {
-        expect(matInput).toBeTruthy();
-        expect(await matInput.isRequired()).toBeTrue();
-        expect(await matInput.getType()).toEqual('text');
-      }
+    fdescribe('travel name field', () => {
+      let field: MatFormFieldHarness;
+
+      beforeEach(async () => {
+        field = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'Travel name' }));
+      });
+      it('should create', () => {
+        expect(field).toBeTruthy();
+      });
+
+      it('should have a label', async () => {
+        expect(await field.getLabel()).toEqual('Travel name');
+      });
+
+      it('should have an input with requirements', async () => {
+        const matInput = await field.getControl(MatInputHarness);
+        if (matInput) {
+          expect(matInput).toBeTruthy();
+          expect(await matInput.isRequired()).withContext('input should be required').toBeTrue();
+          expect(await matInput.getType()).withContext('input type should be text').toEqual('text');
+        }
+      });
     });
 
     describe('date range field', () => {
