@@ -6,10 +6,19 @@ import { provideAnimations } from "@angular/platform-browser/animations";
 import { ITravelFormData } from "../../shared/interfaces/travel.interface";
 import { By } from "@angular/platform-browser";
 import { DebugElement } from "@angular/core";
+import { HarnessLoader } from "@angular/cdk/testing";
+import { TestbedHarnessEnvironment } from "@angular/cdk/testing/testbed";
+import { MatFormFieldHarness } from "@angular/material/form-field/testing";
+import { MatInputHarness } from "@angular/material/input/testing";
+import { MatButtonHarness } from "@angular/material/button/testing";
+import { MatIconHarness } from "@angular/material/icon/testing";
+import { Icons } from "../../shared/enums/icons.enum";
 
 fdescribe('FormTravelComponent', () => {
   let component: FormTravelComponent;
   let fixture: ComponentFixture<FormTravelComponent>;
+  let loader: HarnessLoader;
+
   const mockFormData: ITravelFormData = {
     name: 'Paris',
     dateStart: '2024-01-28T00:00:00.000Z',
@@ -27,6 +36,7 @@ fdescribe('FormTravelComponent', () => {
       .compileComponents();
     fixture = TestBed.createComponent(FormTravelComponent);
     component = fixture.componentInstance;
+    loader = TestbedHarnessEnvironment.loader(fixture);
   });
 
   it('should create', () => {
@@ -98,5 +108,60 @@ fdescribe('FormTravelComponent', () => {
       expect(formDe.nativeElement).toHaveClass('travel-form');
       expect(formDe.nativeElement).toHaveClass('form');
     });
+
+    it('should have 2 form fields', async () => {
+      const fields = await loader.getAllHarnesses(MatFormFieldHarness);
+      expect(fields).toHaveSize(2);
+    });
+
+    // TODO describe input travel name
+    it('should input travel name', async () => {
+      const travelNameFields = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'Travel name' }));
+      expect(travelNameFields).toBeTruthy();
+      expect(await travelNameFields.getLabel()).toEqual('Travel name');
+      const matInput = await travelNameFields.getControl(MatInputHarness);
+      if (matInput) {
+        expect(matInput).toBeTruthy();
+        expect(await matInput.isRequired()).toBeTrue();
+        expect(await matInput.getType()).toEqual('text');
+      }
+    });
+
+    // TODO describe input date range
+    it('should date range input', async () => {
+      const field = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'Set the date' }));
+      expect(field).toBeTruthy();
+      // TODO date range input
+
+      expect(await field.getTextHints()).toEqual(['MM/DD/YYYY – MM/DD/YYYY']);
+    });
+
+    describe('submit button', () => {
+      let matButton: MatButtonHarness;
+
+      beforeEach(async () => {
+        matButton = await loader.getHarness(MatButtonHarness.with({ variant: 'mini-fab' }));
+      });
+
+      it('should create', async () => {
+        expect(matButton).toBeTruthy();
+      });
+
+      it('should trigger onSubmit method when clicked', async () => {
+        await matButton.click();
+        const onSubmitSpy = spyOn(component, 'onSubmit');
+        await matButton.click();
+        expect(onSubmitSpy).toHaveBeenCalledTimes(1);
+      });
+
+      it('should content a mat-icon with arrow_forward', async () => {
+        const matIcon = await matButton.getHarnessOrNull(MatIconHarness);
+        expect(matIcon).toBeTruthy();
+        expect(await matIcon?.getName()).toContain(Icons.ARROW_FORWARD);
+      });
+
+    });
+
+
   });
 });
