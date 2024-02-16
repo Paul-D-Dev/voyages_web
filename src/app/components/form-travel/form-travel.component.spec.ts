@@ -13,6 +13,12 @@ import { MatInputHarness } from "@angular/material/input/testing";
 import { MatButtonHarness } from "@angular/material/button/testing";
 import { MatIconHarness } from "@angular/material/icon/testing";
 import { Icons } from "../../shared/enums/icons.enum";
+import {
+  MatDatepickerToggleHarness,
+  MatDateRangeInputHarness,
+  MatEndDateHarness,
+  MatStartDateHarness
+} from "@angular/material/datepicker/testing";
 
 fdescribe('FormTravelComponent', () => {
   let component: FormTravelComponent;
@@ -127,13 +133,55 @@ fdescribe('FormTravelComponent', () => {
       }
     });
 
-    // TODO describe input date range
-    it('should date range input', async () => {
-      const field = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'Set the date' }));
-      expect(field).toBeTruthy();
-      // TODO date range input
+    describe('date range field', () => {
+      let dateRangeField: MatFormFieldHarness;
+      let dateRangeInput: MatDateRangeInputHarness;
+      let datePickerToggle: MatDatepickerToggleHarness;
+      let startDateInput: MatStartDateHarness;
+      let endDateInput: MatEndDateHarness;
 
-      expect(await field.getTextHints()).toEqual(['MM/DD/YYYY – MM/DD/YYYY']);
+      beforeEach(async () => {
+        dateRangeField = await loader.getHarness(MatFormFieldHarness.with({ floatingLabelText: 'Set the date' }));
+        dateRangeInput = await loader.getHarness(MatDateRangeInputHarness);
+        datePickerToggle = await loader.getHarness(MatDatepickerToggleHarness);
+        startDateInput = await dateRangeInput.getStartInput();
+        endDateInput = await dateRangeInput.getEndInput();
+      });
+
+      it('should create', async () => {
+        expect(dateRangeField).toBeTruthy();
+        expect(dateRangeInput).toBeTruthy();
+        expect(datePickerToggle).toBeTruthy();
+        expect(startDateInput).toBeTruthy();
+        expect(endDateInput).toBeTruthy();
+        expect(await dateRangeField.getTextHints()).toEqual(['MM/DD/YYYY – MM/DD/YYYY']);
+      });
+
+      it('should date range input required', async () => {
+        expect(await dateRangeInput.isRequired()).toBeTrue();
+      });
+
+      it('should open a calendar when datePickerToggle is clicked', async () => {
+        await datePickerToggle.openCalendar();
+        expect(await datePickerToggle.isCalendarOpen()).toBeTrue();
+      });
+
+      describe('start date input', () => {
+        it('should have placeholder "Start date"', async () => {
+          expect(await startDateInput.getPlaceholder()).toBe('Start date');
+        });
+
+        it('should init with empty value', async () => {
+          expect(await startDateInput.getValue()).toBe('');
+        });
+
+      });
+
+
+      it('should end date has placeholder "End date"', async () => {
+        expect(await endDateInput.getPlaceholder()).toBe('End date');
+      });
+
     });
 
     describe('submit button', () => {
