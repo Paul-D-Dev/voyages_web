@@ -1,0 +1,28 @@
+$clr-date: #868383;
+$border-rgba: rgba(173, 173, 173, 0.5);
+$border-radius: var(--border-radius);
+
+.card__container {
+  height: 200px;
+  display: flex;
+  flex-direction: column;
+
+  border: 1px $border-rgba solid;
+  border-radius: $border-radius;
+
+  .card__travel {
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+
+    &__name {
+      margin-block-end: 0.5rem;
+    }
+
+    &__dates {
+      font-size: 0.9rem;
+      color: $clr-date
+    }
+  }
+
+}

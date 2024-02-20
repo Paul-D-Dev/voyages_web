@@ -1,0 +1,6 @@
+<div class="card__container" (click)="onClick.emit(travel?.id)">
+  <div class="card__travel">
+    <span class="card__travel__name">{{ travel?.name | titlecase }}</span>
+    <span class="card__travel__dates">{{ travel?.dateStart | date }} - {{ travel?.dateEnd | date }}</span>
+  </div>
+</div>
