@@ -9,36 +9,5 @@
     display: inline-block;
   }
 
-  a {
-    text-decoration: none;
-  }
 }
 
-
-.card__container {
-  height: 200px;
-  display: flex;
-  flex-direction: column;
-
-  border: 1px rgba(173, 173, 173, 0.5) solid;
-  border-radius: 23px;
-
-  a {
-    padding: 1rem;
-    height: inherit;
-    width: inherit;
-  }
-
-  .card__travel {
-    display: flex;
-    flex-direction: column;
-
-
-    &__dates {
-      font-size: 0.9rem;
-      color: #868383
-    }
-  }
-
-
-}

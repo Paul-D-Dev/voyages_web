@@ -1,22 +1,22 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from "@angular/router";
 import { ITravel } from "../../shared/interfaces/travel.interface";
-import { DatePipe, TitleCasePipe } from "@angular/common";
 import { MatButton } from "@angular/material/button";
 import { TravelService } from "../../shared/services/travel.service";
 import { HeaderComponent } from "../../components/header/header.component";
 import { animate, query, stagger, style, transition, trigger } from "@angular/animations";
+import { TravelCardComponent } from "../../components/travel-card/travel-card.component";
+import { NavigationService } from "../../shared/services/navigation.service";
 
 @Component({
   selector: 'app-travels',
   standalone: true,
   imports: [
     RouterLink,
-    DatePipe,
     MatButton,
     RouterOutlet,
     HeaderComponent,
-    TitleCasePipe
+    TravelCardComponent
   ],
   templateUrl: './travels.page.html',
   styleUrl: './travels.page.scss',
@@ -34,6 +34,10 @@ import { animate, query, stagger, style, transition, trigger } from "@angular/an
 })
 export class TravelsPage {
   travelService = inject(TravelService);
+  navigationService = inject(NavigationService);
   travelList: ITravel[] = this.travelService.travels();
 
+  navigateToTravelDetail(idTravel: number) {
+    this.navigationService.goUrl(`travels/${idTravel}`);
+  }
 }

@@ -1,7 +1,4 @@
-<app-header
-  title="Travels"
-  [isBackNavigation]="false"
-></app-header>
+<app-header title="Travels" [isBackNavigation]="false"/>
 
 <!-- TODO think about router-outlet to put as children components add and :id-->
 <!--<router-outlet></router-outlet>-->
@@ -9,11 +6,7 @@
 <div class="p-x">
 
   <div class="container__button container__button-right">
-    <button
-      mat-flat-button
-      color="primary"
-      routerLink="add"
-    >
+    <button mat-flat-button color="primary" routerLink="add">
       add new travel
     </button>
   </div>
@@ -21,16 +14,10 @@
   <ul class="travel__list" [@listAnimation]="travelList.length">
     @for (travel of travelList;track travel.id) {
       <li>
-        <!--      TODO create component card-travel-->
-        <div class="card__container">
-          <a routerLink="{{travel.id}}">
-            <div class="card__travel">
-              <span class="card__travel__name">{{ travel.name | titlecase }}</span>
-              <span class="card__travel__dates">{{ travel.dateStart | date }} - {{ travel.dateEnd | date }}</span>
-            </div>
-          </a>
-        </div>
+        <app-travel-card [travel]="travel" (onClick)="navigateToTravelDetail($event)"/>
       </li>
+    } @empty {
+      <li>There are not travels.</li>
     }
   </ul>
 
