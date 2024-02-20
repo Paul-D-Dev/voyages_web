@@ -1,0 +1,11 @@
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Menu actions">
+  <mat-icon>{{ Icons.MORE }}</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  @for (button of menuButtonList;track button.icon) {
+    <button mat-menu-item (click)="button.onClick()">
+      <mat-icon>{{ button.icon }}</mat-icon>
+      <span>{{ button.label | titlecase }}</span>
+    </button>
+  }
+</mat-menu>
