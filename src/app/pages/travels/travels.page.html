@@ -12,7 +12,7 @@
   </div>
 
   <ul class="travel__list" [@listAnimation]="travelList.length">
-    @for (travel of travelList;track travel.id) {
+    @for (travel of travelList();track travel.id) {
       <li>
         <app-travel-card
           [travel]="travel"
