@@ -1,4 +1,4 @@
-import { Injectable, signal, WritableSignal } from '@angular/core';
+import { Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { ITravel, ITravelFormData, ITravelStep, ITravelStepFormData } from "../interfaces/travel.interface";
 import { LocalStorageService } from "./local-storage.service";
 import { LocalStorageKeyEnum } from "../enums/local-storage-key.enum";
@@ -8,18 +8,19 @@ import { LocalStorageKeyEnum } from "../enums/local-storage-key.enum";
 })
 export class TravelService {
   constructor(private localStorageService: LocalStorageService<ITravel[]>) {
-    this.localStorageService.loadStateFromLocalStorage(this.localStorageKey, this.travels, []);
+    this.localStorageService.loadStateFromLocalStorage(this.localStorageKey, this._travels, []);
   }
 
   private readonly localStorageKey = LocalStorageKeyEnum.TRAVELS;
-  readonly travels: WritableSignal<ITravel[]> = signal<ITravel[]>([]);
+  private readonly _travels: WritableSignal<ITravel[]> = signal<ITravel[]>([]);
+  readonly travels: Signal<ITravel[]> = this._travels.asReadonly();
 
   private _saveLocal() {
     this.localStorageService.set(this.localStorageKey, this.travels());
   }
 
   add(travel: ITravelFormData): void {
-    this.travels.update((travelList: ITravel[]) => {
+    this._travels.update((travelList: ITravel[]) => {
       const length = travelList.length;
       const id = length === 0 ? 1 : travelList[length - 1].id + 1;
       return [...travelList, { id, ...travel, steps: [] }];
@@ -28,14 +29,24 @@ export class TravelService {
   }
 
   getById(travelId: number): ITravel | undefined {
-    return this.travels().find(t => t.id === travelId);
+    return this._travels().find(t => t.id === travelId);
   }
 
   update(travelData: ITravelFormData, id: number): void {
-    this.travels.update(travels =>
+    this._travels.update(travels =>
       travels.map(travel => travel.id === id ?
         { id: travel.id, ...travelData, steps: travel.steps } : travel
       ));
+    this._saveLocal();
+  }
+
+  delete(idTravel: number): void {
+    this._travels.update(travels => {
+      const index = travels.findIndex(t => t.id === idTravel);
+      travels.splice(index, 1);
+      return travels;
+    });
+
     this._saveLocal();
   }
 
@@ -51,12 +62,12 @@ export class TravelService {
           return item;
         }
       });
-    this.travels.update((travels) => replaceStepsById(travels, travelId));
+    this._travels.update((travels) => replaceStepsById(travels, travelId));
     this._saveLocal();
   }
 
   addStep(step: ITravelStepFormData, travelId: number): void {
-    this.travels.update(travels => {
+    this._travels.update(travels => {
       const travel = travels.find(t => t.id === travelId);
       if (travel) {
         // TODO replace how to create the new step BE will handle it
@@ -79,7 +90,7 @@ export class TravelService {
   }
 
   editStep(data: ITravelStepFormData, idTravel: number, idStep: number) {
-    this.travels.update(travels => travels
+    this._travels.update(travels => travels
       .map(t => {
         if (t.id === idTravel) {
           t.steps = t.steps.map(s => (s.id === idStep ? { ...s, ...data } : s));
@@ -92,7 +103,7 @@ export class TravelService {
   }
 
   deleteStep(stepId: number, travelId: number): void {
-    this.travels.update((travels) => {
+    this._travels.update((travels) => {
       return travels.map((t) => {
         if (t.id === travelId) {
           t.steps = t.steps

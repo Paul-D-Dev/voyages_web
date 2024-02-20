@@ -13,7 +13,7 @@ import { MatMiniFabButton } from "@angular/material/button";
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { ITravelFormData } from "../../shared/interfaces/travel.interface";
 import { Icons } from "../../shared/enums/icons.enum";
-
+import { setTravelFormData } from "../../shared/utils";
 
 @Component({
   selector: 'app-form-travel',
@@ -38,22 +38,21 @@ import { Icons } from "../../shared/enums/icons.enum";
 })
 
 export class FormTravelComponent {
-  @Input() formData: ITravelFormData = {
-    name: '',
-    dateStart: new Date('').toDateString(),
-    dateEnd: new Date('').toDateString()
-  };
+  @Input({ transform: setTravelFormData }) formData!: ITravelFormData;
   @Output() onSubmitForm = new EventEmitter<ITravelFormData>;
 
   protected readonly Icons = Icons;
   readonly fb = inject(FormBuilder);
+  form!: FormGroup;
 
-  form: FormGroup = this.fb.group({
-      name: new FormControl(this.formData.name),
-      dateStart: new FormControl(this.formData.dateStart),
-      dateEnd: new FormControl(this.formData.dateEnd),
-    }
-  );
+  ngOnInit() {
+    this.form = this.fb.group({
+        name: new FormControl(this.formData.name),
+        dateStart: new FormControl(this.formData.dateStart),
+        dateEnd: new FormControl(this.formData.dateEnd),
+      }
+    );
+  }
 
   onSubmit() {
     console.log('onCLick submit button');

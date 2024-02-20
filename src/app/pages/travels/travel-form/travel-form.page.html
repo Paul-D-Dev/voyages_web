@@ -1,0 +1,3 @@
+<app-header [title]="isEdit ? 'Edit travel' : 'Add a new travel'" [isBackNavigation]="true"/>
+
+<app-form-travel [formData]="formData" (onSubmitForm)="onSave($event)"/>
