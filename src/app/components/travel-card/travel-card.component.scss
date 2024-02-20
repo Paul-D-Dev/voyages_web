@@ -11,18 +11,29 @@ $border-radius: var(--border-radius);
   border-radius: $border-radius;
 
   .card__travel {
-    padding: 1rem;
+    height: inherit;
+    width: inherit;
     display: flex;
     flex-direction: column;
+  }
+}
 
-    &__name {
-      margin-block-end: 0.5rem;
-    }
+.card__content {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
 
-    &__dates {
-      font-size: 0.9rem;
-      color: $clr-date
-    }
+  &__title {
+    margin-block-end: 0.5rem;
   }
 
+  &__dates {
+    font-size: 0.9rem;
+    color: $clr-date
+  }
+}
+
+.card__actions {
+  align-self: flex-end;
+  margin-block-start: auto;
 }

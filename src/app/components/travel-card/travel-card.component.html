@@ -1,6 +1,17 @@
-<div class="card__container" (click)="onClick.emit(travel?.id)">
+<div class="card__container">
   <div class="card__travel">
-    <span class="card__travel__name">{{ travel?.name | titlecase }}</span>
-    <span class="card__travel__dates">{{ travel?.dateStart | date }} - {{ travel?.dateEnd | date }}</span>
+    <div
+      class="card__content"
+      tabindex="0"
+      (keydown.enter)="onClick.emit(travel?.id)"
+      (click)="onClick.emit(travel?.id)"
+    >
+      <span class="card__content__title">{{ travel?.name | titlecase }}</span>
+      <span class="card__content__dates">{{ travel?.dateStart | date }} - {{ travel?.dateEnd | date }}</span>
+    </div>
+
+    <div class="card__actions">
+      <app-menu-button [menuButtonList]="menuButtonList"/>
+    </div>
   </div>
 </div>
