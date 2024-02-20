@@ -40,4 +40,12 @@ export class TravelsPage {
   navigateToTravelDetail(idTravel: number) {
     this.navigationService.goUrl(`travels/${idTravel}`);
   }
+
+  editTravel(idTravel: number): void {
+    console.log('edit ', idTravel);
+  }
+
+  deleteTravel(idTravel: number): void {
+    console.log('delete ', idTravel);
+  }
 }
