@@ -3,7 +3,7 @@ import { HeaderComponent } from "../../../components/header/header.component";
 import { FormTravelComponent } from "../../../components/form-travel/form-travel.component";
 import { ITravelFormData } from "../../../shared/interfaces/travel.interface";
 import { TravelService } from "../../../shared/services/travel.service";
-
+import { NavigationService } from "../../../shared/services/navigation.service";
 
 @Component({
   selector: 'app-add-travel',
@@ -16,12 +16,13 @@ import { TravelService } from "../../../shared/services/travel.service";
   styleUrl: './add-travel.page.scss'
 })
 export class AddTravelPage {
-
   travelService = inject(TravelService);
+  navigationService = inject(NavigationService);
 
   onSave(formData: ITravelFormData) {
     console.log(formData);
     this.travelService.add(formData);
+    this.navigationService.go(['/travels']);
   }
 
 }
