@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TravelFormPage } from './travel-form.page';
 
-import { AddTravelPage } from './add-travel.page';
-
-describe('AddTravelPage', () => {
-  let component: AddTravelPage;
-  let fixture: ComponentFixture<AddTravelPage>;
+describe('TravelFormPage', () => {
+  let component: TravelFormPage;
+  let fixture: ComponentFixture<TravelFormPage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddTravelPage]
+      imports: [TravelFormPage]
     })
-    .compileComponents();
-    
-    fixture = TestBed.createComponent(AddTravelPage);
+      .compileComponents();
+
+    fixture = TestBed.createComponent(TravelFormPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

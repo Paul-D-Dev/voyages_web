@@ -12,10 +12,10 @@ import { NavigationService } from "../../../shared/services/navigation.service";
     HeaderComponent,
     FormTravelComponent,
   ],
-  templateUrl: './add-travel.page.html',
-  styleUrl: './add-travel.page.scss'
+  templateUrl: './travel-form.page.html',
+  styleUrl: './travel-form.page.scss'
 })
-export class AddTravelPage {
+export class TravelFormPage {
   travelService = inject(TravelService);
   navigationService = inject(NavigationService);
 
