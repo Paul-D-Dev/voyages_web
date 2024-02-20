@@ -1,5 +1,5 @@
 import { Component, inject, Signal } from '@angular/core';
-import { RouterLink, RouterOutlet } from "@angular/router";
+import { ActivatedRoute, RouterLink, RouterOutlet } from "@angular/router";
 import { ITravel } from "../../shared/interfaces/travel.interface";
 import { MatButton } from "@angular/material/button";
 import { TravelService } from "../../shared/services/travel.service";
@@ -36,15 +36,17 @@ import { NavigationService } from "../../shared/services/navigation.service";
 export class TravelsPage {
   travelService = inject(TravelService);
   navigationService = inject(NavigationService);
+  route = inject(ActivatedRoute);
   travelList: Signal<ITravel[]> = this.travelService.travels;
 
   navigateToTravelDetail(idTravel: number) {
-    this.navigationService.goUrl(`travels/${idTravel}`);
+    const id: string = idTravel.toString();
+    this.navigationService.go([id], { relativeTo: this.route });
   }
 
   editTravel(idTravel: number): void {
-    console.log('edit ', idTravel);
-    // TODO navigate to /travels/edit/id
+    const id: string = idTravel.toString();
+    this.navigationService.go(['./edit', id], { relativeTo: this.route });
   }
 
   deleteTravel(idTravel: number): void {
