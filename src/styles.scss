@@ -4,6 +4,7 @@
   --navbar-height: 3.75rem;
   --bg-color-primary: #FFF;
   --control-my-position-btn-bg: #0066ff;
+  --border-radius: 23px;
 }
 
 * {
@@ -26,6 +27,7 @@ li {
 
 a {
   color: unset;
+  text-decoration: none;
 }
 
 .p-y {
