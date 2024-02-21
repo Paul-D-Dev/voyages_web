@@ -29,7 +29,12 @@ import { NavigationService } from "../../shared/services/navigation.service";
           stagger('120ms', animate('600ms ease-out', style({ opacity: 1 }))),
         ], { optional: true })
       ])
-    ])
+    ]),
+    trigger('deleteAnimation', [
+      transition(':leave', [
+        animate('250ms ease-out', style({ opacity: 0, height: '0', padding: '0' }))
+      ])
+    ]),
   ]
 })
 

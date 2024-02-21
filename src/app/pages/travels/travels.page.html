@@ -13,7 +13,7 @@
 
   <ul class="travel__list" [@listAnimation]="travelList.length">
     @for (travel of travelList();track travel.id) {
-      <li>
+      <li @deleteAnimation>
         <app-travel-card
           [travel]="travel"
           (onClick)="navigateToTravelDetail($event)"
