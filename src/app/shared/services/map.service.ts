@@ -75,7 +75,9 @@ export class MapService {
     // Click event
     this._map.on('click', (e: any) => {
       const { lat, lng }: LatLng = e.latlng;
-      this.addMarker({ lat, lng });
+      this.addMarker({ lat, lng }, {
+        canRemove: true
+      });
     });
   }
 
@@ -123,6 +125,11 @@ export class MapService {
       const data = markerConfig.data;
       marker.bindPopup(`${data.index + 1} - ${data.label}`);
     }
+
+    if (markerConfig?.canRemove) {
+      marker.on('click', e => e.target.remove());
+    }
+
     marker.addTo(this._map);
   }
 
