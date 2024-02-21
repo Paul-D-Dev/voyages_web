@@ -1,14 +1,30 @@
+<div>{{ isTravelRoute$ | async }}</div>
 <app-map [markers]="markers"/>
 
 <!--  Add expanded only on mobile-->
-<div class="search-input-container" [class.expanded]="searchFocused()">
-  <div (keydown.escape)="closeSearchPanel()">
-    <app-search-address-form [searchIsFocused]="searchFocused()" (addressResult)="getLookupAddress($event)"/>
+<!-- ASIDE full page when travels routes -->
+<aside [class.full-height]="isTravelRoute$ | async">
+  <div class="aside-wrapper">
 
-    @if (searchFocused()) {
-      <div>
-        <app-address-list [addressList]="addressList" (selectAddress)="onSelectedAddress($event)"></app-address-list>
+    <!--    can display the search input if home page-->
+    <div
+      class="search-input-container"
+      [hidden]="true"
+      [class.expanded]="searchFocused()"
+    >
+      <div (keydown.escape)="closeSearchPanel()">
+        <app-search-address-form [searchIsFocused]="searchFocused()" (addressResult)="getLookupAddress($event)"/>
+
+        @if (searchFocused()) {
+          <div>
+            <app-address-list [addressList]="addressList"
+                              (selectAddress)="onSelectedAddress($event)"/>
+          </div>
+        }
       </div>
-    }
+    </div>
+
+    <router-outlet/>
   </div>
-</div>
+
+</aside>

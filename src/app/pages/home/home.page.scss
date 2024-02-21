@@ -4,13 +4,20 @@ $transition-timing: 125ms;
 $smooth: ease-in-out;
 $bg-color-primary: var(--bg-color-primary);
 
-.search-input-container {
-  $padding-top: 1rem;
-
+aside {
   position: absolute;
   top: 0;
-  padding-block-start: $padding-top;
   z-index: 2;
+  width: 100%;
+  background: red;
+
+  &.full-height {
+    height: 100%;
+  }
+}
+
+.search-input-container {
+  $padding-top: 1rem;
   height: 40px;
   width: 100%;
   transition: height $transition-timing $smooth,
@@ -24,7 +31,7 @@ $bg-color-primary: var(--bg-color-primary);
 }
 
 @media screen and (min-width: $tablet) {
-  .search-input-container {
+  aside {
     max-width: 25rem;
   }
 
