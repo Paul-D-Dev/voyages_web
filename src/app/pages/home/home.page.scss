@@ -1,20 +1,31 @@
+@use 'responsive' as *;
+
 $transition-timing: 125ms;
 $smooth: ease-in-out;
 $bg-color-primary: var(--bg-color-primary);
 
 .search-input-container {
+  $padding-top: 1rem;
+
   position: absolute;
-  bottom: calc(var(--navbar-height) + 5px);
+  top: 0;
+  padding-block-start: $padding-top;
   z-index: 2;
   height: 40px;
   width: 100%;
   transition: height $transition-timing $smooth,
   background calc($transition-timing * .85) ease-in,
-  bottom $transition-timing $smooth;
+  top $transition-timing $smooth;
 
   &.expanded {
     background: $bg-color-primary;
-    height: 100%;
-    bottom: 0;
+    height: calc(100% - $padding-top);
   }
+}
+
+@media screen and (min-width: $tablet) {
+  .search-input-container {
+    max-width: 25rem;
+  }
+
 }

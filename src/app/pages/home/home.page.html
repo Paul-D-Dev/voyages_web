@@ -1,11 +1,9 @@
 <app-map [markers]="markers"/>
 
+<!--  Add expanded only on mobile-->
 <div class="search-input-container" [class.expanded]="searchFocused()">
-  <div [class.p-y]="searchFocused()" (keydown.escape)="closeSearchPanel()">
-    <app-search-address-form
-      [searchIsFocused]="searchFocused()"
-      (addressResult)="getLookupAddress($event)"
-    />
+  <div (keydown.escape)="closeSearchPanel()">
+    <app-search-address-form [searchIsFocused]="searchFocused()" (addressResult)="getLookupAddress($event)"/>
 
     @if (searchFocused()) {
       <div>
