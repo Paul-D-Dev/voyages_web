@@ -12,6 +12,8 @@ import { MatMenu, MatMenuItem, MatMenuTrigger } from "@angular/material/menu";
 import { NavigationService } from "../../../shared/services/navigation.service";
 import { TravelStateService } from "../../../shared/services/travel-state.service";
 import { animate, style, transition, trigger } from "@angular/animations";
+import { OpenOnMapsAppService } from "../../../shared/services/open-on-maps-app.service";
+import { IGpsPosition } from "../../../shared/interfaces/gps-position.interface";
 
 @Component({
   selector: 'app-travel-detail',
@@ -52,6 +54,7 @@ export class TravelDetailPage {
   travelService = inject(TravelService);
   navigationService = inject(NavigationService);
   travelStateService = inject(TravelStateService);
+  openOnMapsAppService = inject(OpenOnMapsAppService);
 
   @Input()
   set id(travelId: string) {
@@ -65,10 +68,6 @@ export class TravelDetailPage {
   mutableTravelSteps!: ITravel;
   protected readonly Icons = Icons;
 
-  // TODO
-  editStep(id: number) {
-    // open modal with form data of the step
-  }
 
   drop(event: CdkDragDrop<ITravelStep[]>) {
     moveItemInArray(this.mutableTravelSteps.steps, event.previousIndex, event.currentIndex);
@@ -76,6 +75,10 @@ export class TravelDetailPage {
       this.mutableTravelSteps.steps = this._saveIndex(this.mutableTravelSteps.steps);
       this.travelService.updateStepIndexes(this.mutableTravelSteps.steps, this.mutableTravelSteps.id);
     }
+  }
+
+  navigateToThePoint(stepLocation: IGpsPosition) {
+    this.openOnMapsAppService.viewLocation(stepLocation);
   }
 
   viewIntoTheMap(idStep: number) {
