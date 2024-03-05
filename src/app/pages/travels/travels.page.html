@@ -3,27 +3,25 @@
 <!-- TODO think about router-outlet to put as children components add and :id-->
 <!--<router-outlet></router-outlet>-->
 
-<div class="p-x">
 
-  <div class="container__button container__button-right">
-    <button mat-flat-button color="primary" routerLink="add">
-      add new travel
-    </button>
-  </div>
-
-  <ul class="travel__list" [@listAnimation]="travelList.length">
-    @for (travel of travelList();track travel.id) {
-      <li @deleteAnimation>
-        <app-travel-card
-          [travel]="travel"
-          (onClick)="navigateToTravelDetail($event)"
-          (onEdit)="editTravel($event)"
-          (onDelete)="deleteTravel($event)"
-        />
-      </li>
-    } @empty {
-      <li>There are not travels.</li>
-    }
-  </ul>
-
+<div class="container__button container__button-right">
+  <button mat-flat-button color="primary" routerLink="add">
+    add new travel
+  </button>
 </div>
+
+<ul class="travel__list" [@listAnimation]="travelList.length">
+  @for (travel of travelList();track travel.id) {
+    <li @deleteAnimation>
+      <app-travel-card
+        [travel]="travel"
+        (onClick)="navigateToTravelDetail($event)"
+        (onEdit)="editTravel($event)"
+        (onDelete)="deleteTravel($event)"
+      />
+    </li>
+  } @empty {
+    <li>There are not travels.</li>
+  }
+</ul>
+

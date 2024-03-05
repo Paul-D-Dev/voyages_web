@@ -2,69 +2,66 @@
 
   <app-header [title]="travel.name" [isBackNavigation]="true"/>
 
-  <div class="p-x">
+  <div class="container__button container__button-right">
+    <button type="button" mat-stroked-button routerLink="add-step" color="primary">
+      <!--        TODO remove span when width too small   -->
+      <span>Add a step</span>
+      <mat-icon class="material-icon-outlined">add</mat-icon>
+    </button>
 
-    <div class="container__button container__button-right">
-      <button type="button" mat-stroked-button routerLink="add-step" color="primary">
-        <!--        TODO remove span when width too small   -->
-        <span>Add a step</span>
-        <mat-icon class="material-icon-outlined">add</mat-icon>
-      </button>
+    <button type="button" mat-stroked-button color="primary" (click)="viewTrip(travel)">
+      <span>See the trip</span>
+      <mat-icon class="material-icon-outlined">map</mat-icon>
+    </button>
+  </div>
 
-      <button type="button" mat-stroked-button color="primary" (click)="viewTrip(travel)">
-        <span>See the trip</span>
-        <mat-icon class="material-icon-outlined">map</mat-icon>
-      </button>
-    </div>
+  <div cdkDropList
+       class="container-list"
+       (cdkDropListDropped)="drop($event)"
+       [cdkDropListDisabled]="travel.steps.length < 2"
+  >
+    @for (step of travel.steps;track step.id) {
+      <div @stepAnim cdkDrag class="item" [cdkDragData]="step">
 
-    <div cdkDropList
-         class="container-list"
-         (cdkDropListDropped)="drop($event)"
-         [cdkDropListDisabled]="travel.steps.length < 2"
-    >
-      @for (step of travel.steps;track step.id) {
-        <div @stepAnim cdkDrag class="item" [cdkDragData]="step">
+        <div class="item__order">{{ step.index + 1 }}</div>
 
-          <div class="item__order">{{ step.index + 1 }}</div>
-
-          <div class="item__content container-no-wrap-ellipsis">
-            <div>
-              <!--TODO create pipe to convert caterory with match material icon
-              e.g road to icon road-->
-              <span *ngIf="step.category">{{ step.category }}</span>
-              <span> {{ step.label | titlecase }} </span>
-            </div>
-            <span class="sub-text f-lighter">{{ step.dateStart | date }} - {{ step.dateEnd | date }}</span>
+        <div class="item__content container-no-wrap-ellipsis">
+          <div>
+            <!--TODO create pipe to convert caterory with match material icon
+            e.g road to icon road-->
+            <span *ngIf="step.category">{{ step.category }}</span>
+            <span> {{ step.label | titlecase }} </span>
           </div>
-
-          <div class="item__actions">
-            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Step action menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu">
-              <!--   TODO FIX when update index and delete the layout do not update with new list -->
-              <button mat-menu-item (click)="viewIntoTheMap(step.id)">
-                <mat-icon>map</mat-icon>
-                <span>View map</span>
-              </button>
-              <button mat-menu-item [routerLink]="['./edit-step', step.id]">
-                <mat-icon>edit</mat-icon>
-                <span>Edit</span>
-              </button>
-              <button mat-menu-item (click)="delete(step.id)">
-                <mat-icon>delete</mat-icon>
-                <span>Delete</span>
-              </button>
-            </mat-menu>
-
-            <button *ngIf="travel.steps.length > 1" cdkDragHandle mat-icon-button>
-              <mat-icon>{{ Icons.MENU }}</mat-icon>
-            </button>
-          </div>
-
+          <span class="sub-text f-lighter">{{ step.dateStart | date }} - {{ step.dateEnd | date }}</span>
         </div>
-      }
-    </div>
+
+        <div class="item__actions">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Step action menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <!--   TODO FIX when update index and delete the layout do not update with new list -->
+            <button mat-menu-item (click)="viewIntoTheMap(step.id)">
+              <mat-icon>map</mat-icon>
+              <span>View map</span>
+            </button>
+            <button mat-menu-item [routerLink]="['./edit-step', step.id]">
+              <mat-icon>edit</mat-icon>
+              <span>Edit</span>
+            </button>
+            <button mat-menu-item (click)="delete(step.id)">
+              <mat-icon>delete</mat-icon>
+              <span>Delete</span>
+            </button>
+          </mat-menu>
+
+          <button *ngIf="travel.steps.length > 1" cdkDragHandle mat-icon-button>
+            <mat-icon>{{ Icons.MENU }}</mat-icon>
+          </button>
+        </div>
+
+      </div>
+    }
   </div>
 
 }
