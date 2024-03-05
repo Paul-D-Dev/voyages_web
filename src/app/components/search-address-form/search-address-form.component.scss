@@ -5,13 +5,13 @@ $input-outline-clr: blue;
 $input-border-clr: grey;
 
 .form-search-address {
-  padding-inline: 1rem;
   display: flex;
   align-items: center;
+  position: relative;
 
   .icon-left {
     position: absolute;
-    left: 1.5rem;
+    left: .5rem;
   }
 
   .search {
