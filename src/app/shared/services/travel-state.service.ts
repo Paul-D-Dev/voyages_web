@@ -13,6 +13,7 @@ export class TravelStateService {
     this._travel.set(item);
   }
 
+  // TODO remove undefined type instead return empty []
   getMarkers(): IMarker[] | undefined {
     return this.travel()?.steps.map(step => ({
       position: step.location,
