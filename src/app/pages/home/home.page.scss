@@ -3,6 +3,9 @@
 $transition-timing: 125ms;
 $smooth: ease-in-out;
 $bg-color-primary: var(--bg-color-primary);
+$border-radius: var(--border-radius);
+$aside-wrapper-padding: 1rem;
+$aside-wrapper-margin: 0.8rem;
 
 .page-container {
   position: relative;
@@ -27,8 +30,8 @@ aside {
   }
 
   .aside-wrapper {
-    padding-inline: 1rem;
-    padding-block-start: 1rem;
+    padding-inline: $aside-wrapper-padding;
+    padding-block-start: $aside-wrapper-padding;
     height: 100%;
 
     &.expanded {
@@ -56,9 +59,11 @@ aside {
     max-width: 25rem;
 
     .aside-wrapper {
-      margin-block-start: .8rem;
-      margin-inline-start: .8rem;
-      border-radius: 23px;
+      margin-block-start: $aside-wrapper-margin;
+      margin-inline-start: $aside-wrapper-margin;
+      border-radius: $border-radius;
+      // Height reduce by margin-block + padding-block-start
+      height: calc(100% - $aside-wrapper-margin - $aside-wrapper-padding);
     }
   }
 
