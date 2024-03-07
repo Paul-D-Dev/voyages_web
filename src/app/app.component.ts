@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
+import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
+import { filter, tap } from "rxjs";
+import { GlobalStateService } from "./shared/services/global-state.service";
 
 @Component({
   selector: 'app-root',
@@ -11,6 +13,16 @@ import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
+  constructor(private router: Router, private globalStateService: GlobalStateService) {
+    this.router.events.pipe(
+      filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+      tap(e => {
+        const isHomePage = e.url === '/';
+        this.globalStateService.set('isHomePage', isHomePage);
+      })
+    ).subscribe();
+  }
+
   title = 'voyages';
-  hideNavbar = false;
+  hideNavbar: Signal<boolean> = this.globalStateService.select('isNavBarHide');
 }
