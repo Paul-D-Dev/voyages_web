@@ -2,16 +2,12 @@
 
   <app-map [markers]="markers"/>
 
-  <!--  Add expanded only on mobile-->
-  <!-- ASIDE full page when travels routes -->
-  <!--  <aside [class.page]="isTravelRoute$ | async">-->
-  <aside [class.page]="false">
+  <aside [class.page]="!isHomePage()">
     <div class="aside-wrapper" [class.expanded]="searchFocused()">
 
-      <!--    can display the search input if home page-->
       <div
         class="search-input-container"
-        [hidden]="false"
+        [hidden]="!isHomePage()"
         [class.expanded]="searchFocused()"
       >
         <div (keydown.escape)="closeSearchPanel()">

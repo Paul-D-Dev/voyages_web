@@ -29,6 +29,7 @@ import { Observable, of } from "rxjs";
 export class HomePage {
   globalStateService = inject(GlobalStateService);
   searchFocused = inject(GlobalStateService).select("isSearchFocused");
+  isHomePage = this.globalStateService.select("isHomePage");
   travelStateService = inject(TravelStateService);
   mapService = inject(MapService);
 
