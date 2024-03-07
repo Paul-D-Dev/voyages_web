@@ -18,8 +18,6 @@ aside {
   left: 0;
   z-index: 2;
   width: 100%;
-  height: min-content;
-  overflow: hidden;
 
   &.page {
     height: 100%;
@@ -30,13 +28,15 @@ aside {
   }
 
   .aside-wrapper {
-    padding-inline: $aside-wrapper-padding;
-    padding-block-start: $aside-wrapper-padding;
+    overflow: hidden;
+    padding-block-start: 1rem;
+  }
+
+  .aside-wrapper {
     height: 100%;
 
     &.expanded {
       background: $bg-color-primary;
-      padding-block-end: 1rem;
     }
   }
 }
@@ -45,6 +45,7 @@ aside {
   $padding-top: 1rem;
   height: 40px;
   width: 100%;
+  padding-inline: 1rem;
   transition: height $transition-timing $smooth,
   background calc($transition-timing * .85) ease-in,
   top $transition-timing $smooth;
@@ -61,10 +62,30 @@ aside {
     .aside-wrapper {
       margin-block-start: $aside-wrapper-margin;
       margin-inline-start: $aside-wrapper-margin;
+      padding-block-start: unset;
       border-radius: $border-radius;
       // Height reduce by margin-block + padding-block-start
       height: calc(100% - $aside-wrapper-margin - $aside-wrapper-padding);
     }
   }
 
+  .search-input-container {
+    padding-inline: unset;
+  }
+
+}
+
+@supports selector(::-webkit-scrollbar) {
+  .aside-wrapper {
+    &::-webkit-scrollbar {
+      width: 1px;
+      background: aquamarine;
+      left: -10px;
+      height: 90%;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #000;
+    }
+  }
 }

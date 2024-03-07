@@ -3,12 +3,12 @@
   <app-map [markers]="markers"/>
 
   <aside [class.page]="!isHomePage()">
-    <div class="aside-wrapper" [class.expanded]="searchFocused()">
+    <div class="aside-wrapper" [class.expanded]="searchFocused() && addressList.length > 0">
 
       <div
         class="search-input-container"
         [hidden]="!isHomePage()"
-        [class.expanded]="searchFocused()"
+        [class.expanded]="searchFocused() && addressList.length > 0"
       >
         <div (keydown.escape)="closeSearchPanel()">
           <app-search-address-form [searchIsFocused]="searchFocused()" (addressResult)="getLookupAddress($event)"/>
