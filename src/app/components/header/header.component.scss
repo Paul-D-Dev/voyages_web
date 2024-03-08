@@ -1,4 +1,8 @@
+@use 'responsive' as *;
+
 .header {
+  padding-block-end: 1rem;
+  padding-inline: 1rem;
 
   button {
     margin-bottom: .5rem;
@@ -7,5 +11,11 @@
   h1 {
     font-size: 1.5rem;
     letter-spacing: .1rem;
+  }
+}
+
+@media screen and (min-width: $tablet) {
+  .header {
+    padding-block-start: 1rem;
   }
 }
