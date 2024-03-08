@@ -5,6 +5,7 @@
   --bg-color-primary: #FFF;
   --control-my-position-btn-bg: #0066ff;
   --border-radius: 23px;
+  --hover-bg: rgba(60, 64, 67, 0.04);
 }
 
 * {
@@ -120,7 +121,10 @@ a {
   margin-block-start: 1.25rem;
   padding-inline: 1rem;
   padding-block-end: 1rem;
-  overflow-y: auto;
+
+  &-scrollable {
+    overflow-y: auto;
+  }
 }
 
 .leaflet-control-my-position {
