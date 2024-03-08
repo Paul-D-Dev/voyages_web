@@ -1,4 +1,4 @@
-<ul>
+<ul class="address-list">
   @for (address of addressList;track address) {
     <li
       class="address-item"
@@ -23,7 +23,6 @@
             , {{ address.addressDetail.state }}</span>
         }
       </div>
-      <span><mat-icon>{{ Icons.NORTH_WEST }}</mat-icon></span>
     </li>
   }
 </ul>
