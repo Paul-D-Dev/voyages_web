@@ -8,7 +8,7 @@
     </button>
   </div>
 
-  <ul class="travel__list list" [@listAnimation]="travelList.length">
+  <ul class="travel__list list list-scrollable" [@listAnimation]="travelList.length">
     @for (travel of travelList();track travel.id) {
       <li @deleteAnimation>
         <app-travel-card
