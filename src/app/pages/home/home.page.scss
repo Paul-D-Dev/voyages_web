@@ -1,7 +1,7 @@
 @use 'responsive' as *;
 
 $bg-color-primary: var(--bg-color-primary);
-$border-radius: var(--border-radius);
+$border-radius-2: var(--border-radius-2);
 $aside-wrapper-padding: 1rem;
 $aside-wrapper-margin: 0.8rem;
 
@@ -45,10 +45,15 @@ aside {
       margin-block-start: $aside-wrapper-margin;
       margin-inline-start: $aside-wrapper-margin;
       padding-block-start: unset;
-      // TODO replace by variable
-      border-radius: 16px;
+      border-radius: $border-radius-2;
       // Height reduce by margin-block + padding-block-start
       height: calc(100% - $aside-wrapper-margin - $aside-wrapper-padding);
+    }
+
+    &.page {
+      .aside-wrapper .router-container {
+        padding-block-start: unset;
+      }
     }
   }
 
