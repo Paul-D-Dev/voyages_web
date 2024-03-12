@@ -1,7 +1,5 @@
 @use 'responsive' as *;
 
-$transition-timing: 125ms;
-$smooth: ease-in-out;
 $bg-color-primary: var(--bg-color-primary);
 $border-radius: var(--border-radius);
 $aside-wrapper-padding: 1rem;
@@ -19,41 +17,25 @@ aside {
   z-index: 2;
   width: 100%;
 
+  .aside-wrapper {
+    height: 100%;
+  }
+
   &.page {
     height: 100%;
 
     .aside-wrapper {
       background: $bg-color-primary;
+
+      .router-container {
+        height: 100%;
+        padding-block-start: 1rem;
+      }
     }
   }
 
-  .aside-wrapper {
-    overflow: hidden;
-    padding-block-start: 1rem;
-  }
-
-  .aside-wrapper {
-    height: 100%;
-
-    &.expanded {
-      background: $bg-color-primary;
-    }
-  }
 }
 
-.search-input-container {
-  $padding-top: 1rem;
-  height: 40px;
-  width: 100%;
-  padding-inline: 1rem;
-  transition: height $transition-timing $smooth,
-  background calc($transition-timing * .85) ease-in,
-  top $transition-timing $smooth;
-
-  &.expanded {
-    height: calc(100% - $padding-top);
-  }
-}
 
 @media screen and (min-width: $tablet) {
   aside {
@@ -63,15 +45,13 @@ aside {
       margin-block-start: $aside-wrapper-margin;
       margin-inline-start: $aside-wrapper-margin;
       padding-block-start: unset;
-      border-radius: $border-radius;
+      // TODO replace by variable
+      border-radius: 16px;
       // Height reduce by margin-block + padding-block-start
       height: calc(100% - $aside-wrapper-margin - $aside-wrapper-padding);
     }
   }
 
-  .search-input-container {
-    padding-inline: unset;
-  }
 
 }
 
