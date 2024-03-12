@@ -60,6 +60,8 @@ aside {
 
 }
 
+
+// TODO update style scroll bar in list
 @supports selector(::-webkit-scrollbar) {
   .aside-wrapper {
     &::-webkit-scrollbar {
