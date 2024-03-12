@@ -1,6 +1,6 @@
 $clr-date: #868383;
 $border-rgba: rgba(173, 173, 173, 0.5);
-$border-radius: var(--border-radius);
+$border-radius-1: var(--border-radius-1);
 $hover-bg: var(--hover-bg);
 
 .card__container {
@@ -9,7 +9,7 @@ $hover-bg: var(--hover-bg);
   flex-direction: column;
 
   border: 1px $border-rgba solid;
-  border-radius: $border-radius;
+  border-radius: $border-radius-1;
 
   .card__travel {
     height: inherit;
