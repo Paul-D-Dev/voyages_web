@@ -4,27 +4,31 @@ $bg-color-primary: var(--bg-color-primary);
 $input-outline-clr: blue;
 $input-border-clr: grey;
 
-.form-search-address {
+.form-container {
+  height: 46px;
   display: flex;
+  gap: .5rem;
   align-items: center;
-  position: relative;
+  padding-inline: 1rem;
+  border-radius: var(--border-radius);
+  background: $bg-color-primary;
 
-  .icon-left {
-    position: absolute;
-    left: .5rem;
+  button {
+    border: none;
+    background: inherit;
   }
+}
+
+.form-search-address {
+  height: 24px;
+  width: 100%;
 
   .search {
-    height: 40px;
-    width: 100%;
-    border-radius: 23px;
-    background: $bg-color-input;
-    padding-inline-start: 2.5rem;
-    padding-inline-end: 1rem;
+    width: inherit;
     border: none;
     color: $color;
+    background: inherit;
     outline-color: $input-outline-clr;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24)
   }
 
   &.active {
