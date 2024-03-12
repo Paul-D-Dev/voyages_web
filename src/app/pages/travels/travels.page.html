@@ -1,4 +1,4 @@
-<div class="travels-container">
+<div class="page-container">
 
   <app-header title="Travels" [isBackNavigation]="false"/>
 
@@ -8,7 +8,7 @@
     </button>
   </div>
 
-  <ul class="travel__list list list-scrollable" [@listAnimation]="travelList.length">
+  <ul class="travel__list list scrollable" [@listAnimation]="travelList.length">
     @for (travel of travelList();track travel.id) {
       <li @deleteAnimation>
         <app-travel-card

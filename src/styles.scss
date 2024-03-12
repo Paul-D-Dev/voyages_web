@@ -82,6 +82,13 @@ a {
   }
 }
 
+.page-container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+
 .mat-mdc-form-field {
   width: 100%;
 }
@@ -135,9 +142,10 @@ a {
   padding-inline: 1rem;
   padding-block-end: 1rem;
 
-  &-scrollable {
-    overflow-y: auto;
-  }
+}
+
+.scrollable {
+  overflow-y: auto;
 }
 
 .leaflet-control-my-position {

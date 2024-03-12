@@ -1,5 +1,7 @@
-<app-header [title]="tripStep ? ('Step ' + tripStep.index + 1) : 'New Step'" [isBackNavigation]="true"/>
+<div class="page-container">
+  <app-header [title]="tripStep ? ('Step ' + tripStep.index + 1) : 'New Step'" [isBackNavigation]="true"/>
 
-<section>
-  <app-form-travel-step [formData]="tripStep" (onSubmitForm)="onSubmit($event)"/>
-</section>
+  <section class="h-100 scrollable">
+    <app-form-travel-step [formData]="tripStep" (onSubmitForm)="onSubmit($event)"/>
+  </section>
+</div>
