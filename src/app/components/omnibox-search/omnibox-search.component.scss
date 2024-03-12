@@ -1,9 +1,12 @@
+@use "responsive" as *;
+
 $bg-color-primary: var(--bg-color-primary);
 
 .omnibox {
   display: flex;
   flex-direction: column;
-  transition: background-color 0.125s ease-in-out;
+  transition: background-color 0.125s ease-in-out,
+  border-radius 0.125s ease-in-out;
 
   &.active {
     background-color: $bg-color-primary;
@@ -31,6 +34,16 @@ $bg-color-primary: var(--bg-color-primary);
 
 .omnibox__list {
   padding-inline: 1rem;
+}
+
+@media screen and (min-width: $tablet) {
+  .omnibox {
+    border-radius: 23px;
+
+    &.active {
+      border-radius: 16px;
+    }
+  }
 }
 
 
