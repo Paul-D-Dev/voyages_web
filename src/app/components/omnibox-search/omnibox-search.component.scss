@@ -1,0 +1,36 @@
+$bg-color-primary: var(--bg-color-primary);
+
+.omnibox {
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.125s ease-in-out;
+
+  &.active {
+    background-color: $bg-color-primary;
+
+    .omnibox__header {
+      border-bottom: 1px solid #dadce0;
+    }
+
+    .search-form-container {
+      box-shadow: unset;
+    }
+  }
+
+}
+
+.search-form-container {
+  $width: calc(2 * var(--omnibox-space));
+  margin-top: var(--omnibox-space);
+  margin-left: var(--omnibox-space);
+  width: calc(100% - 2 * var(--omnibox-space));
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0px rgba(0, 0, 0, 0.02);
+  border-radius: var(--border-radius);
+  background: $bg-color-primary;
+}
+
+.omnibox__list {
+  padding-inline: 1rem;
+}
+
+
