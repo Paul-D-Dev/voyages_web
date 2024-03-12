@@ -1,6 +1,9 @@
 @use "responsive" as *;
 
 $bg-color-primary: var(--bg-color-primary);
+$space: var(--omnibox-space);
+$border-radius-1: var(--border-radius-1);
+$border-radius-2: var(--border-radius-2);
 
 .omnibox {
   display: flex;
@@ -23,12 +26,11 @@ $bg-color-primary: var(--bg-color-primary);
 }
 
 .search-form-container {
-  $width: calc(2 * var(--omnibox-space));
-  margin-top: var(--omnibox-space);
-  margin-left: var(--omnibox-space);
-  width: calc(100% - 2 * var(--omnibox-space));
+  margin-top: $space;
+  margin-left: $space;
+  width: calc(100% - 2 * $space);
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0px rgba(0, 0, 0, 0.02);
-  border-radius: var(--border-radius);
+  border-radius: $border-radius-1;
   background: $bg-color-primary;
 }
 
@@ -38,10 +40,10 @@ $bg-color-primary: var(--bg-color-primary);
 
 @media screen and (min-width: $tablet) {
   .omnibox {
-    border-radius: 23px;
+    border-radius: $border-radius-1;
 
     &.active {
-      border-radius: 16px;
+      border-radius: $border-radius-2;
     }
   }
 }
