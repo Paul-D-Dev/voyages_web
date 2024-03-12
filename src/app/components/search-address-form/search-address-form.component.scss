@@ -1,8 +1,7 @@
-$color: #000;
-$bg-color-input: rgba(#FFF, 0.9);
+$color-primary: var(--color-text-primary);
 $bg-color-primary: var(--bg-color-primary);
+$border-radius-1: var(--border-radius-1);
 $input-outline-clr: blue;
-$input-border-clr: grey;
 
 .form-container {
   height: 46px;
@@ -10,12 +9,12 @@ $input-border-clr: grey;
   gap: .5rem;
   align-items: center;
   padding-inline: 1rem;
-  border-radius: var(--border-radius);
   background: $bg-color-primary;
+  border-radius: $border-radius-1;
 
   button {
-    border: none;
     background: inherit;
+    border: none;
   }
 }
 
@@ -25,18 +24,11 @@ $input-border-clr: grey;
 
   .search {
     width: inherit;
-    border: none;
-    color: $color;
+    color: $color-primary;
     background: inherit;
+    border: none;
     outline-color: $input-outline-clr;
   }
 
-  &.active {
-    background: inherit;
-
-    .search {
-      box-shadow: none;
-    }
-  }
 }
 
