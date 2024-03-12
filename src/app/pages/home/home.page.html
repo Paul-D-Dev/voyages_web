@@ -1,16 +1,21 @@
-<app-map [markers]="markers"/>
+<div class="home-container">
 
-<div class="search-input-container" [class.expanded]="searchFocused()">
-  <div [class.p-y]="searchFocused()" (keydown.escape)="closeSearchPanel()">
-    <app-search-address-form
-      [searchIsFocused]="searchFocused()"
-      (addressResult)="getLookupAddress($event)"
-    />
+  <app-map [markers]="markers"/>
 
-    @if (searchFocused()) {
-      <div>
-        <app-address-list [addressList]="addressList" (selectAddress)="onSelectedAddress($event)"></app-address-list>
+  <aside [class.page]="!isHomePage()">
+
+    <div class="aside-wrapper">
+
+      @if (isHomePage()) {
+        <app-omnibox-search (selectAddress)="onSelectedAddress($event)"/>
+      }
+
+      <div class="router-container">
+        <router-outlet/>
       </div>
-    }
-  </div>
+
+    </div>
+
+  </aside>
 </div>
+

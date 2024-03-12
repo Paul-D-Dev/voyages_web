@@ -17,6 +17,7 @@ export class GlobalStateService {
   private readonly initState: IGlobalState = {
     isNavBarHide: false,
     isSearchFocused: false,
+    isHomePage: false
   };
 
   private readonly featureKey = LocalStorageKeyEnum.GLOBAL_STATE;

@@ -1,0 +1,51 @@
+@use "responsive" as *;
+
+$bg-color-primary: var(--bg-color-primary);
+$space: var(--omnibox-space);
+$border-radius-1: var(--border-radius-1);
+$border-radius-2: var(--border-radius-2);
+
+.omnibox {
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.125s ease-in-out,
+  border-radius 0.125s ease-in-out;
+
+  &.active {
+    background-color: $bg-color-primary;
+
+    .omnibox__header {
+      border-bottom: 1px solid #dadce0;
+    }
+
+    .search-form-container {
+      box-shadow: unset;
+    }
+  }
+
+}
+
+.search-form-container {
+  margin-top: $space;
+  margin-left: $space;
+  width: calc(100% - 2 * $space);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2), 0 -1px 0px rgba(0, 0, 0, 0.02);
+  border-radius: $border-radius-1;
+  background: $bg-color-primary;
+}
+
+.omnibox__list {
+  padding-inline: 1rem;
+}
+
+@media screen and (min-width: $tablet) {
+  .omnibox {
+    border-radius: $border-radius-1;
+
+    &.active {
+      border-radius: $border-radius-2;
+    }
+  }
+}
+
+

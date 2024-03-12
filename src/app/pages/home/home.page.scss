@@ -1,20 +1,79 @@
-$transition-timing: 125ms;
-$smooth: ease-in-out;
+@use 'responsive' as *;
+
 $bg-color-primary: var(--bg-color-primary);
+$border-radius-2: var(--border-radius-2);
+$aside-wrapper-padding: 1rem;
+$aside-wrapper-margin: 0.8rem;
 
-.search-input-container {
+.home-container {
+  position: relative;
+  height: 100%;
+}
+
+aside {
   position: absolute;
-  bottom: calc(var(--navbar-height) + 5px);
+  top: 0;
+  left: 0;
   z-index: 2;
-  height: 40px;
   width: 100%;
-  transition: height $transition-timing $smooth,
-  background calc($transition-timing * .85) ease-in,
-  bottom $transition-timing $smooth;
 
-  &.expanded {
-    background: $bg-color-primary;
+  .aside-wrapper {
     height: 100%;
-    bottom: 0;
+  }
+
+  &.page {
+    height: 100%;
+
+    .aside-wrapper {
+      background: $bg-color-primary;
+
+      .router-container {
+        height: 100%;
+        padding-block-start: 1rem;
+      }
+    }
+  }
+
+}
+
+
+@media screen and (min-width: $tablet) {
+  aside {
+    max-width: 25rem;
+
+    .aside-wrapper {
+      overflow: hidden;
+      margin-block-start: $aside-wrapper-margin;
+      margin-inline-start: $aside-wrapper-margin;
+      padding-block-start: unset;
+      border-radius: $border-radius-2;
+      // Height reduce by margin-block + padding-block-start
+      height: calc(100% - $aside-wrapper-margin - $aside-wrapper-padding);
+    }
+
+    &.page {
+      .aside-wrapper .router-container {
+        padding-block-start: unset;
+      }
+    }
+  }
+
+
+}
+
+
+// TODO update style scroll bar in list
+@supports selector(::-webkit-scrollbar) {
+  .aside-wrapper {
+    &::-webkit-scrollbar {
+      width: 1px;
+      background: aquamarine;
+      left: -10px;
+      height: 90%;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background: #000;
+    }
   }
 }

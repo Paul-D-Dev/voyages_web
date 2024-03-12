@@ -1,0 +1,22 @@
+<div class="omnibox-container">
+  <div class="omnibox" [class.active]="isOmniboxActive()">
+
+    <div class="omnibox__header">
+      <div
+        class="search-form-container"
+        (keydown.escape)="closeSearchPanel()"
+      >
+        <app-search-address-form [searchIsFocused]="searchFocused()"
+                                 (addressResult)="getLookupAddress($event)"/>
+      </div>
+    </div>
+
+    <div class="omnibox__list">
+      @if (isOmniboxActive()) {
+        <app-address-list [addressList]="addressList()"
+                          (selectAddress)="onSelectedAddress($event)"/>
+      }
+    </div>
+  </div>
+
+</div>

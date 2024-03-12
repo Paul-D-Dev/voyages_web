@@ -5,9 +5,12 @@ export const routes: Routes = [
   {
     path: '',
     component: HomePage,
+    children: [
+      {
+        path: 'travels',
+        loadChildren: () => import('./pages/travels/travel.route').then(m => m.travelRoutes)
+      },
+    ]
   },
-  {
-    path: 'travels',
-    loadChildren: () => import('./pages/travels/travel.route').then(m => m.travelRoutes)
-  },
+
 ];

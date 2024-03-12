@@ -1,6 +1,7 @@
 $clr-date: #868383;
 $border-rgba: rgba(173, 173, 173, 0.5);
-$border-radius: var(--border-radius);
+$border-radius-1: var(--border-radius-1);
+$hover-bg: var(--hover-bg);
 
 .card__container {
   height: 200px;
@@ -8,13 +9,18 @@ $border-radius: var(--border-radius);
   flex-direction: column;
 
   border: 1px $border-rgba solid;
-  border-radius: $border-radius;
+  border-radius: $border-radius-1;
 
   .card__travel {
     height: inherit;
     width: inherit;
     display: flex;
     flex-direction: column;
+    border-radius: inherit;
+
+    &:hover {
+      background: $hover-bg;
+    }
   }
 }
 
@@ -22,6 +28,7 @@ $border-radius: var(--border-radius);
   padding: 1rem;
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 
   &__title {
     margin-block-end: 0.5rem;
