@@ -88,7 +88,6 @@ a {
   height: 100%;
 }
 
-
 .mat-mdc-form-field {
   width: 100%;
 }
@@ -141,11 +140,14 @@ a {
   margin-block-start: 1.25rem;
   padding-inline: 1rem;
   padding-block-end: 1rem;
-
 }
 
 .scrollable {
   overflow-y: auto;
+}
+
+.pb-1 {
+  padding-block-end: 1rem;
 }
 
 .leaflet-control-my-position {
