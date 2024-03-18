@@ -1,17 +1,18 @@
 <nav class="nav-bar">
   <ul>
     <li>
-      <a routerLink="/">
+      <a routerLink="/" routerLinkActive="active" ariaCurrentWhenActive="page"
+         [routerLinkActiveOptions]="{exact: true}">
         <mat-icon>{{ Icons.HOME }}</mat-icon>
       </a>
     </li>
     <li>
-      <a routerLink="/travels">
+      <a routerLink="/travels" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         <mat-icon>{{ Icons.ROUTE }}</mat-icon>
       </a>
     </li>
     <li>
-      <a routerLink="/settings">
+      <a routerLink="/settings" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
         <mat-icon>{{ Icons.SETTINGS }}</mat-icon>
       </a>
     </li>

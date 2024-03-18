@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { MatIconModule } from "@angular/material/icon";
 import { MatButtonModule } from "@angular/material/button";
-import { RouterLink } from "@angular/router";
+import { RouterLink, RouterLinkActive } from "@angular/router";
 import { Icons } from "../../shared/enums/icons.enum";
 
 @Component({
@@ -11,6 +11,7 @@ import { Icons } from "../../shared/enums/icons.enum";
     MatIconModule,
     MatButtonModule,
     RouterLink,
+    RouterLinkActive,
   ],
   templateUrl: './nav-bar.component.html',
   styleUrl: './nav-bar.component.scss'
