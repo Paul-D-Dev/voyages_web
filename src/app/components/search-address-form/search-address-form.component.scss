@@ -1,5 +1,5 @@
 $color-primary: var(--color-text-primary);
-$bg-color-primary: var(--bg-color-primary);
+$bg-color-theme: var(--bg-color-theme);
 $border-radius-1: var(--border-radius-1);
 $input-outline-clr: blue;
 
@@ -9,7 +9,7 @@ $input-outline-clr: blue;
   gap: .5rem;
   align-items: center;
   padding-inline: 1rem;
-  background: $bg-color-primary;
+  background: $bg-color-theme;
   border-radius: $border-radius-1;
 
   button {

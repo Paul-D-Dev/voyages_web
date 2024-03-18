@@ -1,6 +1,6 @@
 @use 'responsive' as *;
 
-$bg-color-primary: var(--bg-color-primary);
+$bg-color-theme: var(--bg-color-theme);
 $border-radius-2: var(--border-radius-2);
 $aside-wrapper-padding: 1rem;
 $aside-wrapper-margin: 0.8rem;
@@ -25,7 +25,7 @@ aside {
     height: 100%;
 
     .aside-wrapper {
-      background: $bg-color-primary;
+      background: $bg-color-theme;
 
       .router-container {
         height: 100%;
