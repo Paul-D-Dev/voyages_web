@@ -1,4 +1,4 @@
-import { Injectable, signal, WritableSignal } from '@angular/core';
+import { computed, Injectable, Signal, signal, WritableSignal } from '@angular/core';
 import { ITravel } from "../interfaces/travel.interface";
 import { IMarker } from "../interfaces/marker.interface";
 
@@ -7,20 +7,25 @@ import { IMarker } from "../interfaces/marker.interface";
 })
 export class TravelStateService {
   private _travel: WritableSignal<ITravel | null> = signal(null);
-  readonly travel = this._travel.asReadonly();
+  readonly travel: Signal<ITravel | null> = this._travel.asReadonly();
 
   set(item: ITravel) {
     this._travel.set(item);
   }
 
-  // TODO remove undefined type instead return empty []
-  getMarkers(): IMarker[] | undefined {
-    return this.travel()?.steps.map(step => ({
-      position: step.location,
-      config: {
-        data: step
+  getMarkers(): Signal<IMarker[]> {
+    return computed(() => {
+      if (this.travel() === null) {
+        return [];
+      } else {
+        return this.travel()!.steps.map(step => ({
+          position: step.location,
+          config: {
+            data: step
+          }
+        }));
       }
-    }));
+    });
   }
 
   reset() {
