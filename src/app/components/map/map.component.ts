@@ -11,6 +11,7 @@ import { IMarker } from "../../shared/interfaces/marker.interface";
 })
 export class MapComponent implements OnInit {
   @Input() set markers(markers: IMarker[]) {
+    this._mapService.resetMarkerList();
     this.showMarkers(markers);
   }
 
@@ -33,6 +34,5 @@ export class MapComponent implements OnInit {
       });
     }
   }
-
 
 }
