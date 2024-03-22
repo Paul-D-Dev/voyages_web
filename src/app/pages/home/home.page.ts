@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
 import { MapComponent } from "../../components/map/map.component";
 import { SearchAddressFormComponent } from "../../components/search-address-form/search-address-form.component";
 import { GlobalStateService } from "../../shared/services/global-state.service";
@@ -33,7 +33,7 @@ export class HomePage {
   travelStateService = inject(TravelStateService);
   mapService = inject(MapService);
 
-  markers: IMarker[] | undefined = this.travelStateService.getMarkers();
+  markers: Signal<IMarker[]> = this.travelStateService.getMarkers();
 
   onSelectedAddress(address: IAddress): void {
     const { lat, lng } = address;
