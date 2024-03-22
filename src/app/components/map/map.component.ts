@@ -10,19 +10,22 @@ import { IMarker } from "../../shared/interfaces/marker.interface";
   styleUrl: './map.component.scss'
 })
 export class MapComponent implements OnInit {
+  @Input() set markers(markers: IMarker[]) {
+    this._mapService.resetMarkerList();
+    this.showMarkers(markers);
+  }
+
   private _mapService = inject(MapService);
-  @Input() markers: IMarker[] | undefined = [];
 
   ngOnInit() {
     this._mapService.getPermissionGeolocation();
     this._mapService.initMap();
     this._mapService.initMapHandlers();
     this._mapService.addControlMyPosition();
-    this.showMarkers(this.markers);
   }
 
-  protected showMarkers<T>(markers: IMarker<T>[] | undefined): void {
-    if (markers !== undefined && markers !== null && markers.length > 0) {
+  protected showMarkers<T>(markers: IMarker<T>[]): void {
+    if (markers.length > 0) {
       markers.forEach((marker, index) => {
         const { position, config } = marker;
         index === 0 ?
@@ -31,6 +34,5 @@ export class MapComponent implements OnInit {
       });
     }
   }
-
 
 }
