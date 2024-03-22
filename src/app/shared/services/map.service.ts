@@ -53,9 +53,8 @@ export class MapService {
     coords: null,
     markerAdded: false
   };
-  markerList: L.Marker[] = [];
 
-  initMap(position?: IGpsPosition | undefined): void {
+  initMap(position?: IGpsPosition | undefined) {
     if (position) {
       this.position = position;
     }
@@ -72,7 +71,7 @@ export class MapService {
     this.setViewMyGeoLocation();
   }
 
-  initMapHandlers(): void {
+  initMapHandlers() {
     // Click event
     this._map.on('click', (e: any) => {
       const { lat, lng }: LatLng = e.latlng;
@@ -82,7 +81,7 @@ export class MapService {
     });
   }
 
-  getPermissionGeolocation(): void {
+  getPermissionGeolocation() {
     navigator.geolocation.getCurrentPosition(
       (pos) => {
         console.log('success');
@@ -95,7 +94,7 @@ export class MapService {
           const markerOptions: MarkerOptions = {
             icon: this._myPositionIcon
           };
-          this.addMarker(coords, { avoidMarkerList: true, options: markerOptions });
+          this.addMarker(coords, { options: markerOptions });
         }
 
         this.currentPosition = {
@@ -119,7 +118,7 @@ export class MapService {
       });
   }
 
-  addMarker(position: IGpsPosition, markerConfig?: IMarkerConfig): void {
+  addMarker(position: IGpsPosition, markerConfig?: IMarkerConfig) {
     console.log('add marker: ', position);
     const marker = L.marker(new CustomLatLng(position), markerConfig?.options);
     if (markerConfig?.data) {
@@ -128,17 +127,10 @@ export class MapService {
     }
 
     if (markerConfig?.canRemove) {
-      marker.on('click', e => {
-        e.target.remove();
-        this.removeFromMarkerList(marker);
-      });
+      marker.on('click', e => e.target.remove());
     }
 
     marker.addTo(this._map);
-
-    if (!markerConfig?.avoidMarkerList) {
-      this.markerList.push(marker);
-    }
   }
 
   setView(position: IGpsPosition, zoom: number = this.mapConfig.zoom.max - 3): void {
@@ -148,17 +140,6 @@ export class MapService {
   addMarkerAndSetView(position: IGpsPosition, markerConfig?: IMarkerConfig) {
     this.addMarker(position, markerConfig);
     this.setView(position);
-  }
-
-  resetMarkerList(): void {
-    this.markerList.forEach(marker => {
-      marker.removeFrom(this._map);
-    });
-    this.markerList = [];
-  }
-
-  removeFromMarkerList(marker: L.Marker): void {
-    this.markerList = this.markerList.filter(m => m !== marker);
   }
 
   /*

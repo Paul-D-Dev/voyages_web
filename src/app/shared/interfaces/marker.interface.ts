@@ -4,7 +4,6 @@ import { MarkerOptions } from "leaflet";
 export interface IMarkerConfig<T = any> {
   data?: T;
   canRemove?: boolean,
-  avoidMarkerList?: boolean;
   options?: MarkerOptions,
 }
 
