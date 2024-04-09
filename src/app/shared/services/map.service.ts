@@ -1,9 +1,9 @@
-import { Inject, Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as L from 'leaflet';
 import { ControlOptions, LatLng, MarkerOptions } from 'leaflet';
 import { IGpsPosition } from "../interfaces/gps-position.interface";
-import { MAP_CONFIG, MapConfig } from "../../app.config";
 import { IMarkerConfig } from "../interfaces/marker.interface";
+import { MapConfig } from "../../app.config";
 
 class CustomLatLng extends LatLng {
   constructor(props: IGpsPosition) {
@@ -26,14 +26,26 @@ L.Icon.Default.imagePath = 'media/';
 })
 
 export class MapService {
-  constructor(@Inject(MAP_CONFIG) private mapConfig: MapConfig) {
-    this.position = {
-      lat: this.mapConfig.center.lat,
-      lng: this.mapConfig.center.lng
-    };
-  }
+  // TODO try to use @Inject and make test work
+  // constructor(@Inject(MAP_CONFIG) private mapConfig: MapConfig) {
+  //   this.position = {
+  //     lat: this.mapConfig.center.lat,
+  //     lng: this.mapConfig.center.lng
+  //   };
+  // }
 
   private _map!: L.Map;
+  private readonly mapConfig: MapConfig = {
+    id: 'map',
+    zoom: {
+      min: 3,
+      max: 18
+    },
+    center: {
+      lat: 45.5031824,
+      lng: -73.5698065
+    }
+  };
   private readonly _tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: this.mapConfig.zoom.max,
     minZoom: this.mapConfig.zoom.min,
@@ -46,7 +58,10 @@ export class MapService {
   });
 
   mapLoaded: boolean = false;
-  position: IGpsPosition;
+  position: IGpsPosition = {
+    lat: this.mapConfig.center.lat,
+    lng: this.mapConfig.center.lng
+  };
   zoom: number = 16;
   currentPosition: CurrentPositionState = {
     state: 'init',
