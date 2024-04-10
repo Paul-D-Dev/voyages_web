@@ -152,11 +152,9 @@ export class FormTravelStepComponent {
   }
 
   onSubmit() {
-    console.log('onCLick submit button');
     if (this.form.valid) {
-      const values = this.form.getRawValue();
-      console.log(values);
-      this.onSubmitForm.emit(values);
+      const { locationAddress, ...values } = this.form.getRawValue();
+      this.onSubmitForm.emit({ ...values });
     }
   }
 
