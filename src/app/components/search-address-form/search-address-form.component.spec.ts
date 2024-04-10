@@ -10,7 +10,7 @@ import { By } from "@angular/platform-browser";
 import { DebugElement } from "@angular/core";
 import { Icons } from "../../shared/enums/icons.enum";
 
-fdescribe('SearchAddressFormComponent', () => {
+describe('SearchAddressFormComponent', () => {
   let component: SearchAddressFormComponent;
   let fixture: ComponentFixture<SearchAddressFormComponent>;
   let addressServiceSpy: jasmine.SpyObj<AddressService>;
@@ -75,6 +75,12 @@ fdescribe('SearchAddressFormComponent', () => {
     expect(addressServiceSpy.lookUp).toHaveBeenCalledWith(query);
     expect(addressResultSpy).toHaveBeenCalledWith(mockAddresses);
   }));
+
+  it('should unsubscribe from searchValue.valueChanges on ngOnDestroy', () => {
+    spyOn(component.subscription$, 'unsubscribe');
+    fixture.destroy();
+    expect(component.subscription$.unsubscribe).toHaveBeenCalled();
+  });
 
   describe('ui', () => {
     let formDe: DebugElement;
