@@ -10,7 +10,7 @@ import { By } from "@angular/platform-browser";
 import { DebugElement } from "@angular/core";
 import { Icons } from "../../shared/enums/icons.enum";
 
-describe('SearchAddressFormComponent', () => {
+fdescribe('SearchAddressFormComponent', () => {
   let component: SearchAddressFormComponent;
   let fixture: ComponentFixture<SearchAddressFormComponent>;
   let addressServiceSpy: jasmine.SpyObj<AddressService>;
@@ -63,17 +63,17 @@ describe('SearchAddressFormComponent', () => {
     expect(globalStateServiceSpy.set).not.toHaveBeenCalled();
   });
 
-  xit('should emit address result when search value changes', fakeAsync(() => {
+  it('should emit address result when search value changes', fakeAsync(() => {
     const addressResultSpy = spyOn(component.addressResult, 'emit');
     const mockAddresses: IAddress[] = [];
     addressServiceSpy.lookUp.and.returnValue(of(mockAddresses));
     const query = 'test';
 
     component.searchValue.setValue(query);
-    tick();
+    tick(1000);
     fixture.detectChanges();
-    expect(addressServiceSpy.lookUp).toHaveBeenCalledWith('test');
-    // expect(addressResultSpy).toHaveBeenCalledWith(mockAddresses);
+    expect(addressServiceSpy.lookUp).toHaveBeenCalledWith(query);
+    expect(addressResultSpy).toHaveBeenCalledWith(mockAddresses);
   }));
 
   describe('ui', () => {
