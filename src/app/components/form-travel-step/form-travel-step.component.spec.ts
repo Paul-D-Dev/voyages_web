@@ -1,16 +1,23 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { FormTravelStepComponent } from './form-travel-step.component';
+import { AddressService } from "../../shared/services/address.service";
+import { provideAnimations } from "@angular/platform-browser/animations";
 
-describe('FormTravelStepComponent', () => {
+fdescribe('FormTravelStepComponent', () => {
   let component: FormTravelStepComponent;
   let fixture: ComponentFixture<FormTravelStepComponent>;
+  let addressServiceSpy = jasmine.createSpyObj(AddressService, ['lookUp']);
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [FormTravelStepComponent]
+      imports: [FormTravelStepComponent],
+      providers: [
+        { provide: AddressService, useValue: addressServiceSpy },
+        provideAnimations(),
+      ]
     })
-    .compileComponents();
-    
+      .compileComponents();
+
     fixture = TestBed.createComponent(FormTravelStepComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
