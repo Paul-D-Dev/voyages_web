@@ -3,7 +3,7 @@ import { FormTravelStepComponent } from './form-travel-step.component';
 import { AddressService } from "../../shared/services/address.service";
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
-import { ITravelStep } from "../../shared/interfaces/travel.interface";
+import { ITravelStep, ITravelStepFormData } from "../../shared/interfaces/travel.interface";
 import { StepCategories } from "../../shared/enums/step-categories.enum";
 
 fdescribe('FormTravelStepComponent', () => {
@@ -96,4 +96,22 @@ fdescribe('FormTravelStepComponent', () => {
     expect(component.form.controls['location']?.get('lng')?.value).toEqual(location.lng);
     expect(component.form.controls['location']?.get('lat')?.value).toEqual(location.lat);
   });
+
+  it('should call onSubmitForm.emit() when form is submitted with valid data', () => {
+    const mockFormData: ITravelStepFormData = {
+      label: 'Test label',
+      description: 'Test description',
+      dateStart: '2022-01-01',
+      dateEnd: '2022-01-05',
+      category: StepCategories.FLIGHT,
+      location: { lng: 0, lat: 0 }
+    };
+
+    spyOn(component.onSubmitForm, 'emit');
+    component.form.patchValue(mockFormData);
+    fixture.detectChanges();
+    component.onSubmit();
+    expect(component.onSubmitForm.emit).toHaveBeenCalledWith(mockFormData);
+  });
+
 });
