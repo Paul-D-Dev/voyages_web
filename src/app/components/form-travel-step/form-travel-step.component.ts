@@ -19,13 +19,14 @@ import {
   MatAutocompleteTrigger,
   MatOption
 } from "@angular/material/autocomplete";
-import { debounceTime, Observable, startWith, switchMap } from "rxjs";
+import { debounceTime, Observable, of, Subscription, switchMap, tap } from "rxjs";
 import { AddressService } from "../../shared/services/address.service";
 import { IAddress } from "../../shared/interfaces/address.interface";
 import { AsyncPipe, KeyValuePipe, TitleCasePipe } from "@angular/common";
 import { MatSelect } from "@angular/material/select";
 import { StepCategories } from "../../shared/enums/step-categories.enum";
 import { animate, state, style, transition, trigger } from "@angular/animations";
+import { takeUntilDestroyed } from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-form-travel-step',
@@ -79,6 +80,15 @@ import { animate, state, style, transition, trigger } from "@angular/animations"
 
 // TODO Rename class FormManageTravelStep
 export class FormTravelStepComponent {
+  constructor() {
+    this.subscription$ = this.form.controls['locationAddress'].valueChanges.pipe(
+      takeUntilDestroyed(),
+      debounceTime(1000),
+      switchMap((value) => this.addressService.lookUp(value)),
+      tap(value => this.addresses$ = of(value))
+    ).subscribe();
+  }
+
   @Input() set formData(data: ITravelStep | undefined) {
     if (!data) return;
     const {
@@ -122,11 +132,8 @@ export class FormTravelStepComponent {
     })
   });
 
-  addresses$: Observable<IAddress[]> = this.form.controls['locationAddress'].valueChanges.pipe(
-    startWith(''),
-    debounceTime(1000),
-    switchMap((value) => this.addressService.lookUp(value)),
-  );
+  addresses$: Observable<IAddress[]> = of([]);
+  subscription$: Subscription;
 
   isDisplayedLocationInput = false;
 
