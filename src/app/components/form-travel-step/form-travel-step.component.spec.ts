@@ -1,17 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { FormTravelStepComponent } from './form-travel-step.component';
 import { AddressService } from "../../shared/services/address.service";
 import { provideAnimations } from "@angular/platform-browser/animations";
 import { FormGroup, ReactiveFormsModule } from "@angular/forms";
 import { ITravelStep, ITravelStepFormData } from "../../shared/interfaces/travel.interface";
 import { StepCategories } from "../../shared/enums/step-categories.enum";
+import { of } from "rxjs";
+import { IAddress } from "../../shared/interfaces/address.interface";
 
 fdescribe('FormTravelStepComponent', () => {
   let component: FormTravelStepComponent;
   let fixture: ComponentFixture<FormTravelStepComponent>;
-  let addressServiceSpy = jasmine.createSpyObj(AddressService, ['lookUp']);
+  let addressServiceSpy: jasmine.SpyObj<AddressService>;
 
   beforeEach(async () => {
+    addressServiceSpy = jasmine.createSpyObj('AddressService', ['lookUp']);
+
     await TestBed.configureTestingModule({
       imports: [FormTravelStepComponent, ReactiveFormsModule],
       providers: [
@@ -23,6 +27,7 @@ fdescribe('FormTravelStepComponent', () => {
 
     fixture = TestBed.createComponent(FormTravelStepComponent);
     component = fixture.componentInstance;
+
     fixture.detectChanges();
   });
 
@@ -113,5 +118,18 @@ fdescribe('FormTravelStepComponent', () => {
     component.onSubmit();
     expect(component.onSubmitForm.emit).toHaveBeenCalledWith(mockFormData);
   });
+
+  fit('should call addressService.lookUp() when locationAddress value changes', fakeAsync(() => {
+    const mockAddressResult: IAddress[] = [];
+    addressServiceSpy.lookUp.and.returnValue(of(mockAddressResult));
+    const testAddress: string = 'Test_address';
+    component.form.controls['locationAddress'].setValue(testAddress);
+    fixture.detectChanges();
+    tick(1000);
+    expect(addressServiceSpy.lookUp).toHaveBeenCalledWith(testAddress);
+    component.addresses$.subscribe((addresses) => {
+      expect(addresses).toEqual(mockAddressResult);
+    });
+  }));
 
 });
