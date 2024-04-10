@@ -4,7 +4,7 @@ import { IAddress } from "../../shared/interfaces/address.interface";
 import { By } from "@angular/platform-browser";
 import { DebugElement } from "@angular/core";
 
-fdescribe('AddressItemComponent', () => {
+describe('AddressItemComponent', () => {
   let component: AddressListComponent;
   let fixture: ComponentFixture<AddressListComponent>;
   let mockAddressList: IAddress[];
