@@ -6,7 +6,7 @@ import { provideRouter, Router, RouterLink } from "@angular/router";
 import { DebugElement } from "@angular/core";
 import { Icons } from "../../shared/enums/icons.enum";
 
-fdescribe('NavBarComponent', () => {
+describe('NavBarComponent', () => {
   let component: NavBarComponent;
   let fixture: ComponentFixture<NavBarComponent>;
   let linkDes: DebugElement[];
