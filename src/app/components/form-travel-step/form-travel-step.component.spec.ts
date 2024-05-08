@@ -119,6 +119,7 @@ fdescribe('FormTravelStepComponent', () => {
     expect(component.onSubmitForm.emit).toHaveBeenCalledWith(mockFormData);
   });
 
+  // TODO fix test when remove focus
   fit('should call addressService.lookUp() when locationAddress value changes', fakeAsync(() => {
     const mockAddressResult: IAddress[] = [];
     addressServiceSpy.lookUp.and.returnValue(of(mockAddressResult));
