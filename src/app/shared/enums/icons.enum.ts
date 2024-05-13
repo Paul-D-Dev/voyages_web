@@ -2,6 +2,7 @@ export enum Icons {
   ARROW_BACK = 'arrow_back',
   ARROW_FORWARD = 'arrow_forward',
   DELETE = 'delete',
+  DIRECTIONS = 'directions',
   EDIT = 'edit',
   HOME = 'home',
   LOCATION_ON = 'location_on',
