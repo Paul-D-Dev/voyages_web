@@ -39,7 +39,8 @@ export class HomePage {
   mapService = inject(MapService);
 
   markers: Signal<IMarker[]> = this.travelStateService.getMarkers();
-  displayOverlayTravel = false;
+  overlayTravelStepData = this.travelStateService.getOverlayTravelStepData();
+  isMobile = false;
 
   onSelectedAddress(address: IAddress): void {
     const { lat, lng } = address;
