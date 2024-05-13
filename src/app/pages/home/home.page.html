@@ -17,7 +17,7 @@
 
   <app-map class="map" [markers]="markers()"/>
 
-  @if (overlayTravelStepData() && isMobile) {
+  @if (overlayTravelStepData() && isMobile() && isHomePage()) {
     <app-overlay-travel-detail
       @bottomSheetAnimation
       class="overlay"

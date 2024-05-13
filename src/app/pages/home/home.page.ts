@@ -34,13 +34,13 @@ import { bottomSheetAnimation } from "../../shared/animations";
 
 export class HomePage {
   globalStateService = inject(GlobalStateService);
-  isHomePage = this.globalStateService.select("isHomePage");
+  isHomePage = this.globalStateService.select('isHomePage');
   travelStateService = inject(TravelStateService);
   mapService = inject(MapService);
 
   markers: Signal<IMarker[]> = this.travelStateService.getMarkers();
   overlayTravelStepData = this.travelStateService.getOverlayTravelStepData();
-  isMobile = false;
+  isMobile = this.globalStateService.select('isMobile');
 
   onSelectedAddress(address: IAddress): void {
     const { lat, lng } = address;
