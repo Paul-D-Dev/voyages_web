@@ -1,5 +1,5 @@
 import { computed, Injectable, Signal, signal, WritableSignal } from '@angular/core';
-import { ITravel } from "../interfaces/travel.interface";
+import { ITravel, ITravelStep } from "../interfaces/travel.interface";
 import { IMarker } from "../interfaces/marker.interface";
 
 @Injectable({
@@ -25,6 +25,12 @@ export class TravelStateService {
           }
         }));
       }
+    });
+  }
+
+  getOverlayTravelStepData(): Signal<ITravelStep | undefined> {
+    return computed(() => {
+      return this.travel()?.steps[0] || undefined;
     });
   }
 
