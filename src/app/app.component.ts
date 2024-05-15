@@ -15,7 +15,6 @@ import { toSignal } from "@angular/core/rxjs-interop";
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-
   constructor(private router: Router, private globalStateService: GlobalStateService, private breakpointObserver: BreakpointObserver) {
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
@@ -25,7 +24,7 @@ export class AppComponent {
       })
     ).subscribe();
 
-    const isMobile: Signal<boolean | undefined> = toSignal(this._verifyIfDisplayIsMobile())
+    const isMobile: Signal<boolean | undefined> = this._verifyIfDisplayIsMobile();
     effect(() => {
       this.globalStateService.set('isMobile', !!isMobile());
     }, { allowSignalWrites: true })
@@ -35,8 +34,9 @@ export class AppComponent {
   title = 'voyages';
   hideNavbar: Signal<boolean> = this.globalStateService.select('isNavBarHide');
 
-  private _verifyIfDisplayIsMobile(): Observable<boolean> {
-    return this.breakpointObserver.observe([Breakpoints.XSmall])
-      .pipe(map(result => result.matches))
+  private _verifyIfDisplayIsMobile(): Signal<boolean | undefined> {
+    const isMobile$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.XSmall])
+      .pipe(map(result => result.matches));
+    return toSignal(isMobile$);
   }
 }
