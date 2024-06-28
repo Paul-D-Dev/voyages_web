@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import * as L from 'leaflet';
-import { ControlOptions, LatLng, MarkerOptions } from 'leaflet';
+import { ControlOptions, LatLng, Marker, MarkerOptions } from 'leaflet';
 import { IGpsPosition } from "../interfaces/gps-position.interface";
 import { MAP_CONFIG, MapConfig } from "../../app.config";
 import { IMarkerConfig } from "../interfaces/marker.interface";
@@ -53,6 +53,7 @@ export class MapService {
     coords: null,
     markerAdded: false
   };
+  markers: Marker[] = [];
 
   initMap(position?: IGpsPosition | undefined) {
     if (position) {
@@ -92,7 +93,7 @@ export class MapService {
 
         if (!this.currentPosition.markerAdded) {
           const markerOptions: MarkerOptions = {
-            icon: this._myPositionIcon
+            icon: this._myPositionIcon,
           };
           this.addMarker(coords, { options: markerOptions });
         }
@@ -127,10 +128,29 @@ export class MapService {
     }
 
     if (markerConfig?.canRemove) {
-      marker.on('click', e => e.target.remove());
+      marker.on('click', e => {
+        // Remove marker from array
+        const index = this.markers.indexOf(marker);
+        this.markers.splice(index, 1);
+        // Remove marker from map
+        e.target.remove()
+      });
     }
 
+    this.markers.push(marker);
     marker.addTo(this._map);
+  }
+
+  /**
+   * Remove all markers from map except my current position
+   */
+  removeAllMarkers(): void {
+    this.markers.forEach(marker => {
+      if (marker.options.icon !== this._myPositionIcon) {
+        console.log('remove marker', marker);
+        marker.remove();
+      }
+    });
   }
 
   setView(position: IGpsPosition, zoom: number = this.mapConfig.zoom.max - 3): void {
@@ -141,6 +161,7 @@ export class MapService {
     this.addMarker(position, markerConfig);
     this.setView(position);
   }
+
 
   /*
   *   GeoLocation the user position and set the view
