@@ -6,11 +6,12 @@ import { IGpsPosition } from "../../shared/interfaces/gps-position.interface";
 import { OpenOnMapsAppService } from "../../shared/services/open-on-maps-app.service";
 import { ITravel } from "../../shared/interfaces/travel.interface";
 import { Router } from "@angular/router";
+import { DatePipe } from "@angular/common";
 
 @Component({
   selector: 'app-overlay-travel-detail',
   standalone: true,
-  imports: [MatIconButton, MatIcon],
+  imports: [MatIconButton, MatIcon, DatePipe],
   templateUrl: './overlay-travel-detail.component.html',
   styleUrl: './overlay-travel-detail.component.scss'
 })
