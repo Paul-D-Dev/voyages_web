@@ -1,0 +1,28 @@
+<h1 mat-dialog-title>Add document</h1>
+
+<mat-dialog-content>
+  <form [formGroup]="documentForm">
+
+    <mat-form-field>
+      <mat-label>Type de document</mat-label>
+      <mat-select formControlName="type">
+        <mat-option value="ticket">Ticket</mat-option>
+        <mat-option value="passport">Passport</mat-option>
+        <mat-option value="photos_descriptives">Photos Descriptives</mat-option>
+        <mat-option value="autres">Autres</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <input required type="file" (change)="onFileChange($event)" accept=".pdf,.jpg,.jpeg,.png">
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="onClose()">Cancel</button>
+  <button mat-button
+          [mat-dialog-close]="documentForm.getRawValue()"
+          [disabled]="documentForm.invalid"
+  >
+    Add
+  </button>
+</mat-dialog-actions>
