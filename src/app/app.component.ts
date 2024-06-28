@@ -1,9 +1,11 @@
-import { Component, Signal } from '@angular/core';
+import { Component, effect, Signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { NavBarComponent } from "./components/nav-bar/nav-bar.component";
-import { filter, tap } from "rxjs";
+import { filter, map, Observable, tap } from "rxjs";
 import { GlobalStateService } from "./shared/services/global-state.service";
+import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
+import { toSignal } from "@angular/core/rxjs-interop";
 
 @Component({
   selector: 'app-root',
@@ -13,7 +15,7 @@ import { GlobalStateService } from "./shared/services/global-state.service";
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  constructor(private router: Router, private globalStateService: GlobalStateService) {
+  constructor(private router: Router, private globalStateService: GlobalStateService, private breakpointObserver: BreakpointObserver) {
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),
       tap(e => {
@@ -21,8 +23,20 @@ export class AppComponent {
         this.globalStateService.set('isHomePage', isHomePage);
       })
     ).subscribe();
+
+    const isMobile: Signal<boolean | undefined> = this._verifyIfDisplayIsMobile();
+    effect(() => {
+      this.globalStateService.set('isMobile', !!isMobile());
+    }, { allowSignalWrites: true })
+
   }
 
   title = 'voyages';
   hideNavbar: Signal<boolean> = this.globalStateService.select('isNavBarHide');
+
+  private _verifyIfDisplayIsMobile(): Signal<boolean | undefined> {
+    const isMobile$: Observable<boolean> = this.breakpointObserver.observe([Breakpoints.XSmall])
+      .pipe(map(result => result.matches));
+    return toSignal(isMobile$);
+  }
 }

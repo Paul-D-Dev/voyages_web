@@ -1,7 +1,4 @@
 <div class="home-container">
-
-  <app-map [markers]="markers()"/>
-
   <aside [class.page]="!isHomePage()">
 
     <div class="aside-wrapper">
@@ -17,5 +14,16 @@
     </div>
 
   </aside>
+
+  <app-map class="map" [markers]="markers()"/>
+
+  @if (overlayTravelData() && isMobile() && isHomePage()) {
+    <app-overlay-travel-detail
+      @bottomSheetAnimation
+      class="overlay"
+      [travel]="overlayTravelData()"
+      (clearTravel)="clearTravelAndHisMarkers()"
+    />
+  }
 </div>
 

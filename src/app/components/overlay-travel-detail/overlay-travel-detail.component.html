@@ -1,0 +1,20 @@
+@if (travel) {
+  <div class="overlay-travel">
+    <div class="overlay-travel-header">
+      <button mat-icon-button (click)="close()">
+        <mat-icon>{{ Icons.CLOSE }}</mat-icon>
+      </button>
+      <span>
+      <h2>{{ travel.steps[currentIndex()].label }}</h2>
+      <h3>{{ travel.name }}</h3>
+    </span>
+      <button mat-icon-button (click)="navigateTo(travel.steps[currentIndex()].location)">
+        <mat-icon>{{ Icons.DIRECTIONS }}</mat-icon>
+      </button>
+    </div>
+
+    <div class="overlay-travel-content">
+      <div>{{ travel.dateStart | date: 'short' }} - {{ travel.dateEnd | date: 'short' }}</div>
+    </div>
+  </div>
+}

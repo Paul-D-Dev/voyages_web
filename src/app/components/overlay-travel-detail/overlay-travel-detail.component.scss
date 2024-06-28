@@ -1,0 +1,9 @@
+.overlay-travel {
+
+  &-header {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-gap: .5rem;
+    align-items: center;
+  }
+}

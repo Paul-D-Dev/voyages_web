@@ -87,12 +87,17 @@ export class TravelDetailPage {
       steps: this.mutableTravelSteps.steps.filter(step => step.id === idStep)
     };
     this.travelStateService.set(travel);
-    this.navigationService.go(['/']);
+    const state = {
+      travelId: travel.id,
+      activeStepId: idStep
+    }
+    this.navigationService.goHomeIfMobile({ state });
   }
 
   viewTrip(travel: ITravel) {
     this.travelStateService.set(travel);
-    this.navigationService.go(['/']);
+    this.navigationService.goHomeIfMobile();
+
   }
 
   delete(stepId: number) {

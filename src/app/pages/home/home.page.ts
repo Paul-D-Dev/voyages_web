@@ -11,6 +11,9 @@ import { RouterOutlet } from "@angular/router";
 import { OmniboxSearchComponent } from "../../components/omnibox-search/omnibox-search.component";
 import { IAddress } from "../../shared/interfaces/address.interface";
 import { IGpsPosition } from "../../shared/interfaces/gps-position.interface";
+import { OverlayTravelDetailComponent } from "../../components/overlay-travel-detail/overlay-travel-detail.component";
+import { bottomSheetAnimation } from "../../shared/animations";
+import { ITravel } from "../../shared/interfaces/travel.interface";
 
 @Component({
   selector: 'app-home',
@@ -23,22 +26,33 @@ import { IGpsPosition } from "../../shared/interfaces/gps-position.interface";
     RouterOutlet,
     AsyncPipe,
     OmniboxSearchComponent,
+    OverlayTravelDetailComponent,
   ],
   templateUrl: './home.page.html',
-  styleUrl: './home.page.scss'
+  styleUrl: './home.page.scss',
+  animations: [bottomSheetAnimation]
 })
+
 export class HomePage {
   globalStateService = inject(GlobalStateService);
-  isHomePage = this.globalStateService.select("isHomePage");
   travelStateService = inject(TravelStateService);
   mapService = inject(MapService);
 
   markers: Signal<IMarker[]> = this.travelStateService.getMarkers();
+  overlayTravelData: Signal<ITravel | null> = this.travelStateService.travel;
+  isHomePage = this.globalStateService.select('isHomePage');
+  isMobile = this.globalStateService.select('isMobile');
 
   onSelectedAddress(address: IAddress): void {
     const { lat, lng } = address;
     const position: IGpsPosition = { lat, lng };
     this.mapService.addMarkerAndSetView(position);
+  }
+
+  clearTravelAndHisMarkers(): void {
+    // clear markers
+    this.mapService.removeAllMarkers();
+    this.travelStateService.reset();
   }
 
 }
