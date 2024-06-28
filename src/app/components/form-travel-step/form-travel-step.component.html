@@ -73,7 +73,22 @@
       }
     </mat-select>
   </mat-form-field>
-  <!--TODO add documents ? boarding pass, tickets-->
+
+  <button mat-raised-button type="button" (click)="openDialogToAddDocument()">Add document</button>
+
+  @if (documents.value.length > 0) {
+    <div class="documents">
+      @for (document of documents.value;track document.createdDate;let i = $index) {
+        <div class="document">
+          <div class="document__name">{{ document.name }}</div>
+          <button mat-icon-button type="button" (click)="removeDocument(i)">
+            <mat-icon>{{ Icons.CLOSE }}</mat-icon>
+          </button>
+        </div>
+      }
+    </div>
+  }
+
 
   <div class="btn-submit-wrapper">
     <button

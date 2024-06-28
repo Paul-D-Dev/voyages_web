@@ -11,8 +11,8 @@ import {
 import { MatFormField, MatHint, MatLabel, MatSuffix } from "@angular/material/form-field";
 import { MatIcon } from "@angular/material/icon";
 import { MatInput } from "@angular/material/input";
-import { MatMiniFabButton } from "@angular/material/button";
-import { ITravelStep, ITravelStepFormData } from "../../shared/interfaces/travel.interface";
+import { MatButton, MatIconButton, MatMiniFabButton } from "@angular/material/button";
+import { ITravelDocument, ITravelStep, ITravelStepFormData } from "../../shared/interfaces/travel.interface";
 import { IGpsPosition } from "../../shared/interfaces/gps-position.interface";
 import {
   MatAutocomplete,
@@ -27,6 +27,8 @@ import { AsyncPipe, KeyValuePipe, TitleCasePipe } from "@angular/common";
 import { MatSelect } from "@angular/material/select";
 import { StepCategories } from "../../shared/enums/step-categories.enum";
 import { animate, state, style, transition, trigger } from "@angular/animations";
+import { MatDialog, MatDialogModule } from "@angular/material/dialog";
+import { FileUploadDialogComponent } from "../dialogs/file-upload-dialog/file-upload-dialog.component";
 
 @Component({
   selector: 'app-form-travel-step',
@@ -52,7 +54,10 @@ import { animate, state, style, transition, trigger } from "@angular/animations"
     AsyncPipe,
     MatSelect,
     TitleCasePipe,
-    KeyValuePipe
+    KeyValuePipe,
+    MatIconButton,
+    MatDialogModule,
+    MatButton,
   ],
   templateUrl: './form-travel-step.component.html',
   styleUrl: './form-travel-step.component.scss',
@@ -89,6 +94,7 @@ export class FormTravelStepComponent {
 
   private readonly addressService = inject(AddressService);
   private readonly fb = inject(FormBuilder);
+  private readonly dialog = inject(MatDialog);
   protected readonly Icons = Icons;
   protected readonly Categories = StepCategories;
   addresses$: Observable<IAddress[]> = of([]);
@@ -101,8 +107,14 @@ export class FormTravelStepComponent {
     category: null,
     dateStart: this._formatDateLocalTime(new Date().toISOString()),
     dateEnd: this._formatDateLocalTime(new Date().toISOString()),
-    location: {} as IGpsPosition
+    location: {} as IGpsPosition,
+    documents: []
   };
+
+  // Create a getter for the documents form control
+  get documents() {
+    return this.form.controls['documents'];
+  }
 
   ngOnInit() {
     this.form = this.fb.group({
@@ -115,7 +127,8 @@ export class FormTravelStepComponent {
       location: this.fb.group({
         lng: [this._stepData.location.lng, { validators: [Validators.required] }],
         lat: [this._stepData.location.lat, { validators: [Validators.required] }]
-      })
+      }),
+      documents: [this._stepData.documents],
     });
 
     this.addresses$ = this.form.controls['locationAddress'].valueChanges.pipe(
@@ -145,6 +158,26 @@ export class FormTravelStepComponent {
   toggleDisplayLocationInput() {
     this.isDisplayedLocationInput = !this.isDisplayedLocationInput;
   }
+
+  openDialogToAddDocument() {
+    const dialogRef = this.dialog.open(FileUploadDialogComponent, {
+      width: '500px',
+    });
+    dialogRef.afterClosed().subscribe((result: ITravelDocument) => {
+      if (result) {
+        const currentDocuments: ITravelDocument[] = this.documents.value as ITravelDocument[];
+        this.documents.setValue([...currentDocuments, result]);
+      }
+
+    });
+  }
+
+  removeDocument(index: number): void {
+    const currentDocuments: ITravelDocument[] = this.documents.getRawValue();
+    currentDocuments.splice(index, 1);
+    this.documents.patchValue([...currentDocuments]);
+  }
+
 
   onSubmit() {
     console.log('onCLick submit button');
