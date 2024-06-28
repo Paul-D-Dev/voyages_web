@@ -1,4 +1,4 @@
-import { Component, inject, Input, signal, WritableSignal } from '@angular/core';
+import { Component, inject, Input, output, signal, WritableSignal } from '@angular/core';
 import { MatIconButton } from "@angular/material/button";
 import { MatIcon } from "@angular/material/icon";
 import { Icons } from "../../shared/enums/icons.enum";
@@ -17,6 +17,7 @@ import { DatePipe } from "@angular/common";
 })
 export class OverlayTravelDetailComponent {
   @Input() travel: ITravel | null = null;
+  clearTravel = output();
   router = inject(Router);
   openOnMapsAppService = inject(OpenOnMapsAppService);
   protected readonly Icons = Icons;
@@ -39,6 +40,10 @@ export class OverlayTravelDetailComponent {
     if (location) {
       this.openOnMapsAppService.viewLocation(location);
     }
+  }
+
+  close(): void {
+    this.clearTravel.emit();
   }
 
 
