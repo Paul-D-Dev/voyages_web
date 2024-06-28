@@ -49,4 +49,10 @@ export class HomePage {
     this.mapService.addMarkerAndSetView(position);
   }
 
+  clearTravelAndHisMarkers(): void {
+    // clear markers
+    this.mapService.removeAllMarkers();
+    this.travelStateService.reset();
+  }
+
 }
