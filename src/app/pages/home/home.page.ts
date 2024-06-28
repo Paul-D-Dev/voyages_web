@@ -13,6 +13,7 @@ import { IAddress } from "../../shared/interfaces/address.interface";
 import { IGpsPosition } from "../../shared/interfaces/gps-position.interface";
 import { OverlayTravelDetailComponent } from "../../components/overlay-travel-detail/overlay-travel-detail.component";
 import { bottomSheetAnimation } from "../../shared/animations";
+import { ITravel } from "../../shared/interfaces/travel.interface";
 
 @Component({
   selector: 'app-home',
@@ -38,7 +39,7 @@ export class HomePage {
   mapService = inject(MapService);
 
   markers: Signal<IMarker[]> = this.travelStateService.getMarkers();
-  overlayTravelStepData = this.travelStateService.getOverlayTravelStepData();
+  overlayTravelData: Signal<ITravel | null> = this.travelStateService.travel;
   isHomePage = this.globalStateService.select('isHomePage');
   isMobile = this.globalStateService.select('isMobile');
 
