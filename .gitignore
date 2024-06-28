@@ -1,4 +1,6 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
+# TODO remove when fix
+.github/workflows/deploy_develop_to_firebase.yml
 
 # Compiled output
 /dist
