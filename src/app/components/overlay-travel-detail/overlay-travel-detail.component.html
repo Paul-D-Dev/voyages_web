@@ -1,11 +1,17 @@
-<div class="overlay-travel">
-  <div class="overlay-travel-header">
+@if (travel) {
+  <div class="overlay-travel">
+    <div class="overlay-travel-header">
     <span>
-      <h2>{{ travelDetail?.label }}</h2>
-      <h3>Travel name</h3>
+      <h2>{{ travel.steps[currentIndex()].label }}</h2>
+      <h3>{{ travel.name }}</h3>
     </span>
-    <button mat-icon-button (click)="navigateTo(travelDetail?.location)">
-      <mat-icon>{{ Icons.DIRECTIONS }}</mat-icon>
-    </button>
+      <button mat-icon-button (click)="navigateTo(travel.steps[currentIndex()].location)">
+        <mat-icon>{{ Icons.DIRECTIONS }}</mat-icon>
+      </button>
+    </div>
+
+    <div class="overlay-travel-content">
+
+    </div>
   </div>
-</div>
+}
