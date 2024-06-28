@@ -23,9 +23,9 @@ export class NavigationService {
     this.router.navigate(path, options);
   }
 
-  goHomeIfMobile() {
+  goHomeIfMobile(options?: NavigationExtras) {
     if (this.isMobile()) {
-      this.router.navigate(['/']);
+      this.router.navigate(['/'], options);
     } else {
       console.warn('The display screen is not a mobile then the user can not navigate to home page')
     }
