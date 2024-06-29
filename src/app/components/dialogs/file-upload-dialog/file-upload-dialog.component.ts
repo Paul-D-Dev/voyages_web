@@ -38,7 +38,7 @@ export class FileUploadDialogComponent {
     name: ['', Validators.required],
     content: ['', Validators.required],
     createdDate: [new Date()],
-    ext: ['', Validators.required]
+    fileType: ['', Validators.required]
   });
 
   // TODO refactor event type
@@ -51,7 +51,7 @@ export class FileUploadDialogComponent {
         const fileContent = reader.result as string;
         this.documentForm.patchValue({
           name: file.name,
-          ext: file.type.split('/')[1],
+          fileType: file.type,
           content: fileContent
         });
       };
