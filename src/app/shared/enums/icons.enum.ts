@@ -1,6 +1,8 @@
 export enum Icons {
   ARROW_BACK = 'arrow_back',
   ARROW_FORWARD = 'arrow_forward',
+  CHEVRON_LEFT = 'chevron_left',
+  CHEVRON_RIGHT = 'chevron_right',
   CLOSE = 'close',
   DELETE = 'delete',
   DIRECTIONS = 'directions',
