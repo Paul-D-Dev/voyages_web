@@ -29,6 +29,7 @@ import { StepCategories } from "../../shared/enums/step-categories.enum";
 import { animate, state, style, transition, trigger } from "@angular/animations";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { FileUploadDialogComponent } from "../dialogs/file-upload-dialog/file-upload-dialog.component";
+import { DocumentViewDialogComponent } from "../dialogs/document-view-dialog/document-view-dialog.component";
 
 @Component({
   selector: 'app-form-travel-step',
@@ -163,12 +164,12 @@ export class FormTravelStepComponent {
     const dialogRef = this.dialog.open(FileUploadDialogComponent, {
       width: '500px',
     });
-    dialogRef.afterClosed().subscribe((result: ITravelDocument) => {
-      if (result) {
+    dialogRef.afterClosed().subscribe((uploadedDocument: ITravelDocument) => {
+      if (uploadedDocument) {
         const currentDocuments: ITravelDocument[] = this.documents.value as ITravelDocument[];
-        this.documents.setValue([...currentDocuments, result]);
+        console.log(uploadedDocument)
+        this.documents.setValue([...currentDocuments, uploadedDocument]);
       }
-
     });
   }
 
@@ -178,6 +179,15 @@ export class FormTravelStepComponent {
     this.documents.patchValue([...currentDocuments]);
   }
 
+  viewDocument(index: number): void {
+    this.dialog.open(DocumentViewDialogComponent, {
+      width: '500px',
+      data: {
+        documents: this.documents.getRawValue(),
+        selectedIndex: index
+      }
+    });
+  }
 
   onSubmit() {
     console.log('onCLick submit button');
