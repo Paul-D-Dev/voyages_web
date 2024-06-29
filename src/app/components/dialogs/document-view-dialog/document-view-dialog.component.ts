@@ -9,8 +9,8 @@ import {
 import { MatButton, MatIconButton } from "@angular/material/button";
 import { MatIcon } from "@angular/material/icon";
 import { ITravelDocument } from "../../../shared/interfaces/travel.interface";
-import { NgIf } from "@angular/common";
-import { SafeUrlPipe } from "../../../shared/pipes/safe-url.pipe";
+import { TitleCasePipe } from "@angular/common";
+import { Icons } from "../../../shared/enums/icons.enum";
 
 @Component({
   selector: 'app-document-view-dialog',
@@ -23,22 +23,22 @@ import { SafeUrlPipe } from "../../../shared/pipes/safe-url.pipe";
     MatDialogActions,
     MatButton,
     MatDialogClose,
-    NgIf,
-    SafeUrlPipe
+    TitleCasePipe
   ],
   templateUrl: './document-view-dialog.component.html',
   styleUrl: './document-view-dialog.component.scss'
 })
 export class DocumentViewDialogComponent {
-  documents: ITravelDocument[] = [];
-  selectedIndex: number = 0;
-  isImage: boolean = false;
-  isPDF: boolean = false;
-
   constructor(@Inject(MAT_DIALOG_DATA) public data: any) {
     this.documents = data.documents;
     this.selectedIndex = data.selectedIndex;
   }
+
+  documents: ITravelDocument[] = [];
+  selectedIndex: number = 0;
+  isImage: boolean = false;
+  isPDF: boolean = false;
+  protected readonly Icons = Icons;
 
   ngOnInit(): void {
     this.updateDocumentType();

@@ -1,25 +1,30 @@
-<h2 mat-dialog-title>Document Viewer</h2>
+<div class="dv__header">
+  <h2 mat-dialog-title>{{ documents[selectedIndex].type | titlecase }}</h2>
+
+  @if (documents && documents.length > 1) {
+
+    <div class="dv__controls">
+      <div>
+        <button mat-icon-button (click)="prevDocument()" [disabled]="selectedIndex === 0">
+          <mat-icon>{{ Icons.CHEVRON_LEFT }}</mat-icon>
+        </button>
+
+        <button mat-icon-button (click)="nextDocument()" [disabled]="selectedIndex === documents.length - 1">
+          <mat-icon>{{ Icons.CHEVRON_RIGHT }}</mat-icon>
+        </button>
+      </div>
+    </div>
+  }
+
+</div>
+
 <mat-dialog-content>
-  <div>
-    <button mat-icon-button (click)="prevDocument()" [disabled]="selectedIndex === 0">
-      <mat-icon>chevron_left</mat-icon>
-    </button>
 
-    <span>{{ documents[selectedIndex].type }}: {{ documents[selectedIndex].name }}</span>
-
-    isImage: {{ isImage }}
-    <br>
-    isPDF: {{ isPDF }}
-
-    <button mat-icon-button (click)="nextDocument()" [disabled]="selectedIndex === documents.length - 1">
-      <mat-icon>chevron_right</mat-icon>
-    </button>
-  </div>
-
-
-  <div *ngIf="isImage">
-    <img [src]="documents[selectedIndex].content" alt="Document Image">
-  </div>
+  @if (isImage) {
+    <div>
+      <img [src]="documents[selectedIndex].content" alt="Document Image">
+    </div>
+  }
   <!--  TODO read pdf-->
   <!--  <div *ngIf="isPDF">-->
   <!--    <object [data]="documents[selectedIndex].content | safeUrl" type="application/pdf"></object>-->
