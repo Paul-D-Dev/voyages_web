@@ -19,7 +19,7 @@ export interface ITravelDocument {
   name: string,
   content: string,
   createdDate: Date,
-  ext: string
+  fileType: string
 }
 
 export interface ITravelStep {
