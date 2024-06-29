@@ -1,0 +1,31 @@
+<h2 mat-dialog-title>Document Viewer</h2>
+<mat-dialog-content>
+  <div>
+    <button mat-icon-button (click)="prevDocument()" [disabled]="selectedIndex === 0">
+      <mat-icon>chevron_left</mat-icon>
+    </button>
+
+    <span>{{ documents[selectedIndex].type }}: {{ documents[selectedIndex].name }}</span>
+
+    isImage: {{ isImage }}
+    <br>
+    isPDF: {{ isPDF }}
+
+    <button mat-icon-button (click)="nextDocument()" [disabled]="selectedIndex === documents.length - 1">
+      <mat-icon>chevron_right</mat-icon>
+    </button>
+  </div>
+
+
+  <div *ngIf="isImage">
+    <img [src]="documents[selectedIndex].content" alt="Document Image">
+  </div>
+  <!--  TODO read pdf-->
+  <!--  <div *ngIf="isPDF">-->
+  <!--    <object [data]="documents[selectedIndex].content | safeUrl" type="application/pdf"></object>-->
+  <!--  </div>-->
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close>Close</button>
+</mat-dialog-actions>
