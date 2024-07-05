@@ -22,14 +22,13 @@ import {
 } from "@angular/material/autocomplete";
 import { debounceTime, Observable, of, startWith, switchMap } from "rxjs";
 import { AddressService } from "../../shared/services/address.service";
-import { IAddress } from "../../shared/interfaces/address.interface";
 import { AsyncPipe, KeyValuePipe, TitleCasePipe } from "@angular/common";
 import { MatSelect } from "@angular/material/select";
 import { StepCategories } from "../../shared/enums/step-categories.enum";
 import { animate, state, style, transition, trigger } from "@angular/animations";
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { FileUploadDialogComponent } from "../dialogs/file-upload-dialog/file-upload-dialog.component";
-import { DocumentViewDialogComponent } from "../dialogs/document-view-dialog/document-view-dialog.component";
+import { DocumentListComponent } from "../document-list/document-list.component";
 
 @Component({
   selector: 'app-form-travel-step',
@@ -59,6 +58,7 @@ import { DocumentViewDialogComponent } from "../dialogs/document-view-dialog/doc
     MatIconButton,
     MatDialogModule,
     MatButton,
+    DocumentListComponent,
   ],
   templateUrl: './form-travel-step.component.html',
   styleUrl: './form-travel-step.component.scss',
@@ -177,16 +177,6 @@ export class FormTravelStepComponent {
     const currentDocuments: ITravelDocument[] = this.documents.getRawValue();
     currentDocuments.splice(index, 1);
     this.documents.patchValue([...currentDocuments]);
-  }
-
-  viewDocument(index: number): void {
-    this.dialog.open(DocumentViewDialogComponent, {
-      width: '500px',
-      data: {
-        documents: this.documents.getRawValue(),
-        selectedIndex: index
-      }
-    });
   }
 
   onSubmit() {
