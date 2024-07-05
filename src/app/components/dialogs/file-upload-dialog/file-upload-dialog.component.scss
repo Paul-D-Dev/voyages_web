@@ -1,0 +1,38 @@
+form {
+  padding-block-start: .5rem;
+}
+
+.file-input-container {
+  position: relative;
+  display: inline-block;
+}
+
+.file-input {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.file-input-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  transition: border-color 0.3s;
+}
+
+.file-input-label mat-icon {
+  margin-right: 10px;
+}
+
+.file-input-container.focused .file-input-label {
+  // TODO ajuster la couleur et l'epaisseur de la bordure
+  border-color: blue;
+}
+

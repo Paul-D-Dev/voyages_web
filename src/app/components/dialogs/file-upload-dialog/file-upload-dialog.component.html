@@ -13,7 +13,21 @@
       </mat-select>
     </mat-form-field>
 
-    <input required type="file" (change)="onFileChange($event)" accept=".pdf,.jpg,.jpeg,.png">
+    <div class="file-input-container" [class.focused]="isFocused">
+      <input
+        type="file"
+        id="fileInput"
+        class="file-input"
+        accept=".pdf,.jpg,.jpeg,.png"
+        (blur)="onBlur()"
+        (change)="onFileChange($event)"
+        (focus)="onFocus()"
+      />
+      <label for="fileInput" class="file-input-label">
+        <mat-icon>{{ Icons.ATTACH_FILE }}</mat-icon>
+        <span>{{ documentForm.get('name')?.value || 'Choose a file' }}</span>
+      </label>
+    </div>
   </form>
 </mat-dialog-content>
 
