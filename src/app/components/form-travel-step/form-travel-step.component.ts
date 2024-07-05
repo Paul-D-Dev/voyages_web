@@ -29,6 +29,7 @@ import { animate, state, style, transition, trigger } from "@angular/animations"
 import { MatDialog, MatDialogModule } from "@angular/material/dialog";
 import { FileUploadDialogComponent } from "../dialogs/file-upload-dialog/file-upload-dialog.component";
 import { DocumentListComponent } from "../document-list/document-list.component";
+import { IAddress } from "../../shared/interfaces/address.interface";
 
 @Component({
   selector: 'app-form-travel-step',
