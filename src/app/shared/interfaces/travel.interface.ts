@@ -33,7 +33,7 @@ export interface ITravelStep {
   dateEnd: string,
   createdDate: Date,
   updatedDate?: Date,
-  documents?: ITravelDocument[]
+  documents: ITravelDocument[]
   // customIcon
 }
 
