@@ -15,6 +15,10 @@
 
     <div class="overlay-travel-content">
       <div>{{ travel.dateStart | date: 'short' }} - {{ travel.dateEnd | date: 'short' }}</div>
+      <div class="overlay-travel-content-description">
+        {{ travel.steps[currentIndex()]?.description }}
+        <app-document-list [documents]="travel.steps[currentIndex()].documents" [enableRemove]="false"/>
+      </div>
     </div>
   </div>
 }
