@@ -23,6 +23,7 @@ export class DocumentListComponent {
   }
 
   @Input() documents: ITravelDocument[] = [];
+  @Input() enableRemove: boolean = true;
   onRemoveDocument = output<number>();
 
   protected readonly Icons = Icons;
