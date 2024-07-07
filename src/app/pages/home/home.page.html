@@ -6,9 +6,11 @@
       @if (isHomePage()) {
         @if (displayOverlayTravel()) {
           <!-- Display when overlay travel detail is displayed -->
-          <button class="back-button" mat-icon-button (click)="backToTravelDetailPage()">
-            <mat-icon>{{ Icons.ARROW_BACK }}</mat-icon>
-          </button>
+          <div class="button-container">
+            <button class="back-button" mat-icon-button (click)="backToTravelDetailPage()">
+              <mat-icon>{{ Icons.ARROW_BACK }}</mat-icon>
+            </button>
+          </div>
         } @else {
           <app-omnibox-search (selectAddress)="onSelectedAddress($event)"/>
         }
