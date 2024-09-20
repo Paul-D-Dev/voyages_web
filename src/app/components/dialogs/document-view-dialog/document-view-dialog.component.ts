@@ -11,6 +11,7 @@ import { MatIcon } from "@angular/material/icon";
 import { ITravelDocument } from "../../../shared/interfaces/travel.interface";
 import { TitleCasePipe } from "@angular/common";
 import { Icons } from "../../../shared/enums/icons.enum";
+import { NgxExtendedPdfViewerModule } from "ngx-extended-pdf-viewer";
 
 @Component({
   selector: 'app-document-view-dialog',
@@ -23,7 +24,8 @@ import { Icons } from "../../../shared/enums/icons.enum";
     MatDialogActions,
     MatButton,
     MatDialogClose,
-    TitleCasePipe
+    TitleCasePipe,
+    NgxExtendedPdfViewerModule
   ],
   templateUrl: './document-view-dialog.component.html',
   styleUrl: './document-view-dialog.component.scss'

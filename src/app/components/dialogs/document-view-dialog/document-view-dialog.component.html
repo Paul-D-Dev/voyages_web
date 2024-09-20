@@ -26,9 +26,14 @@
     </div>
   }
   <!--  TODO read pdf-->
-  <!--  <div *ngIf="isPDF">-->
-  <!--    <object [data]="documents[selectedIndex].content | safeUrl" type="application/pdf"></object>-->
-  <!--  </div>-->
+  @if (isPDF) {
+    <ngx-extended-pdf-viewer
+      [base64Src]="documents[selectedIndex].content"
+      height="90vh"
+      [showToolbar]="false"
+    />
+  }
+
 </mat-dialog-content>
 
 <mat-dialog-actions>
