@@ -4,12 +4,16 @@
   <form [formGroup]="documentForm">
 
     <mat-form-field>
-      <mat-label>Type de document</mat-label>
+      <mat-label>Name</mat-label>
+      <input matInput type="text" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Type</mat-label>
       <mat-select formControlName="type">
-        <mat-option value="ticket">Ticket</mat-option>
-        <mat-option value="passport">Passport</mat-option>
-        <mat-option value="photos_descriptives">Photos Descriptives</mat-option>
-        <mat-option value="autres">Autres</mat-option>
+        @for (option of typeOptionList;track $index) {
+          <mat-option [value]="option.value">{{ option.label | titlecase }}</mat-option>
+        }
       </mat-select>
     </mat-form-field>
 
