@@ -4,8 +4,11 @@
     @for (document of documents;track document.createdDate;let i = $index) {
       <div class="document" (click)="viewDocument(i)">
         <div class="document__svg">
-          <!--          TODO image with pdf-->
-          <img src="assets/svgs/image.svg" alt="document svg">
+          @if (document.fileType.includes('pdf')) {
+            <img src="assets/svgs/pdf.svg" alt="icon pdf">
+          } @else {
+            <img src="assets/svgs/image.svg" alt=" icon image">
+          }
         </div>
         <div class="document__name">{{ document.type | titlecase }}</div>
 
