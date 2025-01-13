@@ -14,6 +14,14 @@ export interface ITravel extends ITravelItem {
   steps: ITravelStep[];
 }
 
+export interface ITravelDocument {
+  type: string,
+  name: string,
+  content: string,
+  createdDate: Date,
+  fileType: string
+}
+
 export interface ITravelStep {
   id: number,
   index: number,
@@ -25,6 +33,7 @@ export interface ITravelStep {
   dateEnd: string,
   createdDate: Date,
   updatedDate?: Date,
+  documents: ITravelDocument[]
   // customIcon
 }
 

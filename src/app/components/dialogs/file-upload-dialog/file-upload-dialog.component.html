@@ -1,0 +1,47 @@
+<h1 mat-dialog-title>Add document</h1>
+
+<mat-dialog-content>
+  <form [formGroup]="documentForm">
+
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput type="text" formControlName="name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Type</mat-label>
+      <mat-select formControlName="type">
+        @for (option of typeOptionList;track $index) {
+          <mat-option [value]="option.value">{{ option.label | titlecase }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
+    <div class="file-input-container" [class.focused]="isFocused">
+      <!--      TODO accept pdf -->
+      <input
+        type="file"
+        id="fileInput"
+        class="file-input"
+        accept=".jpg,.jpeg,.png"
+        (blur)="onBlur()"
+        (change)="onFileChange($event)"
+        (focus)="onFocus()"
+      />
+      <label for="fileInput" class="file-input-label">
+        <mat-icon>{{ Icons.ATTACH_FILE }}</mat-icon>
+        <span>{{ documentForm.get('name')?.value || 'Choose a file' }}</span>
+      </label>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="onClose()">Cancel</button>
+  <button mat-button
+          [mat-dialog-close]="documentForm.getRawValue()"
+          [disabled]="documentForm.invalid"
+  >
+    Add
+  </button>
+</mat-dialog-actions>

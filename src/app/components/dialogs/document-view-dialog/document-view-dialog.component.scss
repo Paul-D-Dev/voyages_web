@@ -1,0 +1,26 @@
+:host {
+  --mat-dialog-with-actions-content-padding: 0 24px;
+}
+
+.dv {
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  &__controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+button {
+  cursor: pointer;
+}

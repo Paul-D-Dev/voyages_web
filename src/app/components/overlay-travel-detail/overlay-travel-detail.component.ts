@@ -7,11 +7,12 @@ import { OpenOnMapsAppService } from "../../shared/services/open-on-maps-app.ser
 import { ITravel } from "../../shared/interfaces/travel.interface";
 import { Router } from "@angular/router";
 import { DatePipe } from "@angular/common";
+import { DocumentListComponent } from "../document-list/document-list.component";
 
 @Component({
   selector: 'app-overlay-travel-detail',
   standalone: true,
-  imports: [MatIconButton, MatIcon, DatePipe],
+  imports: [MatIconButton, MatIcon, DatePipe, DocumentListComponent],
   templateUrl: './overlay-travel-detail.component.html',
   styleUrl: './overlay-travel-detail.component.scss'
 })

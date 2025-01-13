@@ -1,0 +1,32 @@
+$document-bg-color: #efefef;
+
+.documents {
+  padding-block: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.document {
+  width: 30%;
+  padding-inline: .5rem;
+  text-align: center;
+  border-radius: 0.5rem;
+  background-color: $document-bg-color;
+  overflow: hidden;
+
+  &__svg {
+    cursor: pointer;
+  }
+}
+
+.document__name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.no-documents {
+  padding-block: 1rem;
+
+}

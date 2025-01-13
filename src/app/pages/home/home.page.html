@@ -4,7 +4,16 @@
     <div class="aside-wrapper">
 
       @if (isHomePage()) {
-        <app-omnibox-search (selectAddress)="onSelectedAddress($event)"/>
+        @if (displayOverlayTravel()) {
+          <!-- Display when overlay travel detail is displayed -->
+          <div class="button-container">
+            <button class="back-button" mat-icon-button (click)="backToTravelDetailPage()">
+              <mat-icon>{{ Icons.ARROW_BACK }}</mat-icon>
+            </button>
+          </div>
+        } @else {
+          <app-omnibox-search (selectAddress)="onSelectedAddress($event)"/>
+        }
       }
 
       <div class="router-container">
@@ -17,7 +26,7 @@
 
   <app-map class="map" [markers]="markers()"/>
 
-  @if (overlayTravelData() && isMobile() && isHomePage()) {
+  @if (displayOverlayTravel()) {
     <app-overlay-travel-detail
       @bottomSheetAnimation
       class="overlay"

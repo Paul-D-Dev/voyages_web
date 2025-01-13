@@ -1,0 +1,28 @@
+@if (documents.length > 0) {
+
+  <div class="documents">
+    @for (document of documents;track document.createdDate;let i = $index) {
+      <div class="document" (click)="viewDocument(i)">
+        <div class="document__svg">
+          @if (document.fileType.includes('pdf')) {
+            <img src="assets/svgs/pdf.svg" alt="icon pdf">
+          } @else {
+            <img src="assets/svgs/image.svg" alt=" icon image">
+          }
+        </div>
+        <div class="document__name">{{ document.type | titlecase }}</div>
+
+        @if (enableRemove) {
+          <button mat-icon-button type="button" (click)="removeDocument(i)">
+            <mat-icon>{{ Icons.CLOSE }}</mat-icon>
+          </button>
+        }
+      </div>
+    }
+  </div>
+
+} @else {
+  <div class="no-documents">
+    <span>No documents</span>
+  </div>
+}
